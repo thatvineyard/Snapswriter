@@ -8,7 +8,11 @@
 *.ctxt
 
 # Maven files
-pom.xml
+target/
+
+# VS Code files
+.vscode
+
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
