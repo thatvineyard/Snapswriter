@@ -18,11 +18,25 @@ public class TextgainInterface {
 
     private final static String lang = "en";
 
+    public static int numberOfSyllablesInString(String text) {
+        int numberOfSyllables = 0;
+
+        String getRequest = buildGetRequest(text);
+
+        JSONObject map = getJsonResponseFromUrl(getRequest);
+        // map = map.getJSONObject("text");
+
+        JSONArray listOfWords = map.getJSONArray("text");
+
+        for (int i = 0; i < listOfWords.length(); i++) {
+            numberOfSyllables += listOfWords.getJSONObject(i).getInt("n_syllables");
+        }
+
+        return numberOfSyllables;
+    }
+
     private static String buildGetRequest(String text) {
-        text = "hello my friend, how are you doing? I am fine";
-
         try {
-
             String getRequest = textgainSyllablesUrl;
 
             getRequest += "?q=" + URLEncoder.encode(text, "utf-8");
@@ -49,22 +63,4 @@ public class TextgainInterface {
             throw new RuntimeException(e.getMessage());
         }
     }
-
-    public static int numberOfSyllablesInString(String text) {
-        int numberOfSyllables = 0;
-
-        String getRequest = buildGetRequest(text);
-
-        JSONObject map = getJsonResponseFromUrl(getRequest);
-        // map = map.getJSONObject("text");
-
-        JSONArray listOfWords = map.getJSONArray("text");
-
-        for (int i = 0; i < listOfWords.length(); i++) {
-            numberOfSyllables += listOfWords.getJSONObject(i).getInt("n_syllables");
-        }
-
-        return numberOfSyllables;
-    }
-
 }
