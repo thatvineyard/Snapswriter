@@ -36,6 +36,12 @@
         </dependency>
     </dependencies>
 
+    <scm>
+        <connection>scm:git:git@github.com:thatvineyard/Snapswriter.git</connection>
+        <url>scm:git:git@github.com:thatvineyard/Snapswriter.git</url>
+        <developerConnection>scm:git:git@github.com:thatvineyard/Snapswriter.git</developerConnection>
+    </scm>
+
     <build>
         <plugins>
             <plugin>
