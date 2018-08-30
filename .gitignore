@@ -13,6 +13,8 @@ target/
 # VS Code files
 .vscode
 
+# Intellij files
+.idea/
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
