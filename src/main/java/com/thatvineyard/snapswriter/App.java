@@ -23,8 +23,8 @@ public class App {
         String song = FileImporter.getFileText(allStarPath);
         String text = FileImporter.getFileText(communismPath);
 
-        Passage songPassage = formatter.textToPassage(song);
-        Passage textPassage = formatter.textToPassage(text);
+        Passage songPassage = formatter.stringToPassage(song);
+        Passage textPassage = formatter.stringToPassage(text);
 
         Passage newSongTextPassage = calculator.matchTextWithSong(textPassage, songPassage);
 

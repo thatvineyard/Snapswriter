@@ -16,6 +16,7 @@ public class FormatterTest {
     @Before
     public void createFormatter() {
         formatter = new Formatter(testDictionaryFilePath);
+        formatter.setPhraseSuffix(" ");
     }
 
     @Test
@@ -23,7 +24,7 @@ public class FormatterTest {
 
         String text = "Hello my friend. It is nice to see you";
 
-        Passage passage = formatter.textToPassage(text);
+        Passage passage = formatter.stringToPassage(text);
 
         int expected = 2;
         int actual = passage.getNumberOfPhrases();
@@ -37,10 +38,10 @@ public class FormatterTest {
 
         String text = "Hello my friend. It is nice to see you.";
 
-        Passage passage = formatter.textToPassage(text);
+        Passage passage = formatter.stringToPassage(text);
 
         String expected = "Hello my friend. It is nice to see you.";
-        String actual = passage.toString();
+        String actual = formatter.passageToString(passage);
 
         assertEquals(expected, actual);
 
@@ -51,10 +52,10 @@ public class FormatterTest {
 
         String text = "Hello my friend; It is nice to see you.";
 
-        Passage passage = formatter.textToPassage(text);
+        Passage passage = formatter.stringToPassage(text);
 
         String expected = "Hello my friend. It is nice to see you.";
-        String actual = passage.toString();
+        String actual = formatter.passageToString(passage);
 
         assertEquals(expected, actual);
 
@@ -65,10 +66,10 @@ public class FormatterTest {
 
         String text = "Hello my friend; It's nice to see you.";
 
-        Passage passage = formatter.textToPassage(text);
+        Passage passage = formatter.stringToPassage(text);
 
         String expected = "Hello my friend. It's nice to see you.";
-        String actual = passage.toString();
+        String actual = formatter.passageToString(passage);
 
         assertEquals(expected, actual);
 
@@ -79,10 +80,10 @@ public class FormatterTest {
 
         String text = "Hello my friend, It's nice to see you.";
 
-        Passage passage = formatter.textToPassage(text);
+        Passage passage = formatter.stringToPassage(text);
 
         String expected = "Hello my friend. It's nice to see you.";
-        String actual = passage.toString();
+        String actual = formatter.passageToString(passage);
 
         assertEquals(expected, actual);
 
@@ -93,10 +94,10 @@ public class FormatterTest {
 
         String text = "Hello my/ friend; It#s nice]] to see you.";
 
-        Passage passage = formatter.textToPassage(text);
+        Passage passage = formatter.stringToPassage(text);
 
         String expected = "Hello my friend. It s nice to see you.";
-        String actual = passage.toString();
+        String actual = formatter.passageToString(passage);
 
         assertEquals(expected, actual);
 
@@ -107,13 +108,53 @@ public class FormatterTest {
 
         String text = "Hello my friend;. It is nice to see you.";
 
-        Passage passage = formatter.textToPassage(text);
+        Passage passage = formatter.stringToPassage(text);
 
         String expected = "Hello my friend. It is nice to see you.";
-        String actual = passage.toString();
+        String actual = formatter.passageToString(passage);
 
         assertEquals(expected, actual);
-
     }
 
+    @Test
+    public void passageToStringPhrasePrefix() {
+
+        String text = "Hello my friend. It is nice to see you.";
+
+        Passage passage = formatter.stringToPassage(text);
+        formatter.setPhrasePrefix("!");
+
+        String expected = "!Hello my friend. !It is nice to see you.";
+        String actual = formatter.passageToString(passage);
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void passageToStringPhraseSuffix() {
+
+        String text = "Hello my friend. It is nice to see you.";
+
+        Passage passage = formatter.stringToPassage(text);
+        formatter.setPhraseSuffix("!");
+
+        String expected = "Hello my friend! It is nice to see you!";
+        String actual = formatter.passageToString(passage);
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void passageToStringPassageInfix() {
+
+        String text = "Hello my friend. It is nice to see you.";
+
+        Passage passage = formatter.stringToPassage(text);
+        formatter.setPassageInfix("!");
+
+        String expected = "Hello my friend.!It is nice to see you.";
+        String actual = formatter.passageToString(passage);
+
+        assertEquals(expected, actual);
+    }
 }

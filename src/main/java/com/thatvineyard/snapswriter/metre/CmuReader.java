@@ -20,6 +20,33 @@ public class CmuReader {
     private static final String COMMENTDELIM = ";;;";
     private static final String WORDDELIM = "  ";
 
+    public static CmuDatabase loadDictionary() {
+        return loadDictionary(DICTIONARYFILEPATH);
+    }
+
+    public static CmuDatabase loadDictionary(String filePath) {
+        CmuDatabase database = new CmuDatabase();
+        try {
+            FileReader fileReader = openDictionaryFile(filePath);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            String line;
+
+            while ((line = bufferedReader.readLine()) != null) {
+                if (isValidEntry(line)) {
+                    CmuEntry entry = cmuDatabaseLineToCmuEntry(line);
+
+                    database.insertEntry(entry);
+                }
+            }
+
+            return database;
+
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Dictionary file not found (Exception: " + e + ")");
+            return database;
+        }
+    }
+
     private static FileReader openDictionaryFile(String filePath) throws FileNotFoundException {
         dictionaryFile = new File(filePath);
         FileReader fileReader = new FileReader(dictionaryFile);
@@ -40,8 +67,7 @@ public class CmuReader {
         return isNotEmpty(line) && isNotComment(line);
     }
 
-    private static CmuEntry stringToEntry(String line) {
-
+    private static CmuEntry cmuDatabaseLineToCmuEntry(String line) {
         int wordStart = 0;
         int wordEnd = line.indexOf(WORDDELIM);
         int pronounciationStart = wordEnd + WORDDELIM.length();
@@ -53,33 +79,6 @@ public class CmuReader {
         CmuEntry result = new CmuEntry(word, pronounciation);
 
         return result;
-    }
-
-    public static CmuDatabase loadDictionary() {
-        return loadDictionary(DICTIONARYFILEPATH);
-    }
-
-    public static CmuDatabase loadDictionary(String filePath) {
-        CmuDatabase database = new CmuDatabase();
-        try {
-            FileReader fileReader = openDictionaryFile(filePath);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            String line;
-
-            while ((line = bufferedReader.readLine()) != null) {
-                if (isValidEntry(line)) {
-                    CmuEntry entry = stringToEntry(line);
-
-                    database.insertEntry(entry);
-                }
-            }
-
-            return database;
-
-        } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, "Dictionary file not found (Exception: " + e + ")");
-            return database;
-        }
     }
 
 }

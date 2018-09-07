@@ -35,7 +35,7 @@ public class CandidateTest {
 
         Formatter formatter = new Formatter(testDictionaryFilePath);
 
-        Passage passage = formatter.textToPassage("Friedmann Libor. Insurresction craighead, bedside enforcability.");
+        Passage passage = formatter.stringToPassage("Friedmann Libor. Insurresction craighead, bedside enforcability.");
 
         Candidate candidateA = new Candidate();
         Candidate candidateB = new Candidate();
@@ -58,7 +58,7 @@ public class CandidateTest {
 
         Formatter formatter = new Formatter(testDictionaryFilePath);
 
-        Passage passage = formatter.textToPassage("Friedmann Libor. Insurresction craighead, bedside enforcability.");
+        Passage passage = formatter.stringToPassage("Friedmann Libor. Insurresction craighead, bedside enforcability.");
 
         Candidate candidateA = new Candidate();
         Candidate candidateB = new Candidate();
@@ -84,7 +84,7 @@ public class CandidateTest {
 
         Formatter formatter = new Formatter(testDictionaryFilePath);
 
-        Passage passage = formatter.textToPassage("Friedmann Libor. Insurresction craighead, bedside enforcability.");
+        Passage passage = formatter.stringToPassage("Friedmann Libor. Insurresction craighead, bedside enforcability.");
 
         Candidate candidateA = new Candidate();
         Candidate candidateB = new Candidate();
