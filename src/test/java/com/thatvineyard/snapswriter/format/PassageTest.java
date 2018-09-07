@@ -24,7 +24,7 @@ public class PassageTest {
 
     @Test
     public void getPhrasesWhereSyllablesEqual() {
-        Passage passage = formatter.textToPassage("Friedmann Libor. Insurrection craighead bedside enforceability.");
+        Passage passage = formatter.stringToPassage("Friedmann Libor. Insurrection craighead bedside enforceability.");
 
         Predicate<Phrase> phrasePredicate = p -> p.getSyllables() == 4;
 
@@ -42,7 +42,7 @@ public class PassageTest {
 
     @Test
     public void getPhrasesWhereTrue() {
-        Passage passage = formatter.textToPassage("Friedmann Libor. Insurrection craighead, bedside enforcability.");
+        Passage passage = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforcability.");
 
         Predicate<Phrase> phrasePredicate = p -> true;
 
@@ -56,73 +56,73 @@ public class PassageTest {
 
     @Test
     public void getPhraseWithinSyllable() {
-        Passage passage = formatter.textToPassage("Friedmann Libor. Insurrection craighead, bedside enforcability.");
+        Passage passage = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforcability.");
 
-        Phrase phrase = passage.getPhraseWithinSyllable(2);
+        Phrase phrase = passage.getPhraseContainingSyllable(2);
 
         String expected = "Friedmann Libor";
-        String actual = phrase.toString();
+        String actual = formatter.phraseToString(phrae);
 
         assertEquals(expected, actual);
     }
 
     @Test
     public void getPhraseWithinFirstSyllable() {
-        Passage passage = formatter.textToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability.");
+        Passage passage = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability.");
 
-        Phrase phrase = passage.getPhraseWithinSyllable(0);
+        Phrase phrase = passage.getPhraseContainingSyllable(0);
 
         assertNull(phrase);
     }
 
     @Test
-    public void getPhraseWithinLastSyllable() {
-        Passage passage = formatter.textToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability.");
+    public void getPhraseContianingLastSyllable() {
+        Passage passage = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability.");
 
-        Phrase phrase = passage.getPhraseWithinSyllable(18);
+        Phrase phrase = passage.getPhraseContainingSyllable(18);
 
-        String expected = "bedside enforceability";
-        String actual = phrase.toString();
+        String expected = "Bedside enforceability";
+        String actual = formatter.phraseToString(phrae);
 
         assertEquals(expected, actual);
     }
 
     @Test
     public void getPhraseWithinOutOfBoundsSyllable() {
-        Passage passage = formatter.textToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability.");
+        Passage passage = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability.");
 
-        Phrase phrase = passage.getPhraseWithinSyllable(19);
+        Phrase phrase = passage.getPhraseContainingSyllable(19);
 
         assertNull(phrase);
     }
 
     @Test
     public void getPhraseAfterSyllable() {
-        Passage passage = formatter.textToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability.");
+        Passage passage = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability.");
 
         Phrase phrase = passage.getPhraseAfterSyllable(2);
 
         String expected = "Insurrection craighead";
-        String actual = phrase.toString();
+        String actual = formatter.phraseToString(phrase);
 
         assertEquals(expected, actual);
     }
 
     @Test
     public void getPhraseAfterFirstSyllable() {
-        Passage passage = formatter.textToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability.");
+        Passage passage = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability.");
 
         Phrase phrase = passage.getPhraseAfterSyllable(0);
 
         String expected = "Friedmann Libor";
-        String actual = phrase.toString();
+        String actual = formatter.phraseToString(phrase);
 
         assertEquals(expected, actual);
     }
 
     @Test
     public void getPhraseAfterLastSyllable() {
-        Passage passage = formatter.textToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability.");
+        Passage passage = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability.");
 
         Phrase phrase = passage.getPhraseAfterSyllable(18);
 
@@ -131,7 +131,7 @@ public class PassageTest {
 
     @Test
     public void getPhraseAfterOutOfBoundsSyllable() {
-        Passage passage = formatter.textToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability.");
+        Passage passage = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability.");
 
         Phrase phrase = passage.getPhraseAfterSyllable(19);
 

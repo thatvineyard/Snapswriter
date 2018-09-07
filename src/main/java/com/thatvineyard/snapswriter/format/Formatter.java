@@ -1,6 +1,7 @@
 package com.thatvineyard.snapswriter.format;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.function.Predicate;
 
@@ -11,12 +12,17 @@ import com.thatvineyard.snapswriter.metre.MetreCalculator;
  */
 public class Formatter {
 
-    private final Character[] PHRASEDELIMITERARRAY = { '.', ';', '\n', '?', '!', ',' };
+    private final String PHRASEDELIMITERREGEX = "[.;\n?!,,]";
     private final String WORDDELIMITERREGEX = "[^a-zA-Z']";
 
     private final String dictionaryFilePath = "/cmudict-0.7b.txt";
 
     private MetreCalculator calculator;
+
+    private String phrasePrefix = "";
+    private String phraseSuffix = ".";
+    private String passageInfix = "\n";
+    private Boolean capitalizeFirstLetter = true;
 
     public Formatter() {
         calculator = new MetreCalculator(dictionaryFilePath);
@@ -26,33 +32,67 @@ public class Formatter {
         calculator = new MetreCalculator(dictionaryFilePath);
     }
 
-    public Passage textToPassage(String text) {
-
-        String[] phraseStrings = splitStringIntoPhraseStrings(text);
-
+    public Passage stringToPassage(String text) {
         Passage result = new Passage();
 
+        String[] phraseStrings = splitStringAndRemoveEmpty(text, PHRASEDELIMITERREGEX);
         for (String phraseString : phraseStrings) {
-            result.add(formatStringToPhrase(phraseString));
+            result.add(stringToPhrase(phraseString));
         }
 
         return result;
     }
 
-    private String[] splitStringIntoPhraseStrings(String text) {
-        String delimiterRegex = "[";
-        for (Character character : PHRASEDELIMITERARRAY) {
-            delimiterRegex += character;
-        }
-        delimiterRegex += "]";
-
-        String[] phraseStrings = text.split(delimiterRegex);
-        phraseStrings = removeEmptyStrings(phraseStrings);
-
-        return phraseStrings;
+    public void setPhrasePrefix(String prefix) {
+        phrasePrefix = prefix;
     }
 
-    private Phrase formatStringToPhrase(String text) {
+    public void setPhraseSuffix(String suffix) {
+        phraseSuffix = suffix;
+    }
+
+    public void setPassageInfix(String infix) {
+        passageInfix = infix;
+    }
+
+    public void setCapitalizeFirstLetter(boolean value) {
+        capitalizeFirstLetter = value;
+    }
+
+    public String passageToString(Passage passage) {
+        Collection<Phrase> phrases = passage.getPhrases();
+
+        String result = "";
+        boolean firstPhrase = true;
+        for (Phrase phrase : phrases) {
+            if (!firstPhrase) {
+                result += passageInfix;
+            }
+            result += phraseToString(phrase);
+        }
+
+        return result;
+    }
+
+    public String phraseToString(Phrase phrase) {
+        return phrasePrefix + capitalizeFirstLetter(phrase.toString()) + phraseSuffix;
+    }
+
+    private String capitalizeFirstLetter(String word) {
+        String firstChar = word.substring(0, 1);
+        firstChar = firstChar.toUpperCase();
+
+        return firstChar + word.substring(1);
+    }
+
+    private String[] splitStringAndRemoveEmpty(String text, String delimiter) {
+        String[] strings = text.split(delimiter);
+        strings = removeEmptyStrings(strings);
+
+        return strings;
+    }
+
+    private Phrase stringToPhrase(String text) {
         String[] words = text.split(WORDDELIMITERREGEX);
         words = removeEmptyStrings(words);
 

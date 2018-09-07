@@ -58,18 +58,11 @@ public class Phrase {
             }
         }
 
-        return capitalizeFirstLetter(result);
+        return result;
     }
 
     public String toStringWithMetre() {
         return toString() + " [" + metre.toString() + "]";
-    }
-
-    private String capitalizeFirstLetter(String word) {
-        String firstChar = word.substring(0, 1);
-        firstChar = firstChar.toUpperCase();
-
-        return firstChar + word.substring(1);
     }
 
     public boolean equals(Phrase other) {

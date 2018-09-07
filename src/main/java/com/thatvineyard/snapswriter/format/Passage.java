@@ -122,6 +122,10 @@ public class Passage {
         return syllables;
     }
 
+    public Collection<Phrase> getPhrases() {
+        return phrases;
+    }
+
     public Phrase getPhraseAfterSyllable(int syllables) {
         int syllableCount = 0;
 
@@ -138,7 +142,7 @@ public class Passage {
 
     }
 
-    public Phrase getPhraseWithinSyllable(int syllables) {
+    public Phrase getPhraseContainingSyllable(int syllables) {
         int syllableCount = 0;
 
         if (syllables == 0) {
