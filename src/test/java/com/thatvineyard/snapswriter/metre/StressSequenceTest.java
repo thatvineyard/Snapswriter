@@ -5,6 +5,8 @@ import static org.junit.Assert.assertEquals;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import com.thatvineyard.snapswriter.metre.StressSequenceSettings.StressLevel;
+
 import org.junit.Test;
 
 /**
@@ -37,7 +39,10 @@ public class StressSequenceTest {
         StressSequence sequenceOne = new StressSequence("11");
         StressSequence sequenceTwo = new StressSequence("10");
 
-        int expected = 1;
+        int stressDifference = 0;
+        stressDifference += StressSequenceSettings.getStressDifferenceScore(1, 0);
+
+        int expected = stressDifference;
         int actual = sequenceOne.stressDifference(sequenceTwo);
 
         assertEquals(expected, actual);
@@ -48,7 +53,11 @@ public class StressSequenceTest {
         StressSequence sequenceOne = new StressSequence("111");
         StressSequence sequenceTwo = new StressSequence("10");
 
-        int expected = 6;
+        int stressDifference = 0;
+        stressDifference += StressSequenceSettings.getStressDifferenceScore(1, 0);
+        stressDifference += StressSequenceSettings.getStressDifferenceScore(1);
+
+        int expected = stressDifference;
         int actual = sequenceOne.stressDifference(sequenceTwo);
 
         assertEquals(expected, actual);

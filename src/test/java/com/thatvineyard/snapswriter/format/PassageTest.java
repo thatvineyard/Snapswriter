@@ -20,6 +20,9 @@ public class PassageTest {
     @Before
     public void createFormatter() {
         formatter = new Formatter(testDictionaryFilePath);
+        formatter.setPhrasePrefix("");
+        formatter.setPhraseSuffix("");
+        formatter.setPassageInfix("");
     }
 
     @Test
@@ -61,7 +64,7 @@ public class PassageTest {
         Phrase phrase = passage.getPhraseContainingSyllable(2);
 
         String expected = "Friedmann Libor";
-        String actual = formatter.phraseToString(phrae);
+        String actual = formatter.phraseToString(phrase);
 
         assertEquals(expected, actual);
     }
@@ -82,7 +85,7 @@ public class PassageTest {
         Phrase phrase = passage.getPhraseContainingSyllable(18);
 
         String expected = "Bedside enforceability";
-        String actual = formatter.phraseToString(phrae);
+        String actual = formatter.phraseToString(phrase);
 
         assertEquals(expected, actual);
     }

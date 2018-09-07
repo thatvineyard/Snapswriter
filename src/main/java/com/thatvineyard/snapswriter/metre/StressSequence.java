@@ -1,5 +1,7 @@
 package com.thatvineyard.snapswriter.metre;
 
+import com.thatvineyard.snapswriter.metre.StressSequenceSettings.StressLevel;
+
 /**
  * StressSequence
  */
@@ -39,26 +41,18 @@ public class StressSequence {
 
         if (a != -1 && b != -1) {
             return stressDifferenceCalculation(a, b);
+        } else if (a != -1) {
+            return StressSequenceSettings.getStressDifferenceScore(a);
+        } else if (b != -1) {
+            return StressSequenceSettings.getStressDifferenceScore(b);
         } else {
-            return DIFFERENTLENGTHDIFFERENCESCORE;
+            return 0;
         }
 
     }
 
     private int stressDifferenceCalculation(int a, int b) {
-        if (a == b) {
-            return 0;
-        }
-        if ((a == 1 && b == 0) || (a == 0 && b == 1)) {
-            return 2;
-        }
-        if ((a == 2 && b == 1) || (a == 1 && b == 2)) {
-            return 1;
-        }
-        if ((a == 2 && b == 0) || (a == 0 && b == 2)) {
-            return 1;
-        }
-        return 0;
+        return StressSequenceSettings.getStressDifferenceScore(a, b);
     }
 
     public int length() {
