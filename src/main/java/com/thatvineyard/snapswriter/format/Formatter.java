@@ -32,16 +32,7 @@ public class Formatter {
         calculator = new MetreCalculator(dictionaryFilePath);
     }
 
-    public Passage stringToPassage(String text) {
-        Passage result = new Passage();
-
-        String[] phraseStrings = splitStringAndRemoveEmpty(text, PHRASEDELIMITERREGEX);
-        for (String phraseString : phraseStrings) {
-            result.add(stringToPhrase(phraseString));
-        }
-
-        return result;
-    }
+    // SETTERS
 
     public void setPhrasePrefix(String prefix) {
         phrasePrefix = prefix;
@@ -59,6 +50,19 @@ public class Formatter {
         capitalizeFirstLetter = value;
     }
 
+    // PASSAGE
+
+    public Passage stringToPassage(String text) {
+        Passage result = new Passage();
+
+        String[] phraseStrings = splitStringAndRemoveEmpty(text, PHRASEDELIMITERREGEX);
+        for (String phraseString : phraseStrings) {
+            result.add(stringToPhrase(phraseString));
+        }
+
+        return result;
+    }
+
     public String passageToString(Passage passage) {
         Collection<Phrase> phrases = passage.getPhrases();
 
@@ -74,9 +78,20 @@ public class Formatter {
         return result;
     }
 
+    // PHRASE
+
     public String phraseToString(Phrase phrase) {
         return phrasePrefix + capitalizeFirstLetter(phrase.toString()) + phraseSuffix;
     }
+
+    private Phrase stringToPhrase(String text) {
+        String[] words = text.split(WORDDELIMITERREGEX);
+        words = removeEmptyStrings(words);
+
+        return new Phrase(Arrays.asList(words), calculator);
+    }
+
+    // FORMATTING
 
     private String capitalizeFirstLetter(String word) {
         String firstChar = word.substring(0, 1);
@@ -90,13 +105,6 @@ public class Formatter {
         strings = removeEmptyStrings(strings);
 
         return strings;
-    }
-
-    private Phrase stringToPhrase(String text) {
-        String[] words = text.split(WORDDELIMITERREGEX);
-        words = removeEmptyStrings(words);
-
-        return new Phrase(Arrays.asList(words), calculator);
     }
 
     private String[] removeEmptyStrings(String[] strings) {
