@@ -12,8 +12,8 @@ import com.thatvineyard.snapswriter.metre.MetreCalculator;
  */
 public class Formatter {
 
-    private final String PHRASEDELIMITERREGEX = "[.;\n?!,,]";
-    private final String WORDDELIMITERREGEX = "[^a-zA-Z']";
+    private final String PHRASE_DELIMITER_REGEX = "[.;\n?!,,]";
+    private final String WORD_DELIMITER_REGEX = "[^a-zA-Z']";
 
     private final String dictionaryFilePath = "/cmudict-0.7b.txt";
 
@@ -24,6 +24,8 @@ public class Formatter {
     private String passageInfix = "\n";
     private Boolean capitalizeFirstLetter = true;
 
+    // TODO: break out calculator out of formatter. it's not in the formatter's
+    // scope.
     public Formatter() {
         calculator = new MetreCalculator(dictionaryFilePath);
     }
@@ -55,7 +57,7 @@ public class Formatter {
     public Passage stringToPassage(String text) {
         Passage result = new Passage();
 
-        String[] phraseStrings = splitStringAndRemoveEmpty(text, PHRASEDELIMITERREGEX);
+        String[] phraseStrings = splitStringAndRemoveEmpty(text, PHRASE_DELIMITER_REGEX);
         for (String phraseString : phraseStrings) {
             result.add(stringToPhrase(phraseString));
         }
@@ -81,11 +83,14 @@ public class Formatter {
     // PHRASE
 
     public String phraseToString(Phrase phrase) {
-        return phrasePrefix + capitalizeFirstLetter(phrase.toString()) + phraseSuffix;
+        String result = phrase.toString();
+        result = capitalizeFirstLetterIfSettingIsTrue(result);
+        result = addPrefixAndSuffix(result);
+        return result;
     }
 
     private Phrase stringToPhrase(String text) {
-        String[] words = text.split(WORDDELIMITERREGEX);
+        String[] words = text.split(WORD_DELIMITER_REGEX);
         words = removeEmptyStrings(words);
 
         return new Phrase(Arrays.asList(words), calculator);
@@ -93,11 +98,23 @@ public class Formatter {
 
     // FORMATTING
 
-    private String capitalizeFirstLetter(String word) {
-        String firstChar = word.substring(0, 1);
+    private String addPrefixAndSuffix(String text) {
+        return phrasePrefix + text + phraseSuffix;
+    }
+
+    private String capitalizeFirstLetterIfSettingIsTrue(String text) {
+        if (capitalizeFirstLetter) {
+            return capitalizeFirstLetter(text);
+        } else {
+            return text;
+        }
+    }
+
+    private String capitalizeFirstLetter(String text) {
+        String firstChar = text.substring(0, 1);
         firstChar = firstChar.toUpperCase();
 
-        return firstChar + word.substring(1);
+        return firstChar + text.substring(1);
     }
 
     private String[] splitStringAndRemoveEmpty(String text, String delimiter) {
