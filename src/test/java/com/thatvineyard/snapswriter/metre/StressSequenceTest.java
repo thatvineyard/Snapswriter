@@ -5,8 +5,6 @@ import static org.junit.Assert.assertEquals;
 import java.util.Collection;
 import java.util.LinkedList;
 
-import com.thatvineyard.snapswriter.metre.StressSequenceSettings.StressLevel;
-
 import org.junit.Test;
 
 /**
