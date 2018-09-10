@@ -16,7 +16,8 @@ public class FormatterTest {
     @Before
     public void createFormatter() {
         formatter = new Formatter(testDictionaryFilePath);
-        formatter.setPhraseSuffix(" ");
+        formatter.setPhraseSuffix(".");
+        formatter.setPassageInfix(" ");
     }
 
     @Test
