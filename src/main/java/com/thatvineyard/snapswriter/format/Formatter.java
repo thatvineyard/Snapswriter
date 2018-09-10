@@ -75,6 +75,7 @@ public class Formatter {
                 result += passageInfix;
             }
             result += phraseToString(phrase);
+            firstPhrase = false;
         }
 
         return result;
