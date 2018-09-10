@@ -1,15 +1,11 @@
 package com.thatvineyard.snapswriter.metre;
 
-import com.thatvineyard.snapswriter.metre.StressSequenceSettings.StressLevel;
-
 /**
  * StressSequence
  */
 public class StressSequence {
 
     private String sequence;
-
-    private static final int DIFFERENTLENGTHDIFFERENCESCORE = 5;
 
     public StressSequence() {
         this.sequence = "";
