@@ -9,9 +9,12 @@ public abstract class StressSequenceSettings {
     private static int PRIMARY_SECONDARY_SCORE = 1;
     private static int PRIMARY_NONE_SCORE = 2;
     private static int PRIMARY_EMPTY_SCORE = 5;
+    private static int SECONDARY_SECONDARY_SCORE = 0;
     private static int SECONDARY_NONE_SCORE = 1;
-    private static int SECONDARY_EMPTY_SCORE = 5;
+    private static int SECONDARY_EMPTY_SCORE = 2;
+    private static int NONE_NONE_SCORE = 0;
     private static int NONE_EMPTY_SCORE = 3;
+    private static int EMPTY_EMPTY_SCORE = 0;
 
     public enum StressLevel {
         PRIMARY(1), SECONDARY(2), NONE(0);
@@ -48,7 +51,7 @@ public abstract class StressSequenceSettings {
         case PRIMARY:
             switch (syllableTwo) {
             case PRIMARY:
-                return 0;
+                return PRIMARY_PRIMARY_SCORE;
             case SECONDARY:
                 return PRIMARY_SECONDARY_SCORE;
             case NONE:
@@ -62,7 +65,7 @@ public abstract class StressSequenceSettings {
             case PRIMARY:
                 return PRIMARY_EMPTY_SCORE;
             case SECONDARY:
-                return 0;
+                return SECONDARY_SECONDARY_SCORE;
             case NONE:
                 return SECONDARY_NONE_SCORE;
             default:
@@ -76,7 +79,7 @@ public abstract class StressSequenceSettings {
             case SECONDARY:
                 return SECONDARY_NONE_SCORE;
             case NONE:
-                return 0;
+                return NONE_NONE_SCORE;
             default:
                 return 0;
             }
@@ -100,7 +103,7 @@ public abstract class StressSequenceSettings {
         case NONE:
             return NONE_EMPTY_SCORE;
         default:
-            return 0;
+            return EMPTY_EMPTY_SCORE;
         }
     }
 }
