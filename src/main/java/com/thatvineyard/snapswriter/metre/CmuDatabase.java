@@ -20,7 +20,7 @@ public class CmuDatabase {
     public CmuEntry search(String word) {
         CmuEntry result = getWordOrGreaterFromSet(word);
 
-        if (result.compareTo(word) == 0) {
+        if (result != null && result.compareTo(word) == 0) {
             return result;
         } else {
             return null;
