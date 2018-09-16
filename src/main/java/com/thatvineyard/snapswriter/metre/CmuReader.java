@@ -1,11 +1,10 @@
 package com.thatvineyard.snapswriter.metre;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static com.thatvineyard.snapswriter.files.FileImporter.getResourceAsBufferedReader;
 
 /**
  * CmuReader
@@ -16,7 +15,7 @@ public class CmuReader {
 
     private static File dictionaryFile;
 
-    private static final String DICTIONARYFILEPATH = "/cmudict-0.7b.txt";
+    private static final String DICTIONARYFILEPATH = "cmudict-0.7b.txt";
     private static final String COMMENTDELIM = ";;;";
     private static final String WORDDELIM = "  ";
 
@@ -24,13 +23,17 @@ public class CmuReader {
         return loadDictionary(DICTIONARYFILEPATH);
     }
 
-    public static CmuDatabase loadDictionary(String filePath) {
+    // TODO: Refactor this into a general solution
+    public static CmuDatabase loadDictionary(String filepath) {
         CmuDatabase database = new CmuDatabase();
-        try {
-            FileReader fileReader = openDictionaryFile(filePath);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            String line;
 
+        BufferedReader bufferedReader = getResourceAsBufferedReader(filepath);
+        if(bufferedReader == null) {
+            LOGGER.log(Level.SEVERE, "Dictionary file (" + filepath + ") not found.");
+        }
+        String line;
+
+        try {
             while ((line = bufferedReader.readLine()) != null) {
                 if (isValidEntry(line)) {
                     CmuEntry entry = cmuDatabaseLineToCmuEntry(line);
@@ -38,13 +41,11 @@ public class CmuReader {
                     database.insertEntry(entry);
                 }
             }
-
-            return database;
-
-        } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, "Dictionary file not found (Exception: " + e + ")");
-            return database;
+        } catch (IOException e) {
+            throw new RuntimeException(e.getMessage());
         }
+        return database;
+
     }
 
     private static FileReader openDictionaryFile(String filePath) throws FileNotFoundException {

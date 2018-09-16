@@ -10,7 +10,7 @@ import org.junit.Test;
  */
 public class CmuReaderTest {
 
-    private static final String testDictionaryFilePath = "src/test/resources/testdict.txt";
+    private static final String testDictionaryFilePath = "testdict.txt";
 
     @Test
     public void loadFullDictionaryNoExceptions() {

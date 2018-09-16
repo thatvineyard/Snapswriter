@@ -11,7 +11,7 @@ import org.junit.Test;
  */
 public class CmuDatabaseTest {
 
-    private static final String testDictionaryFilePath = "src/test/resources/testdict.txt";
+    private static final String testDictionaryFilePath = "testdict.txt";
 
     private CmuDatabase database;
 

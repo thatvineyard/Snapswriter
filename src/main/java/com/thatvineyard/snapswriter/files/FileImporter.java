@@ -1,19 +1,30 @@
 package com.thatvineyard.snapswriter.files;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+import com.thatvineyard.snapswriter.metre.CmuReader;
+
+import java.io.*;
+import java.util.logging.Logger;
 
 /**
  * FileReader
  */
 public class FileImporter {
 
-    public static String getFileText(String filePath) {
+    private final static Logger LOGGER = Logger.getLogger(FileImporter.class.getName());
+
+    public static BufferedReader getResourceAsBufferedReader(String filepath) {
+        InputStream inputStream = FileImporter.class.getClassLoader().getResourceAsStream(filepath);
+        if(inputStream == null) {
+            LOGGER.severe("File not found (" + filepath + ").");
+            return null;
+        }
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+        return bufferedReader;
+    }
+
+    public static String getFileText(String filepath) {
         try {
-            File file = new File(filePath);
-            FileReader fileReader = new FileReader(file);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            BufferedReader bufferedReader = getResourceAsBufferedReader(filepath);
             String line;
             String result = "";
             while ((line = bufferedReader.readLine()) != null) {
@@ -22,7 +33,7 @@ public class FileImporter {
             bufferedReader.close();
             return result;
 
-        } catch (Exception e) {
+        } catch (IOException e) {
             throw new RuntimeException(e.getMessage());
         }
     }

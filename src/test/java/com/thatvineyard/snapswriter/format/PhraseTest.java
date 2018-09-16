@@ -16,7 +16,7 @@ import org.junit.Test;
  */
 public class PhraseTest {
 
-    private static final String testDictionaryFilePath = "src/test/resources/testdict.txt";
+    private static final String testDictionaryFilePath = "testdict.txt";
     private MetreCalculator calculator;
 
     @Before

@@ -18,6 +18,8 @@ import org.junit.Test;
  */
 public class CandidateTest {
 
+    private static final String testDictionaryFilePath = "testdict.txt";
+
     @Test
     public void getBestCandidatFromEmptyList() {
 
@@ -30,8 +32,6 @@ public class CandidateTest {
 
     @Test
     public void candidatesContainTheSamePhraseSamePhrase() {
-
-        String testDictionaryFilePath = "src/test/resources/testdict.txt";
 
         Formatter formatter = new Formatter(testDictionaryFilePath);
 
@@ -53,8 +53,6 @@ public class CandidateTest {
 
     @Test
     public void candidatesContainTheSamePhraseDifferentPhrase() {
-
-        String testDictionaryFilePath = "src/test/resources/testdict.txt";
 
         Formatter formatter = new Formatter(testDictionaryFilePath);
 
@@ -79,8 +77,6 @@ public class CandidateTest {
 
     @Test
     public void candidatesContainTheSamePhraseSamePhraseDifferentNumberOfPhrases() {
-
-        String testDictionaryFilePath = "src/test/resources/testdict.txt";
 
         Formatter formatter = new Formatter(testDictionaryFilePath);
 

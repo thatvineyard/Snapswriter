@@ -17,18 +17,18 @@ public class App {
 
     public static void main(String[] args) {
 
-        Formatter formatter = createFormatter();
-        FitnessCalculator calculator = new FitnessCalculator();
-
-        String song = FileImporter.getFileText(allStarPath);
-        String text = FileImporter.getFileText(communismPath);
-
-        Passage songPassage = formatter.stringToPassage(song);
-        Passage textPassage = formatter.stringToPassage(text);
-
-        Passage newSongTextPassage = calculator.matchTextWithSong(textPassage, songPassage);
-
-        System.out.println(calculator.getScore());
-        System.out.println(newSongTextPassage.toStringWithMetre());
+//        Formatter formatter = createFormatter();
+//        FitnessCalculator calculator = new FitnessCalculator();
+//
+//        String song = FileImporter.getFileText(allStarPath);
+//        String text = FileImporter.getFileText(communismPath);
+//
+//        Passage songPassage = formatter.stringToPassage(song);
+//        Passage textPassage = formatter.stringToPassage(text);
+//
+//        Passage newSongTextPassage = calculator.matchTextWithSong(textPassage, songPassage);
+//
+//        System.out.println(calculator.getScore());
+//        System.out.println(newSongTextPassage.toStringWithMetre());
     }
 }
