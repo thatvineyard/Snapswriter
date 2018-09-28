@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.function.Predicate;
 
+import com.thatvineyard.snapswriter.fitness.AnalyzedPhrase;
 import com.thatvineyard.snapswriter.metre.MetreCalculator;
 
 /**
@@ -17,8 +18,6 @@ public class Formatter {
 
     private final String dictionaryFilePath = "/cmudict-0.7b.txt";
 
-    private MetreCalculator calculator;
-
     private String phrasePrefix = "";
     private String phraseSuffix = ".";
     private String passageInfix = "\n";
@@ -27,11 +26,7 @@ public class Formatter {
     // TODO: break out calculator out of formatter. it's not in the formatter's
     // scope.
     public Formatter() {
-        calculator = new MetreCalculator(dictionaryFilePath);
-    }
 
-    public Formatter(String dictionaryFilePath) {
-        calculator = new MetreCalculator(dictionaryFilePath);
     }
 
     // SETTERS
@@ -65,8 +60,24 @@ public class Formatter {
         return result;
     }
 
-    public String passageToString(Passage passage) {
+    public String passageToString(PassageInterface<Phrase> passage) {
         Collection<Phrase> phrases = passage.getPhrases();
+
+        String result = "";
+        boolean firstPhrase = true;
+        for (Phrase phrase : phrases) {
+            if (!firstPhrase) {
+                result += passageInfix;
+            }
+            result += phraseToString(phrase);
+            firstPhrase = false;
+        }
+
+        return result;
+    }
+
+    public String analyzedPassageToString(PassageInterface<AnalyzedPhrase> passage) {
+        Collection<AnalyzedPhrase> phrases = passage.getPhrases();
 
         String result = "";
         boolean firstPhrase = true;
@@ -94,7 +105,7 @@ public class Formatter {
         String[] words = text.split(WORD_DELIMITER_REGEX);
         words = removeEmptyStrings(words);
 
-        return new Phrase(Arrays.asList(words), calculator);
+        return new Phrase(Arrays.asList(words));
     }
 
     // FORMATTING

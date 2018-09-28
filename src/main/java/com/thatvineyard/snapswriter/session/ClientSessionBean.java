@@ -1,9 +1,14 @@
 package com.thatvineyard.snapswriter.session;
 
 import com.thatvineyard.snapswriter.files.FileImporter;
+import com.thatvineyard.snapswriter.fitness.AnalyzedPassage;
 import com.thatvineyard.snapswriter.fitness.FitnessCalculator;
 import com.thatvineyard.snapswriter.format.Formatter;
 import com.thatvineyard.snapswriter.format.Passage;
+import com.thatvineyard.snapswriter.format.PassageInterface;
+import com.thatvineyard.snapswriter.format.Phrase;
+import com.thatvineyard.snapswriter.metre.Metre;
+import com.thatvineyard.snapswriter.metre.MetreCalculator;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -21,15 +26,20 @@ public class ClientSessionBean {
     private static final String allStarPath = resourceDir + "all-star.txt";
     private static final String communismPath = resourceDir + "communism-wiki.txt";
 
-    private static Formatter createFormatter() {
-        return new Formatter(testDictionaryFilePath);
+    private Formatter createFormatter() {
+        return new Formatter();
+    }
+
+    private MetreCalculator createCalculator() {
+        return new MetreCalculator(testDictionaryFilePath);
     }
 
     @Path("/")
     @GET
     public String simpleRestFunction() {
         Formatter formatter = createFormatter();
-        FitnessCalculator calculator = new FitnessCalculator();
+        MetreCalculator metreCalculator = createCalculator();
+        FitnessCalculator fitnessCalculator = new FitnessCalculator();
 
         String song = FileImporter.getFileText(allStarPath);
         String text = FileImporter.getFileText(communismPath);
@@ -37,9 +47,14 @@ public class ClientSessionBean {
         Passage songPassage = formatter.stringToPassage(song);
         Passage textPassage = formatter.stringToPassage(text);
 
-        Passage newSongTextPassage = calculator.matchTextWithSong(textPassage, songPassage);
+        AnalyzedPassage analyzedSongPassage = new AnalyzedPassage(songPassage, metreCalculator);
+        AnalyzedPassage analyzedTextPassage = new AnalyzedPassage(textPassage, metreCalculator);
 
-        String result = calculator.getScore() + "\n" + newSongTextPassage.toStringWithMetre();
+        AnalyzedPassage newSongTextPassage = fitnessCalculator.matchTextWithSong(analyzedTextPassage, analyzedSongPassage);
+
+        String result = fitnessCalculator.getScore() + "";
+        result +="\n";
+        result += formatter.analyzedPassageToString(newSongTextPassage);
 
         return result;
     }

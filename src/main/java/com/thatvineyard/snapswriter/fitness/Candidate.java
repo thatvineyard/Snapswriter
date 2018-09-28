@@ -10,15 +10,15 @@ import com.thatvineyard.snapswriter.format.Phrase;
  */
 public class Candidate {
 
-    private Passage passage;
+    private AnalyzedPassage passage;
     private int score;
 
     public Candidate() {
-        passage = new Passage();
+        passage = new AnalyzedPassage();
         score = 0;
     }
 
-    public void addPhrase(Phrase phrase, int metreDifference) {
+    public void addPhrase(AnalyzedPhrase phrase, int metreDifference) {
         passage.add(phrase);
         score += metreDifference;
     }
@@ -34,6 +34,7 @@ public class Candidate {
 
     public boolean containsSamePhrases(Candidate other) {
         return passage.containsSamePhraseAs(other.getPassage());
+
     }
 
     public static Candidate getBestCandidate(Collection<Candidate> candidateList) {
@@ -48,7 +49,7 @@ public class Candidate {
         return bestCandidate;
     }
 
-    public Passage getPassage() {
+    public AnalyzedPassage getPassage() {
         return passage;
     }
 

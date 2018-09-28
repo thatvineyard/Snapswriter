@@ -16,107 +16,114 @@ import org.junit.Test;
  */
 public class PhraseTest {
 
-    private static final String testDictionaryFilePath = "testdict.txt";
-    private MetreCalculator calculator;
+    // TODO: Move to AnalyzedPhraseTest
+//    private static final String testDictionaryFilePath = "testdict.txt";
+//    private MetreCalculator calculator;
 
-    @Before
-    public void createMetreCalculator() {
-        calculator = new MetreCalculator(testDictionaryFilePath);
-    }
+    // TODO: Move to AnalyzedPhraseTest
+//    @Before
+//    public void createMetreCalculator() {
+//        calculator = new MetreCalculator(testDictionaryFilePath);
+//    }
 
-    @Test
-    public void compareMetreDifferenceOneWordEach() {
+    // TODO: Move to AnalyzedPhraseTest
+//    @Test
+//    public void compareMetreDifferenceOneWordEach() {
+//
+//        Collection<String> listA = new LinkedList<String>();
+//        listA.add("FRIEDMANN");
+//        Collection<String> listB = new LinkedList<String>();
+//        listB.add("RACED");
+//
+//        Phrase phraseA = new Phrase(listA, calculator);
+//        Phrase phraseB = new Phrase(listB, calculator);
+//
+//        Boolean actual = phraseA.metreDifference(phraseB) > 0;
+//
+//        assertTrue(actual);
+//    }
 
-        Collection<String> listA = new LinkedList<String>();
-        listA.add("FRIEDMANN");
-        Collection<String> listB = new LinkedList<String>();
-        listB.add("RACED");
+    // TODO: Move to AnalyzedPhraseTest
+//    @Test
+//    public void compareMetreDifferenceSeveralWordsEach() {
+//
+//        Collection<String> listA = new LinkedList<String>();
+//        listA.add("FRIEDMANN");
+//        listA.add("HOLTZCLAW");
+//        Collection<String> listB = new LinkedList<String>();
+//        listB.add("RACED");
+//        listB.add("TECUMSEH");
+//
+//        Phrase phraseA = new Phrase(listA, calculator);
+//        Phrase phraseB = new Phrase(listB, calculator);
+//
+//        int expected = 0;
+//        int actual = phraseA.metreDifference(phraseB);
+//
+//        assertEquals(expected, actual);
+//    }
 
-        Phrase phraseA = new Phrase(listA, calculator);
-        Phrase phraseB = new Phrase(listB, calculator);
+    // TODO: Move to AnalyzedPhraseTest
+//    @Test
+//    public void compareMetreDifferenceSeveralWordsEachIncludingEmptyString() {
+//
+//        Collection<String> listA = new LinkedList<String>();
+//        listA.add("FRIEDMANN");
+//        listA.add("");
+//        listA.add("HOLTZCLAW");
+//        Collection<String> listB = new LinkedList<String>();
+//        listB.add("RACED");
+//        listB.add("TECUMSEH");
+//
+//        Phrase phraseA = new Phrase(listA, calculator);
+//        Phrase phraseB = new Phrase(listB, calculator);
+//
+//        int expected = 0;
+//        int actual = phraseA.metreDifference(phraseB);
+//
+//        assertEquals(expected, actual);
+//    }
 
-        Boolean actual = phraseA.metreDifference(phraseB) > 0;
+    // TODO: Move to AnalyzedPhraseTest
+//    @Test
+//    public void compareMetreDifferenceSeveralWordsEachIncludingSymbols() {
+//
+//        Collection<String> listA = new LinkedList<String>();
+//        listA.add("FRIEDMANN");
+//        listA.add("@$#!");
+//        listA.add("HOLTZCLAW");
+//        Collection<String> listB = new LinkedList<String>();
+//        listB.add("RACED");
+//        listB.add("TECUMSEH");
+//
+//        Phrase phraseA = new Phrase(listA, calculator);
+//        Phrase phraseB = new Phrase(listB, calculator);
+//
+//        int expected = 0;
+//        int actual = phraseA.metreDifference(phraseB);
+//
+//        assertEquals(expected, actual);
+//    }
 
-        assertTrue(actual);
-    }
-
-    @Test
-    public void compareMetreDifferenceSeveralWordsEach() {
-
-        Collection<String> listA = new LinkedList<String>();
-        listA.add("FRIEDMANN");
-        listA.add("HOLTZCLAW");
-        Collection<String> listB = new LinkedList<String>();
-        listB.add("RACED");
-        listB.add("TECUMSEH");
-
-        Phrase phraseA = new Phrase(listA, calculator);
-        Phrase phraseB = new Phrase(listB, calculator);
-
-        int expected = 0;
-        int actual = phraseA.metreDifference(phraseB);
-
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    public void compareMetreDifferenceSeveralWordsEachIncludingEmptyString() {
-
-        Collection<String> listA = new LinkedList<String>();
-        listA.add("FRIEDMANN");
-        listA.add("");
-        listA.add("HOLTZCLAW");
-        Collection<String> listB = new LinkedList<String>();
-        listB.add("RACED");
-        listB.add("TECUMSEH");
-
-        Phrase phraseA = new Phrase(listA, calculator);
-        Phrase phraseB = new Phrase(listB, calculator);
-
-        int expected = 0;
-        int actual = phraseA.metreDifference(phraseB);
-
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    public void compareMetreDifferenceSeveralWordsEachIncludingSymbols() {
-
-        Collection<String> listA = new LinkedList<String>();
-        listA.add("FRIEDMANN");
-        listA.add("@$#!");
-        listA.add("HOLTZCLAW");
-        Collection<String> listB = new LinkedList<String>();
-        listB.add("RACED");
-        listB.add("TECUMSEH");
-
-        Phrase phraseA = new Phrase(listA, calculator);
-        Phrase phraseB = new Phrase(listB, calculator);
-
-        int expected = 0;
-        int actual = phraseA.metreDifference(phraseB);
-
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    public void compareMetreDifferenceSeveralWordsEachIncludingUnknownWords() {
-
-        Collection<String> listA = new LinkedList<String>();
-        listA.add("FRIEDMANN");
-        listA.add("Hello");
-        listA.add("HOLTZCLAW");
-        Collection<String> listB = new LinkedList<String>();
-        listB.add("RACED");
-        listB.add("TECUMSEH");
-
-        Phrase phraseA = new Phrase(listA, calculator);
-        Phrase phraseB = new Phrase(listB, calculator);
-
-        int expected = 0;
-        int actual = phraseA.metreDifference(phraseB);
-
-        assertEquals(expected, actual);
-    }
+    // TODO: Move to AnalyzedPhraseTest
+//    @Test
+//    public void compareMetreDifferenceSeveralWordsEachIncludingUnknownWords() {
+//
+//        Collection<String> listA = new LinkedList<String>();
+//        listA.add("FRIEDMANN");
+//        listA.add("Hello");
+//        listA.add("HOLTZCLAW");
+//        Collection<String> listB = new LinkedList<String>();
+//        listB.add("RACED");
+//        listB.add("TECUMSEH");
+//
+//        Phrase phraseA = new Phrase(listA, calculator);
+//        Phrase phraseB = new Phrase(listB, calculator);
+//
+//        int expected = 0;
+//        int actual = phraseA.metreDifference(phraseB);
+//
+//        assertEquals(expected, actual);
+//    }
 
 }

@@ -20,7 +20,7 @@ public class FitnessCalculator {
         this.masterCandidate = new Candidate();
     }
 
-    public Passage matchTextWithSong(Passage text, Passage song) {
+    public AnalyzedPassage matchTextWithSong(AnalyzedPassage text, AnalyzedPassage song) {
         Candidate bestCandidate;
 
         while (masterCandidate.getSyllables() < song.getSyllables()) {
@@ -36,14 +36,14 @@ public class FitnessCalculator {
     }
 
     // TODO: Rename this once it's clearer what it does
-    private Candidate getBestCandidateForNextSongPhrase(Passage text, Passage song, Candidate parentCandidate,
+    private Candidate getBestCandidateForNextSongPhrase(AnalyzedPassage text, AnalyzedPassage song, Candidate parentCandidate,
             int depth) {
         int syllableCount = masterCandidate.getSyllables();
         if (parentCandidate != null) {
             syllableCount += parentCandidate.getSyllables();
         }
 
-        Phrase songPhrase = song.getPhraseAfterSyllable(syllableCount);
+       AnalyzedPhrase songPhrase = song.getPhraseAfterSyllable(syllableCount);
 
         Collection<Candidate> candidates = generateListOfCandidates(songPhrase, text);
         Collection<Candidate> filteredCandidates = filterUnfittingCandidatesUnlessAllAreUnfitting(candidates);
@@ -64,16 +64,16 @@ public class FitnessCalculator {
         return bestCandidate;
     }
 
-    private Collection<Candidate> generateListOfCandidates(Phrase songPhrase, Passage textPassage) {
+    private Collection<Candidate> generateListOfCandidates(AnalyzedPhrase songPhrase, AnalyzedPassage textPassage) {
         int requiredSyllables = songPhrase.getSyllables();
-        Predicate<Phrase> numberOfSyllablesEqualsRequiredSyllables = p -> p.getSyllables() == requiredSyllables;
+        Predicate<AnalyzedPhrase> numberOfSyllablesEqualsRequiredSyllables = p -> p.getSyllables() == requiredSyllables;
 
-        Collection<Phrase> candidatePhrases = textPassage.getPhrasesWhere(numberOfSyllablesEqualsRequiredSyllables);
+        Collection<AnalyzedPhrase> candidatePhrases = textPassage.getPhrasesWhere(numberOfSyllablesEqualsRequiredSyllables);
 
         Collection<Candidate> candidates = new LinkedList<Candidate>();
 
         Candidate newCandidate;
-        for (Phrase candidatePhrase : candidatePhrases) {
+        for (AnalyzedPhrase candidatePhrase : candidatePhrases) {
             int metreDifference = songPhrase.metreDifference(candidatePhrase);
 
             newCandidate = new Candidate();

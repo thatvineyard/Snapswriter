@@ -12,7 +12,7 @@ public class App {
     private static final String communismPath = resourceDir + "communism-wiki.txt";
 
     private static Formatter createFormatter() {
-        return new Formatter(testDictionaryFilePath);
+        return new Formatter();
     }
 
     public static void main(String[] args) {

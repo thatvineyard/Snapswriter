@@ -10,12 +10,11 @@ import org.junit.Test;
  */
 public class FormatterTest {
 
-    private static final String testDictionaryFilePath = "testdict.txt";
     private Formatter formatter;
 
     @Before
     public void createFormatter() {
-        formatter = new Formatter(testDictionaryFilePath);
+        formatter = new Formatter();
         formatter.setPhraseSuffix(".");
         formatter.setPassageInfix(" ");
     }

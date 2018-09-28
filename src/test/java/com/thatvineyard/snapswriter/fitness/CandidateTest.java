@@ -11,6 +11,8 @@ import com.thatvineyard.snapswriter.format.Formatter;
 import com.thatvineyard.snapswriter.format.Passage;
 import com.thatvineyard.snapswriter.format.Phrase;
 
+import com.thatvineyard.snapswriter.metre.MetreCalculator;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -19,9 +21,25 @@ import org.junit.Test;
 public class CandidateTest {
 
     private static final String testDictionaryFilePath = "testdict.txt";
+    private Formatter formatter;
+    private MetreCalculator calculator;
+
+    @Before
+    public void setUp() {
+        createFormatter();
+        createMetreCalculator();
+    }
+
+    public void createFormatter() {
+        formatter = new Formatter();
+    }
+
+    public void createMetreCalculator() {
+        calculator = new MetreCalculator(testDictionaryFilePath);
+    }
 
     @Test
-    public void getBestCandidatFromEmptyList() {
+    public void getBestCandidateFromEmptyList() {
 
         Collection<Candidate> candidateList = new LinkedList<Candidate>();
 
@@ -33,14 +51,13 @@ public class CandidateTest {
     @Test
     public void candidatesContainTheSamePhraseSamePhrase() {
 
-        Formatter formatter = new Formatter(testDictionaryFilePath);
-
         Passage passage = formatter.stringToPassage("Friedmann Libor. Insurresction craighead, bedside enforcability.");
+        AnalyzedPassage analyzedPassage = new AnalyzedPassage(passage, calculator);
 
         Candidate candidateA = new Candidate();
         Candidate candidateB = new Candidate();
 
-        Phrase phrase = passage.getPhrasesIterator().next();
+        AnalyzedPhrase phrase = analyzedPassage.getPhrasesIterator().next();
 
         candidateA.addPhrase(phrase, 0);
         candidateB.addPhrase(phrase, 0);
@@ -54,17 +71,16 @@ public class CandidateTest {
     @Test
     public void candidatesContainTheSamePhraseDifferentPhrase() {
 
-        Formatter formatter = new Formatter(testDictionaryFilePath);
-
         Passage passage = formatter.stringToPassage("Friedmann Libor. Insurresction craighead, bedside enforcability.");
+        AnalyzedPassage analyzedPassage = new AnalyzedPassage(passage, calculator);
 
         Candidate candidateA = new Candidate();
         Candidate candidateB = new Candidate();
 
-        Iterator<Phrase> phraseIterator = passage.getPhrasesIterator();
+        Iterator<AnalyzedPhrase> phraseIterator = analyzedPassage.getPhrasesIterator();
 
-        Phrase phraseA = phraseIterator.next();
-        Phrase phraseB = phraseIterator.next();
+        AnalyzedPhrase phraseA = phraseIterator.next();
+        AnalyzedPhrase phraseB = phraseIterator.next();
 
         candidateA.addPhrase(phraseA, 0);
         candidateB.addPhrase(phraseB, 0);
@@ -78,17 +94,16 @@ public class CandidateTest {
     @Test
     public void candidatesContainTheSamePhraseSamePhraseDifferentNumberOfPhrases() {
 
-        Formatter formatter = new Formatter(testDictionaryFilePath);
-
         Passage passage = formatter.stringToPassage("Friedmann Libor. Insurresction craighead, bedside enforcability.");
+        AnalyzedPassage analyzedPassage = new AnalyzedPassage(passage, calculator);
 
         Candidate candidateA = new Candidate();
         Candidate candidateB = new Candidate();
 
-        Iterator<Phrase> phraseIterator = passage.getPhrasesIterator();
+        Iterator<AnalyzedPhrase> phraseIterator = analyzedPassage.getPhrasesIterator();
 
-        Phrase phraseA = phraseIterator.next();
-        Phrase phraseB = phraseIterator.next();
+        AnalyzedPhrase phraseA = phraseIterator.next();
+        AnalyzedPhrase phraseB = phraseIterator.next();
 
         candidateA.addPhrase(phraseA, 0);
         candidateB.addPhrase(phraseB, 0);

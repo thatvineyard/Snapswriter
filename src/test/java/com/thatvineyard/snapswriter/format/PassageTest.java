@@ -6,6 +6,9 @@ import static org.junit.Assert.assertNull;
 import java.util.Collection;
 import java.util.function.Predicate;
 
+import com.thatvineyard.snapswriter.fitness.AnalyzedPassage;
+import com.thatvineyard.snapswriter.fitness.AnalyzedPhrase;
+import com.thatvineyard.snapswriter.metre.MetreCalculator;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,26 +19,34 @@ public class PassageTest {
 
     private static final String testDictionaryFilePath = "testdict.txt";
     private Formatter formatter;
+    private MetreCalculator calculator;
 
     @Before
+    public void setUp() {
+        createFormatter();
+        createMetreCalculator();
+    }
+
     public void createFormatter() {
-        formatter = new Formatter(testDictionaryFilePath);
+        formatter = new Formatter();
         formatter.setPhrasePrefix("");
         formatter.setPhraseSuffix("");
         formatter.setPassageInfix("");
     }
 
+    public void createMetreCalculator() {
+        calculator = new MetreCalculator(testDictionaryFilePath);
+    }
+
     @Test
     public void getPhrasesWhereSyllablesEqual() {
+
         Passage passage = formatter.stringToPassage("Friedmann Libor. Insurrection craighead bedside enforceability.");
+        AnalyzedPassage analyzedPassage = new AnalyzedPassage(passage, calculator);
 
-        Predicate<Phrase> phrasePredicate = p -> p.getSyllables() == 4;
+        Predicate<AnalyzedPhrase> phrasePredicate = p -> p.getSyllables() == 4;
 
-        Collection<Phrase> phrases = passage.getPhrasesWhere(phrasePredicate);
-
-        for (Phrase phrase : phrases) {
-            System.out.println(phrase + ": " + phrase.getSyllables());
-        }
+        Collection<AnalyzedPhrase> phrases = analyzedPassage.getPhrasesWhere(phrasePredicate);
 
         int expected = 1;
         int actual = phrases.size();
@@ -46,10 +57,11 @@ public class PassageTest {
     @Test
     public void getPhrasesWhereTrue() {
         Passage passage = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforcability.");
+        AnalyzedPassage analyzedPassage = new AnalyzedPassage(passage, calculator);
 
-        Predicate<Phrase> phrasePredicate = p -> true;
+        Predicate<AnalyzedPhrase> phrasePredicate = p -> true;
 
-        Collection<Phrase> phrases = passage.getPhrasesWhere(phrasePredicate);
+        Collection<AnalyzedPhrase> phrases = analyzedPassage.getPhrasesWhere(phrasePredicate);
 
         int expected = 3;
         int actual = phrases.size();
@@ -60,8 +72,9 @@ public class PassageTest {
     @Test
     public void getPhraseWithinSyllable() {
         Passage passage = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforcability.");
+        AnalyzedPassage analyzedPassage = new AnalyzedPassage(passage, calculator);
 
-        Phrase phrase = passage.getPhraseContainingSyllable(2);
+        AnalyzedPhrase phrase = analyzedPassage.getPhraseContainingSyllable(2);
 
         String expected = "Friedmann Libor";
         String actual = formatter.phraseToString(phrase);
@@ -72,8 +85,9 @@ public class PassageTest {
     @Test
     public void getPhraseWithinFirstSyllable() {
         Passage passage = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability.");
+        AnalyzedPassage analyzedPassage = new AnalyzedPassage(passage, calculator);
 
-        Phrase phrase = passage.getPhraseContainingSyllable(0);
+        AnalyzedPhrase phrase = analyzedPassage.getPhraseContainingSyllable(0);
 
         assertNull(phrase);
     }
@@ -81,8 +95,9 @@ public class PassageTest {
     @Test
     public void getPhraseContianingLastSyllable() {
         Passage passage = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability.");
+        AnalyzedPassage analyzedPassage = new AnalyzedPassage(passage, calculator);
 
-        Phrase phrase = passage.getPhraseContainingSyllable(18);
+        AnalyzedPhrase phrase = analyzedPassage.getPhraseContainingSyllable(18);
 
         String expected = "Bedside enforceability";
         String actual = formatter.phraseToString(phrase);
@@ -93,8 +108,9 @@ public class PassageTest {
     @Test
     public void getPhraseWithinOutOfBoundsSyllable() {
         Passage passage = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability.");
+        AnalyzedPassage analyzedPassage = new AnalyzedPassage(passage, calculator);
 
-        Phrase phrase = passage.getPhraseContainingSyllable(19);
+        AnalyzedPhrase phrase = analyzedPassage.getPhraseContainingSyllable(19);
 
         assertNull(phrase);
     }
@@ -102,8 +118,9 @@ public class PassageTest {
     @Test
     public void getPhraseAfterSyllable() {
         Passage passage = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability.");
+        AnalyzedPassage analyzedPassage = new AnalyzedPassage(passage, calculator);
 
-        Phrase phrase = passage.getPhraseAfterSyllable(2);
+        AnalyzedPhrase phrase = analyzedPassage.getPhraseAfterSyllable(2);
 
         String expected = "Insurrection craighead";
         String actual = formatter.phraseToString(phrase);
@@ -114,8 +131,9 @@ public class PassageTest {
     @Test
     public void getPhraseAfterFirstSyllable() {
         Passage passage = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability.");
+        AnalyzedPassage analyzedPassage = new AnalyzedPassage(passage, calculator);
 
-        Phrase phrase = passage.getPhraseAfterSyllable(0);
+        AnalyzedPhrase phrase = analyzedPassage.getPhraseAfterSyllable(0);
 
         String expected = "Friedmann Libor";
         String actual = formatter.phraseToString(phrase);
@@ -126,8 +144,9 @@ public class PassageTest {
     @Test
     public void getPhraseAfterLastSyllable() {
         Passage passage = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability.");
+        AnalyzedPassage analyzedPassage = new AnalyzedPassage(passage, calculator);
 
-        Phrase phrase = passage.getPhraseAfterSyllable(18);
+        AnalyzedPhrase phrase = analyzedPassage.getPhraseAfterSyllable(18);
 
         assertNull(phrase);
     }
@@ -135,8 +154,9 @@ public class PassageTest {
     @Test
     public void getPhraseAfterOutOfBoundsSyllable() {
         Passage passage = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability.");
+        AnalyzedPassage analyzedPassage = new AnalyzedPassage(passage, calculator);
 
-        Phrase phrase = passage.getPhraseAfterSyllable(19);
+        AnalyzedPhrase phrase = analyzedPassage.getPhraseAfterSyllable(19);
 
         assertNull(phrase);
     }

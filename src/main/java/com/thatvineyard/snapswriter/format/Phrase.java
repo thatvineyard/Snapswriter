@@ -13,33 +13,26 @@ import com.thatvineyard.snapswriter.metre.MetreCalculator;
 public class Phrase {
 
     private Collection<String> content;
-    private Metre metre;
-    private MetreCalculator calculator;
 
-    public Phrase(MetreCalculator calculator) {
+    public Phrase() {
         this.content = new LinkedList<String>();
-        this.metre = new Metre();
-        this.calculator = calculator;
     }
 
-    public Phrase(Collection<String> content, MetreCalculator calculator) {
+    public Phrase(Collection<String> content) {
         this.content = content;
-        this.calculator = calculator;
+    }
 
-        this.metre = Metre.join(calculator.calculateMetresFromWords(content));
+    public Phrase(Phrase phrase) {
+        this.content = phrase.content;
+    }
+
+    // TODO: Remove this once calculator is decoupled
+    public Collection<String> getContent() {
+        return content;
     }
 
     public void append(String word) {
         content.add(word);
-        metre.append(calculator.calculateMetreFromWord(word));
-    }
-
-    public int metreDifference(Phrase other) {
-        return metre.metreDifference(other.metre);
-    }
-
-    public int getSyllables() {
-        return metre.getSyllables();
     }
 
     public String toString() {
@@ -59,10 +52,6 @@ public class Phrase {
         }
 
         return result;
-    }
-
-    public String toStringWithMetre() {
-        return toString() + " [" + metre.toString() + "]";
     }
 
     public boolean equals(Phrase other) {
