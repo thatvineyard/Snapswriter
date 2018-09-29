@@ -34,8 +34,12 @@ public class AnalyzedPhrase extends Phrase {
         return metre.getSyllables();
     }
 
+    public String toString() {
+        return toStringWithMetre();
+    }
+
     public String toStringWithMetre() {
-        return toString() + " [" + metre.toString() + "]";
+        return super.toString() + " [" + metre.toString() + "]";
     }
 
 

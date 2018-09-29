@@ -19,7 +19,7 @@ public class Formatter {
     private String phraseSuffix = ".";
     private String passageInfix = "\n";
     private Boolean capitalizeFirstLetter = true;
-    
+
     public Formatter() {
 
     }
@@ -55,8 +55,8 @@ public class Formatter {
         return result;
     }
 
-    public String passageToString(PassageInterface<Phrase> passage) {
-        Collection<Phrase> phrases = passage.getPhrases();
+    public String passageToString(PassageInterface<? extends Phrase> passage) {
+        Collection<? extends Phrase> phrases = passage.getPhrases();
 
         StringBuilder result = new StringBuilder();
         boolean firstPhrase = true;

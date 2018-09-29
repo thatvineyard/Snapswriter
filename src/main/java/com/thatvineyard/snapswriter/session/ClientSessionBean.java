@@ -51,7 +51,7 @@ public class ClientSessionBean {
 
         String result = fitnessCalculator.getScore() + "";
         result +="\n";
-        result += formatter.analyzedPassageToString(newSongTextPassage);
+        result += formatter.passageToString(newSongTextPassage);
 
         return result;
     }
