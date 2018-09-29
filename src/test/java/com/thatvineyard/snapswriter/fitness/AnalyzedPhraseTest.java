@@ -11,7 +11,7 @@ import java.util.LinkedList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class AnalzyedPhraseTest {
+public class AnalyzedPhraseTest {
 
     private static final String testDictionaryFilePath = "testdict.txt";
     private MetreCalculator calculator;

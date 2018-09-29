@@ -10,7 +10,7 @@ import org.junit.Test;
 public class CmuEntryTest {
 
     @Test
-    public void pronounciationToStressSequenceOnlyVowels() {
+    public void pronunciationToStressSequenceOnlyVowels() {
 
         CmuEntry entry = new CmuEntry("word", "AH1 AH2 AH0");
 
@@ -21,7 +21,7 @@ public class CmuEntryTest {
     }
 
     @Test
-    public void pronounciationToStressSequenceNoVowels() {
+    public void pronunciationToStressSequenceNoVowels() {
 
         CmuEntry entry = new CmuEntry("word", "P CK F");
 
@@ -32,7 +32,7 @@ public class CmuEntryTest {
     }
 
     @Test
-    public void pronounciationToStressSequence() {
+    public void pronunciationToStressSequence() {
 
         CmuEntry entry = new CmuEntry("word", "AH1 CK AH2 T AH0 R");
 

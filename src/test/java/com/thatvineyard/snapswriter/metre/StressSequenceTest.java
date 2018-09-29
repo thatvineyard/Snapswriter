@@ -13,7 +13,7 @@ import org.junit.Test;
 public class StressSequenceTest {
 
     @Test
-    public void stressSequenceLenght() {
+    public void stressSequenceLength() {
         StressSequence sequence = new StressSequence("11");
 
         int expected = 2;

@@ -51,7 +51,7 @@ public class CandidateTest {
     @Test
     public void candidatesContainTheSamePhraseSamePhrase() {
 
-        Passage passage = formatter.stringToPassage("Friedmann Libor. Insurresction craighead, bedside enforcability.");
+        Passage passage = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability.");
         AnalyzedPassage analyzedPassage = new AnalyzedPassage(passage, calculator);
 
         Candidate candidateA = new Candidate();
@@ -71,7 +71,7 @@ public class CandidateTest {
     @Test
     public void candidatesContainTheSamePhraseDifferentPhrase() {
 
-        Passage passage = formatter.stringToPassage("Friedmann Libor. Insurresction craighead, bedside enforcability.");
+        Passage passage = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability.");
         AnalyzedPassage analyzedPassage = new AnalyzedPassage(passage, calculator);
 
         Candidate candidateA = new Candidate();
@@ -94,7 +94,7 @@ public class CandidateTest {
     @Test
     public void candidatesContainTheSamePhraseSamePhraseDifferentNumberOfPhrases() {
 
-        Passage passage = formatter.stringToPassage("Friedmann Libor. Insurresction craighead, bedside enforcability.");
+        Passage passage = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability");
         AnalyzedPassage analyzedPassage = new AnalyzedPassage(passage, calculator);
 
         Candidate candidateA = new Candidate();

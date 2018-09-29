@@ -56,7 +56,7 @@ public class PassageTest {
 
     @Test
     public void getPhrasesWhereTrue() {
-        Passage passage = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforcability.");
+        Passage passage = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability.");
         AnalyzedPassage analyzedPassage = new AnalyzedPassage(passage, calculator);
 
         Predicate<AnalyzedPhrase> phrasePredicate = p -> true;
@@ -71,7 +71,7 @@ public class PassageTest {
 
     @Test
     public void getPhraseWithinSyllable() {
-        Passage passage = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforcability.");
+        Passage passage = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability.");
         AnalyzedPassage analyzedPassage = new AnalyzedPassage(passage, calculator);
 
         AnalyzedPhrase phrase = analyzedPassage.getPhraseContainingSyllable(2);
@@ -93,7 +93,7 @@ public class PassageTest {
     }
 
     @Test
-    public void getPhraseContianingLastSyllable() {
+    public void getPhraseContainingLastSyllable() {
         Passage passage = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability.");
         AnalyzedPassage analyzedPassage = new AnalyzedPassage(passage, calculator);
 
