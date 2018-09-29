@@ -1,6 +1,8 @@
 package com.thatvineyard.snapswriter.metre;
 
+import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -17,10 +19,9 @@ public class MetreTest {
         Metre metreOne = new Metre("11");
         Metre metreTwo = new Metre("11");
 
-        boolean expected = true;
         boolean actual = metreOne.equals(metreTwo);
 
-        assertEquals(expected, actual);
+        assertTrue(actual);
     }
 
     @Test
@@ -28,10 +29,9 @@ public class MetreTest {
         Metre metreOne = new Metre("11");
         Metre metreTwo = new Metre("00");
 
-        boolean expected = false;
         boolean actual = metreOne.equals(metreTwo);
 
-        assertEquals(expected, actual);
+        assertFalse(actual);
     }
 
     @Test
@@ -39,10 +39,9 @@ public class MetreTest {
         Metre metreOne = new Metre("11");
         Metre metreTwo = new Metre("111");
 
-        boolean expected = false;
         boolean actual = metreOne.equals(metreTwo);
 
-        assertEquals(expected, actual);
+        assertFalse(actual);
     }
 
     @Test
@@ -60,7 +59,7 @@ public class MetreTest {
 
     @Test
     public void JoinMetresCheckString() {
-        Collection<Metre> metres = new LinkedList<Metre>();
+        Collection<Metre> metres = new LinkedList<>();
 
         metres.add(new Metre("11"));
         metres.add(new Metre("00"));
@@ -88,7 +87,7 @@ public class MetreTest {
 
     @Test
     public void JoinMetresCheckSyllables() {
-        Collection<Metre> metres = new LinkedList<Metre>();
+        Collection<Metre> metres = new LinkedList<>();
 
         metres.add(new Metre("11"));
         metres.add(new Metre("00"));

@@ -2,9 +2,6 @@ package com.thatvineyard.snapswriter.fitness;
 
 import java.util.Collection;
 
-import com.thatvineyard.snapswriter.format.Passage;
-import com.thatvineyard.snapswriter.format.Phrase;
-
 /**
  * Candidate
  */

@@ -24,9 +24,9 @@ public class AnalyzedPhraseTest {
     @Test
     public void compareMetreDifferenceOneWordEach() {
 
-        Collection<String> listA = new LinkedList<String>();
+        Collection<String> listA = new LinkedList<>();
         listA.add("FRIEDMANN");
-        Collection<String> listB = new LinkedList<String>();
+        Collection<String> listB = new LinkedList<>();
         listB.add("RACED");
 
         Phrase phraseA = new Phrase(listA);
@@ -35,7 +35,7 @@ public class AnalyzedPhraseTest {
         AnalyzedPhrase analyzedPhraseA = new AnalyzedPhrase(phraseA, calculator);
         AnalyzedPhrase analyzedPhraseB = new AnalyzedPhrase(phraseB, calculator);
 
-        Boolean actual = analyzedPhraseA.metreDifference(analyzedPhraseB) > 0;
+        boolean actual = analyzedPhraseA.metreDifference(analyzedPhraseB) > 0;
 
         assertTrue(actual);
     }
@@ -43,10 +43,10 @@ public class AnalyzedPhraseTest {
     @Test
     public void compareMetreDifferenceSeveralWordsEach() {
 
-        Collection<String> listA = new LinkedList<String>();
+        Collection<String> listA = new LinkedList<>();
         listA.add("FRIEDMANN");
         listA.add("HOLTZCLAW");
-        Collection<String> listB = new LinkedList<String>();
+        Collection<String> listB = new LinkedList<>();
         listB.add("RACED");
         listB.add("TECUMSEH");
 
@@ -65,11 +65,11 @@ public class AnalyzedPhraseTest {
     @Test
     public void compareMetreDifferenceSeveralWordsEachIncludingEmptyString() {
 
-        Collection<String> listA = new LinkedList<String>();
+        Collection<String> listA = new LinkedList<>();
         listA.add("FRIEDMANN");
         listA.add("");
         listA.add("HOLTZCLAW");
-        Collection<String> listB = new LinkedList<String>();
+        Collection<String> listB = new LinkedList<>();
         listB.add("RACED");
         listB.add("TECUMSEH");
 
@@ -88,11 +88,11 @@ public class AnalyzedPhraseTest {
     @Test
     public void compareMetreDifferenceSeveralWordsEachIncludingSymbols() {
 
-        Collection<String> listA = new LinkedList<String>();
+        Collection<String> listA = new LinkedList<>();
         listA.add("FRIEDMANN");
         listA.add("@$#!");
         listA.add("HOLTZCLAW");
-        Collection<String> listB = new LinkedList<String>();
+        Collection<String> listB = new LinkedList<>();
         listB.add("RACED");
         listB.add("TECUMSEH");
 
@@ -111,11 +111,11 @@ public class AnalyzedPhraseTest {
     @Test
     public void compareMetreDifferenceSeveralWordsEachIncludingUnknownWords() {
 
-        Collection<String> listA = new LinkedList<String>();
+        Collection<String> listA = new LinkedList<>();
         listA.add("FRIEDMANN");
         listA.add("Hello");
         listA.add("HOLTZCLAW");
-        Collection<String> listB = new LinkedList<String>();
+        Collection<String> listB = new LinkedList<>();
         listB.add("RACED");
         listB.add("TECUMSEH");
 

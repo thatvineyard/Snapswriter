@@ -13,7 +13,7 @@ public class Passage implements PassageInterface<Phrase> {
     private Collection<Phrase> phrases;
 
     public Passage() {
-        phrases = new LinkedList<Phrase>();
+        phrases = new LinkedList<>();
     }
 
     public void add(Phrase phrase) {
@@ -46,7 +46,7 @@ public class Passage implements PassageInterface<Phrase> {
     }
 
     public Collection<Phrase> getPhrasesWhere(Predicate<Phrase> phrasePredicate) {
-        Collection<Phrase> result = new LinkedList<Phrase>();
+        Collection<Phrase> result = new LinkedList<>();
 
         for (Phrase phrase : phrases) {
             if (phrasePredicate.test(phrase)) {

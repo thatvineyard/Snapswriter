@@ -5,9 +5,6 @@ import com.thatvineyard.snapswriter.fitness.AnalyzedPassage;
 import com.thatvineyard.snapswriter.fitness.FitnessCalculator;
 import com.thatvineyard.snapswriter.format.Formatter;
 import com.thatvineyard.snapswriter.format.Passage;
-import com.thatvineyard.snapswriter.format.PassageInterface;
-import com.thatvineyard.snapswriter.format.Phrase;
-import com.thatvineyard.snapswriter.metre.Metre;
 import com.thatvineyard.snapswriter.metre.MetreCalculator;
 
 import javax.ws.rs.GET;

@@ -50,15 +50,15 @@ public class TextgainInterface {
 
     private static JSONObject getJsonResponseFromUrl(String url) {
         try {
-            String response = "";
+            StringBuilder response = new StringBuilder();
             String message;
 
             BufferedReader buffer = new BufferedReader(new InputStreamReader(new URL(url).openStream()));
             while ((message = buffer.readLine()) != null) {
-                response += message;
+                response.append(message);
             }
 
-            return new JSONObject(response);
+            return new JSONObject(response.toString());
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }

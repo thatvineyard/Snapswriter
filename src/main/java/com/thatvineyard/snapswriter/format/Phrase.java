@@ -4,9 +4,6 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import com.thatvineyard.snapswriter.metre.Metre;
-import com.thatvineyard.snapswriter.metre.MetreCalculator;
-
 /**
  * Phrase
  */
@@ -15,7 +12,7 @@ public class Phrase {
     private Collection<String> content;
 
     public Phrase() {
-        this.content = new LinkedList<String>();
+        this.content = new LinkedList<>();
     }
 
     public Phrase(Collection<String> content) {
@@ -36,22 +33,22 @@ public class Phrase {
     }
 
     public String toString() {
-        String result = "";
+        StringBuilder result = new StringBuilder();
 
         if (content == null) {
-            return result;
+            return result.toString();
         }
 
         Iterator<String> contentIterator = content.iterator();
 
         for (int i = 0; i < content.size(); i++) {
-            result += contentIterator.next();
+            result.append(contentIterator.next());
             if (i != content.size() - 1) {
-                result += " ";
+                result.append(" ");
             }
         }
 
-        return result;
+        return result.toString();
     }
 
     public boolean equals(Phrase other) {

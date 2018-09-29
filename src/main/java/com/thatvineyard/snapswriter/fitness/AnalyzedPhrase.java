@@ -4,10 +4,6 @@ import com.thatvineyard.snapswriter.format.Phrase;
 import com.thatvineyard.snapswriter.metre.Metre;
 import com.thatvineyard.snapswriter.metre.MetreCalculator;
 
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.function.Predicate;
-
 public class AnalyzedPhrase extends Phrase {
 
     private Metre metre;
@@ -21,9 +17,7 @@ public class AnalyzedPhrase extends Phrase {
     }
 
     public static AnalyzedPhrase analyze(Phrase phrase, MetreCalculator calculator) {
-        AnalyzedPhrase result = new AnalyzedPhrase(phrase, calculator);
-
-        return result;
+        return new AnalyzedPhrase(phrase, calculator);
     }
 
     @Override

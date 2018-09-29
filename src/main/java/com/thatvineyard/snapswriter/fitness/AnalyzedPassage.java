@@ -38,15 +38,15 @@ public class AnalyzedPassage implements PassageInterface<AnalyzedPhrase> {
     }
 
     private String formatAsLinesWithMetre() {
-        String result = "";
+        StringBuilder result = new StringBuilder();
 
         Iterator<AnalyzedPhrase> phraseIterator = getPhrasesIterator();
 
         while (phraseIterator.hasNext()) {
-            result += phraseIterator.next().toStringWithMetre() + "\n";
+            result.append(phraseIterator.next().toStringWithMetre()).append("\n");
         }
 
-        return result;
+        return result.toString();
     }
 
     public String toStringWithMetre() {
@@ -102,7 +102,7 @@ public class AnalyzedPassage implements PassageInterface<AnalyzedPhrase> {
 
 
     public Collection<AnalyzedPhrase> getPhrasesWhere(Predicate<AnalyzedPhrase> phrasePredicate) {
-        Collection<AnalyzedPhrase> result = new LinkedList<AnalyzedPhrase>();
+        Collection<AnalyzedPhrase> result = new LinkedList<>();
 
         for (AnalyzedPhrase phrase : phrases) {
             if (phrasePredicate.test(phrase)) {
@@ -118,7 +118,7 @@ public class AnalyzedPassage implements PassageInterface<AnalyzedPhrase> {
     }
 
     public boolean containsSamePhraseAs(PassageInterface<AnalyzedPhrase> other) {
-        for (Phrase phrase : phrases) {
+        for (AnalyzedPhrase phrase : phrases) {
             if (other.getPhrases().contains(phrase)) {
                 return true;
             }

@@ -33,7 +33,7 @@ public class MetreCalculatorTest {
 
     @Test
     public void calculateMetreFromTestDictionaryListOfWords() {
-        Collection<String> wordList = new LinkedList<String>();
+        Collection<String> wordList = new LinkedList<>();
 
         wordList.add("FRIEDMANN");
         wordList.add("DOBBERSTEIN");

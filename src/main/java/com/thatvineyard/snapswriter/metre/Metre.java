@@ -51,13 +51,7 @@ public class Metre {
     }
 
     public boolean equals(Metre other) {
-        if (compareSyllables(other) != 0) {
-            return false;
-        }
-        if (metreDifference(other) != 0) {
-            return false;
-        }
-        return true;
+        return compareSyllables(other) == 0 && metreDifference(other) == 0;
     }
 
     public int metreDifference(Metre other) {

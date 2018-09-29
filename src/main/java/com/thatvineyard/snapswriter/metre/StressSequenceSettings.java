@@ -5,16 +5,16 @@ package com.thatvineyard.snapswriter.metre;
  */
 public abstract class StressSequenceSettings {
 
-    private static int PRIMARY_PRIMARY_SCORE = 0;
-    private static int PRIMARY_SECONDARY_SCORE = 1;
-    private static int PRIMARY_NONE_SCORE = 2;
-    private static int PRIMARY_EMPTY_SCORE = 5;
-    private static int SECONDARY_SECONDARY_SCORE = 0;
-    private static int SECONDARY_NONE_SCORE = 1;
-    private static int SECONDARY_EMPTY_SCORE = 2;
-    private static int NONE_NONE_SCORE = 0;
-    private static int NONE_EMPTY_SCORE = 3;
-    private static int EMPTY_EMPTY_SCORE = 0;
+    private static final int PRIMARY_PRIMARY_SCORE = 0;
+    private static final int PRIMARY_SECONDARY_SCORE = 1;
+    private static final int PRIMARY_NONE_SCORE = 2;
+    private static final int PRIMARY_EMPTY_SCORE = 5;
+    private static final int SECONDARY_SECONDARY_SCORE = 0;
+    private static final int SECONDARY_NONE_SCORE = 1;
+    private static final int SECONDARY_EMPTY_SCORE = 2;
+    private static final int NONE_NONE_SCORE = 0;
+    private static final int NONE_EMPTY_SCORE = 3;
+    private static final int EMPTY_EMPTY_SCORE = 0;
 
     public enum StressLevel {
         PRIMARY(1), SECONDARY(2), NONE(0);
@@ -63,7 +63,7 @@ public abstract class StressSequenceSettings {
         case SECONDARY:
             switch (syllableTwo) {
             case PRIMARY:
-                return PRIMARY_EMPTY_SCORE;
+                return PRIMARY_SECONDARY_SCORE;
             case SECONDARY:
                 return SECONDARY_SECONDARY_SCORE;
             case NONE:

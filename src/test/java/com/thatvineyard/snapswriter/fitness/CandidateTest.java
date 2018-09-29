@@ -1,7 +1,9 @@
 package com.thatvineyard.snapswriter.fitness;
 
+import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -9,7 +11,6 @@ import java.util.LinkedList;
 
 import com.thatvineyard.snapswriter.format.Formatter;
 import com.thatvineyard.snapswriter.format.Passage;
-import com.thatvineyard.snapswriter.format.Phrase;
 
 import com.thatvineyard.snapswriter.metre.MetreCalculator;
 import org.junit.Before;
@@ -39,9 +40,9 @@ public class CandidateTest {
     }
 
     @Test
-    public void getBestCandidateFromEmptyList() {
+    public void getBestCandidate_FromEmptyList_null() {
 
-        Collection<Candidate> candidateList = new LinkedList<Candidate>();
+        Collection<Candidate> candidateList = new LinkedList<>();
 
         Candidate bestCandidate = Candidate.getBestCandidate(candidateList);
 
@@ -49,7 +50,7 @@ public class CandidateTest {
     }
 
     @Test
-    public void candidatesContainTheSamePhraseSamePhrase() {
+    public void containsSamePhrases_SamePhrase_true() {
 
         Passage passage = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability.");
         AnalyzedPassage analyzedPassage = new AnalyzedPassage(passage, calculator);
@@ -62,14 +63,13 @@ public class CandidateTest {
         candidateA.addPhrase(phrase, 0);
         candidateB.addPhrase(phrase, 0);
 
-        boolean expected = true;
         boolean actual = candidateA.containsSamePhrases(candidateB);
 
-        assertEquals(expected, actual);
+        assertTrue(actual);
     }
 
     @Test
-    public void candidatesContainTheSamePhraseDifferentPhrase() {
+    public void containsSamePhrases_DifferentPhrase_false() {
 
         Passage passage = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability.");
         AnalyzedPassage analyzedPassage = new AnalyzedPassage(passage, calculator);
@@ -85,14 +85,13 @@ public class CandidateTest {
         candidateA.addPhrase(phraseA, 0);
         candidateB.addPhrase(phraseB, 0);
 
-        boolean expected = false;
         boolean actual = candidateA.containsSamePhrases(candidateB);
 
-        assertEquals(expected, actual);
+        assertFalse(actual);
     }
 
     @Test
-    public void candidatesContainTheSamePhraseSamePhraseDifferentNumberOfPhrases() {
+    public void containsSamePhrase_SamePhraseButDifferentNumberOfPhrases_true() {
 
         Passage passage = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability");
         AnalyzedPassage analyzedPassage = new AnalyzedPassage(passage, calculator);
@@ -109,9 +108,8 @@ public class CandidateTest {
         candidateB.addPhrase(phraseB, 0);
         candidateB.addPhrase(phraseA, 0);
 
-        boolean expected = true;
         boolean actual = candidateA.containsSamePhrases(candidateB);
 
-        assertEquals(expected, actual);
+        assertTrue(actual);
     }
 }

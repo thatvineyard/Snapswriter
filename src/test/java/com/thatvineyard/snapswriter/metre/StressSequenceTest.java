@@ -79,7 +79,7 @@ public class StressSequenceTest {
         StressSequence sequenceOne = new StressSequence("111");
         StressSequence sequenceTwo = new StressSequence("000");
 
-        Collection<StressSequence> stressSequenceList = new LinkedList<StressSequence>();
+        Collection<StressSequence> stressSequenceList = new LinkedList<>();
         stressSequenceList.add(sequenceOne);
         stressSequenceList.add(sequenceTwo);
 

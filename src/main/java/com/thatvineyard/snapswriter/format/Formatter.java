@@ -6,17 +6,14 @@ import java.util.LinkedList;
 import java.util.function.Predicate;
 
 import com.thatvineyard.snapswriter.fitness.AnalyzedPhrase;
-import com.thatvineyard.snapswriter.metre.MetreCalculator;
 
 /**
  * Formatter
  */
 public class Formatter {
 
-    private final String PHRASE_DELIMITER_REGEX = "[.;\n?!,,]";
-    private final String WORD_DELIMITER_REGEX = "[^a-zA-Z']";
-
-    private final String dictionaryFilePath = "/cmudict-0.7b.txt";
+    private static final String PHRASE_DELIMITER_REGEX = "[.;\n?!,,]";
+    private static final String WORD_DELIMITER_REGEX = "[^a-zA-Z']";
 
     private String phrasePrefix = "";
     private String phraseSuffix = ".";
@@ -63,33 +60,33 @@ public class Formatter {
     public String passageToString(PassageInterface<Phrase> passage) {
         Collection<Phrase> phrases = passage.getPhrases();
 
-        String result = "";
+        StringBuilder result = new StringBuilder();
         boolean firstPhrase = true;
         for (Phrase phrase : phrases) {
             if (!firstPhrase) {
-                result += passageInfix;
+                result.append(passageInfix);
             }
-            result += phraseToString(phrase);
+            result.append(phraseToString(phrase));
             firstPhrase = false;
         }
 
-        return result;
+        return result.toString();
     }
 
     public String analyzedPassageToString(PassageInterface<AnalyzedPhrase> passage) {
         Collection<AnalyzedPhrase> phrases = passage.getPhrases();
 
-        String result = "";
+        StringBuilder result = new StringBuilder();
         boolean firstPhrase = true;
         for (Phrase phrase : phrases) {
             if (!firstPhrase) {
-                result += passageInfix;
+                result.append(passageInfix);
             }
-            result += phraseToString(phrase);
+            result.append(phraseToString(phrase));
             firstPhrase = false;
         }
 
-        return result;
+        return result.toString();
     }
 
     // PHRASE
@@ -129,6 +126,7 @@ public class Formatter {
         return firstChar + text.substring(1);
     }
 
+    // TODO: DRY (stringToPhrase)
     private String[] splitStringAndRemoveEmpty(String text, String delimiter) {
         String[] strings = text.split(delimiter);
         strings = removeEmptyStrings(strings);
@@ -137,12 +135,12 @@ public class Formatter {
     }
 
     private String[] removeEmptyStrings(String[] strings) {
-        LinkedList<String> stringList = new LinkedList<String>(Arrays.asList(strings));
+        LinkedList<String> stringList = new LinkedList<>(Arrays.asList(strings));
 
         Predicate<String> emptyStringPredicate = s -> s.equals("");
         stringList.removeIf(emptyStringPredicate);
 
-        return stringList.toArray(new String[stringList.size()]);
+        return stringList.toArray(new String[0]);
     }
 
 }

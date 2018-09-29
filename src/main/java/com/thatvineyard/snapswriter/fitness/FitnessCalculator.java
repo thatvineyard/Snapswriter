@@ -11,7 +11,7 @@ public class FitnessCalculator {
 
     private Candidate masterCandidate;
 
-    private static int SEARCH_DEPTH = 2;
+    private static final int SEARCH_DEPTH = 2;
 
     public FitnessCalculator() {
         this.masterCandidate = new Candidate();
@@ -56,9 +56,7 @@ public class FitnessCalculator {
             // TODO: If depth is not reached, recurse, then merge
         }
 
-        Candidate bestCandidate = pickBestCandidateFromCollection(filteredCandidates);
-
-        return bestCandidate;
+        return pickBestCandidateFromCollection(filteredCandidates);
     }
 
     private Collection<Candidate> generateListOfCandidates(AnalyzedPhrase songPhrase, AnalyzedPassage textPassage) {
@@ -67,7 +65,7 @@ public class FitnessCalculator {
 
         Collection<AnalyzedPhrase> candidatePhrases = textPassage.getPhrasesWhere(numberOfSyllablesEqualsRequiredSyllables);
 
-        Collection<Candidate> candidates = new LinkedList<Candidate>();
+        Collection<Candidate> candidates = new LinkedList<>();
 
         Candidate newCandidate;
         for (AnalyzedPhrase candidatePhrase : candidatePhrases) {
@@ -87,7 +85,7 @@ public class FitnessCalculator {
             return candidates;
         }
 
-        Collection<Candidate> filteredCandidates = new LinkedList<Candidate>();
+        Collection<Candidate> filteredCandidates = new LinkedList<>();
 
         for (Candidate candidate : candidates) {
             if (!candidate.containsSamePhrases(masterCandidate)) {

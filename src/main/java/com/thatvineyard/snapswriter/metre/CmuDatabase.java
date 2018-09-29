@@ -10,7 +10,7 @@ public class CmuDatabase {
     private TreeSet<CmuEntry> set;
 
     public CmuDatabase() {
-        set = new TreeSet<CmuEntry>();
+        set = new TreeSet<>();
     }
 
     public void insertEntry(CmuEntry entry) {

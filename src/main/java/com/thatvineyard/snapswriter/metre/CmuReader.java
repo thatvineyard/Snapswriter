@@ -34,25 +34,26 @@ public class CmuReader {
         String line;
 
         try {
-            while ((line = bufferedReader.readLine()) != null) {
-                if (isValidEntry(line)) {
-                    CmuEntry entry = cmuDatabaseLineToCmuEntry(line);
+            if (bufferedReader != null) {
+                while ((line = bufferedReader.readLine()) != null) {
+                    if (isValidEntry(line)) {
+                        CmuEntry entry = cmuDatabaseLineToCmuEntry(line);
 
-                    database.insertEntry(entry);
+                        database.insertEntry(entry);
+                    }
                 }
             }
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage());
         }
-        return database;
 
+        return database;
     }
 
     private static FileReader openDictionaryFile(String filePath) throws FileNotFoundException {
         dictionaryFile = new File(filePath);
-        FileReader fileReader = new FileReader(dictionaryFile);
 
-        return fileReader;
+        return new FileReader(dictionaryFile);
     }
 
     private static boolean isNotEmpty(String line) {
@@ -77,9 +78,7 @@ public class CmuReader {
         String word = line.substring(wordStart, wordEnd);
         String pronunciation = line.substring(pronunciationStart, pronunciationEnd);
 
-        CmuEntry result = new CmuEntry(word, pronunciation);
-
-        return result;
+        return new CmuEntry(word, pronunciation);
     }
 
 }

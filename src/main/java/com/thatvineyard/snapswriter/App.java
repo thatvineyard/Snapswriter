@@ -1,9 +1,6 @@
 package com.thatvineyard.snapswriter;
 
-import com.thatvineyard.snapswriter.files.FileImporter;
-import com.thatvineyard.snapswriter.fitness.FitnessCalculator;
 import com.thatvineyard.snapswriter.format.Formatter;
-import com.thatvineyard.snapswriter.format.Passage;
 
 public class App {
     private static final String resourceDir = "src/main/resources/";

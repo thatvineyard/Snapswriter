@@ -41,7 +41,7 @@ public class MetreCalculator {
     }
 
     public Collection<Metre> calculateMetresFromWords(Iterable<String> words) {
-        Collection<Metre> metres = new LinkedList<Metre>();
+        Collection<Metre> metres = new LinkedList<>();
 
         for (String word : words) {
             metres.add(calculateMetreFromWord(word));
