@@ -10,7 +10,7 @@ import org.json.*;
 /**
  * TextGainInterface
  */
-public class TextgainInterface {
+public class TextgainReader {
 
     private final static String TEXTGAIN_URL = "https://api.textgain.com";
     private final static String textgainSyllablesUrl = TEXTGAIN_URL + "/1/syllables";
