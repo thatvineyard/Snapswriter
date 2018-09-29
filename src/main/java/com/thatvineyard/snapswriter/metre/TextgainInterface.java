@@ -12,8 +12,8 @@ import org.json.*;
  */
 public class TextgainInterface {
 
-    private final static String TEXTGAINURL = "https://api.textgain.com";
-    private final static String textgainSyllablesUrl = TEXTGAINURL + "/1/syllables";
+    private final static String TEXTGAIN_URL = "https://api.textgain.com";
+    private final static String textgainSyllablesUrl = TEXTGAIN_URL + "/1/syllables";
     private final static String key = "***";
 
     private final static String lang = "en";

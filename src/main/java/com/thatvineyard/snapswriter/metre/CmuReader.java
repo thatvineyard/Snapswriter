@@ -15,12 +15,12 @@ public class CmuReader {
 
     private static File dictionaryFile;
 
-    private static final String DICTIONARYFILEPATH = "cmudict-0.7b.txt";
-    private static final String COMMENTDELIM = ";;;";
-    private static final String WORDDELIM = "  ";
+    private static final String DICTIONARY_FILEPATH = "cmudict-0.7b.txt";
+    private static final String COMMENT_DELIM = ";;;";
+    private static final String WORD_DELIM = "  ";
 
     public static CmuDatabase loadDictionary() {
-        return loadDictionary(DICTIONARYFILEPATH);
+        return loadDictionary(DICTIONARY_FILEPATH);
     }
 
     // TODO: Refactor this into a general solution
@@ -61,7 +61,7 @@ public class CmuReader {
 
     private static boolean isNotComment(String line) {
         String substring = line.substring(0, 3);
-        return !substring.equals(COMMENTDELIM);
+        return !substring.equals(COMMENT_DELIM);
     }
 
     private static boolean isValidEntry(String line) {
@@ -70,14 +70,14 @@ public class CmuReader {
 
     private static CmuEntry cmuDatabaseLineToCmuEntry(String line) {
         int wordStart = 0;
-        int wordEnd = line.indexOf(WORDDELIM);
-        int pronounciationStart = wordEnd + WORDDELIM.length();
-        int pronounciationEnd = line.length();
+        int wordEnd = line.indexOf(WORD_DELIM);
+        int pronunciationStart = wordEnd + WORD_DELIM.length();
+        int pronunciationEnd = line.length();
 
         String word = line.substring(wordStart, wordEnd);
-        String pronounciation = line.substring(pronounciationStart, pronounciationEnd);
+        String pronunciation = line.substring(pronunciationStart, pronunciationEnd);
 
-        CmuEntry result = new CmuEntry(word, pronounciation);
+        CmuEntry result = new CmuEntry(word, pronunciation);
 
         return result;
     }

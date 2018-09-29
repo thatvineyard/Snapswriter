@@ -28,7 +28,7 @@ public class MetreCalculator {
 
     public Metre calculateMetreFromWord(String word) {
         CmuEntry cmuEntry = database.search(word);
-        // TODO: Failsafe in case word doesn't exist in dictionary. Use Textgain with no
+        // TODO: Fail-safe in case word doesn't exist in dictionary. Use Textgain with no
         // stresses.
         Metre metre;
         if (cmuEntry != null) {

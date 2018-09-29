@@ -4,9 +4,6 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.function.Predicate;
 
-import com.thatvineyard.snapswriter.format.Passage;
-import com.thatvineyard.snapswriter.format.Phrase;
-
 /**
  * FitnessCalculator
  */
@@ -14,7 +11,7 @@ public class FitnessCalculator {
 
     private Candidate masterCandidate;
 
-    private static int SEARCHDEPTH = 2;
+    private static int SEARCH_DEPTH = 2;
 
     public FitnessCalculator() {
         this.masterCandidate = new Candidate();
@@ -49,17 +46,17 @@ public class FitnessCalculator {
         Collection<Candidate> filteredCandidates = filterUnfittingCandidatesUnlessAllAreUnfitting(candidates);
 
         // TODO: Handle cases where no candidates was found. Possibly increase/decrease
-        // the syllablecount?
+        // the syllable count?
 
         if (filteredCandidates.size() == 1) {
             return filteredCandidates.iterator().next();
         }
 
-        if (depth < SEARCHDEPTH) {
+        if (depth < SEARCH_DEPTH) {
             // TODO: If depth is not reached, recurse, then merge
         }
 
-        Candidate bestCandidate = pickBestCandidateFromColleciton(filteredCandidates);
+        Candidate bestCandidate = pickBestCandidateFromCollection(filteredCandidates);
 
         return bestCandidate;
     }
@@ -105,7 +102,7 @@ public class FitnessCalculator {
         return filteredCandidates;
     }
 
-    private Candidate pickBestCandidateFromColleciton(Collection<Candidate> candidates) {
+    private Candidate pickBestCandidateFromCollection(Collection<Candidate> candidates) {
         return Candidate.getBestCandidate(candidates);
     }
 
