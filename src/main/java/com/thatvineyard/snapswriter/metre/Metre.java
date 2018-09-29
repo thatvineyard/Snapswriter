@@ -8,6 +8,8 @@ public class Metre {
     private StressSequence stressSequence;
     private int syllables;
 
+    // CONSTRUCTORS
+
     public Metre() {
         this.stressSequence = new StressSequence();
         syllables = stressSequence.getSyllables();
@@ -22,6 +24,8 @@ public class Metre {
         this.stressSequence = cmuEntry.getStressSequence();
         syllables = this.stressSequence.getSyllables();
     }
+
+    // MUTATORS
 
     public void append(Metre other) {
         this.stressSequence.append(other.stressSequence);
@@ -38,13 +42,17 @@ public class Metre {
         return result;
     }
 
-    public String toString() {
-        return stressSequence.toString();
-    }
+    // ACCESSORS
 
     public int getSyllables() {
         return syllables;
     }
+
+    public int metreDifference(Metre other) {
+        return stressSequence.stressDifference(other.stressSequence);
+    }
+
+    // COMPARATORS
 
     public int compareSyllables(Metre other) {
         return Integer.compare(syllables, other.syllables);
@@ -54,8 +62,10 @@ public class Metre {
         return compareSyllables(other) == 0 && metreDifference(other) == 0;
     }
 
-    public int metreDifference(Metre other) {
-        return stressSequence.stressDifference(other.stressSequence);
+    // FORMATTERS
+
+    public String toString() {
+        return stressSequence.toString();
     }
 
 }

@@ -12,8 +12,8 @@ public class FileImporter {
 
     public static BufferedReader getResourceAsBufferedReader(String filepath) {
         InputStream inputStream = FileImporter.class.getClassLoader().getResourceAsStream(filepath);
+
         if(inputStream == null) {
-            LOGGER.severe("File not found (" + filepath + ").");
             return null;
         }
 

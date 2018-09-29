@@ -19,9 +19,7 @@ public class Formatter {
     private String phraseSuffix = ".";
     private String passageInfix = "\n";
     private Boolean capitalizeFirstLetter = true;
-
-    // TODO: break out calculator out of formatter. it's not in the formatter's
-    // scope.
+    
     public Formatter() {
 
     }

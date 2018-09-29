@@ -24,7 +24,7 @@ public class CmuReaderTest {
     @Test
     public void loadTestDictionaryNoExceptions() {
         try {
-            CmuReader.loadDictionary(testDictionaryFilePath);
+            CmuReader.loadDictionaryFromFile(testDictionaryFilePath);
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -32,7 +32,7 @@ public class CmuReaderTest {
 
     @Test
     public void loadTestDictionaryCheckSize() {
-        CmuDatabase database = CmuReader.loadDictionary(testDictionaryFilePath);
+        CmuDatabase database = CmuReader.loadDictionaryFromFile(testDictionaryFilePath);
 
         int expected = 26;
         int actual = database.size();

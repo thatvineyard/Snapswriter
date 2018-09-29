@@ -23,7 +23,7 @@ public class MetreCalculator {
     }
 
     public void loadDatabase(String dictionaryFilePath) {
-        database = CmuReader.loadDictionary(dictionaryFilePath);
+        database = CmuReader.loadDictionaryFromFile(dictionaryFilePath);
     }
 
     public Metre calculateMetreFromWord(String word) {

@@ -19,25 +19,34 @@ public class CmuReader {
     private static final String COMMENT_DELIM = ";;;";
     private static final String WORD_DELIM = "  ";
 
+    // FACTORIES
+
     public static CmuDatabase loadDictionary() {
-        return loadDictionary(DICTIONARY_FILEPATH);
+        return loadDictionaryFromFile(DICTIONARY_FILEPATH);
     }
 
     // TODO: Refactor this into a general solution
-    public static CmuDatabase loadDictionary(String filepath) {
-        CmuDatabase database = new CmuDatabase();
-
+    public static CmuDatabase loadDictionaryFromFile(String filepath) {
         BufferedReader bufferedReader = getResourceAsBufferedReader(filepath);
         if(bufferedReader == null) {
             LOGGER.log(Level.SEVERE, "Dictionary file (" + filepath + ") not found.");
         }
+
+        CmuDatabase database = readLinesIntoDatabase(bufferedReader, new CmuDatabase());
+
+        return database;
+    }
+
+    // UTILITIES
+
+    private static CmuDatabase readLinesIntoDatabase(BufferedReader bufferedReader, CmuDatabase database) {
         String line;
 
         try {
             if (bufferedReader != null) {
                 while ((line = bufferedReader.readLine()) != null) {
                     if (isValidEntry(line)) {
-                        CmuEntry entry = cmuDatabaseLineToCmuEntry(line);
+                        CmuEntry entry = toCmuEntry(line);
 
                         database.insertEntry(entry);
                     }
@@ -46,15 +55,10 @@ public class CmuReader {
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage());
         }
-
         return database;
     }
 
-    private static FileReader openDictionaryFile(String filePath) throws FileNotFoundException {
-        dictionaryFile = new File(filePath);
-
-        return new FileReader(dictionaryFile);
-    }
+    // VALIDATORS
 
     private static boolean isNotEmpty(String line) {
         return line.length() != 0;
@@ -69,7 +73,9 @@ public class CmuReader {
         return isNotEmpty(line) && isNotComment(line);
     }
 
-    private static CmuEntry cmuDatabaseLineToCmuEntry(String line) {
+    // TRANSLATORS
+
+    private static CmuEntry toCmuEntry(String line) {
         int wordStart = 0;
         int wordEnd = line.indexOf(WORD_DELIM);
         int pronunciationStart = wordEnd + WORD_DELIM.length();

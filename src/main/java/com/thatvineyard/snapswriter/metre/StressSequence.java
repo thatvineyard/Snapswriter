@@ -7,6 +7,8 @@ public class StressSequence {
 
     private String sequence;
 
+    // CONSTRUCTORS
+
     public StressSequence() {
         this.sequence = "";
     }
@@ -15,9 +17,13 @@ public class StressSequence {
         this.sequence = sequence;
     }
 
+    // FORMATTERS
+
     public String toString() {
         return sequence;
     }
+
+    // COMPARATORS
 
     public int stressDifference(StressSequence other) {
         int sequenceLength = length();
@@ -47,16 +53,20 @@ public class StressSequence {
 
     }
 
+    public boolean sameLengthAs(StressSequence other) {
+        return length() == other.length();
+    }
+
+    // UTILITIES
+
     private int stressDifferenceCalculation(int a, int b) {
         return StressSequenceSettings.getStressDifferenceScore(a, b);
     }
 
+    // ACCESSORS
+
     public int length() {
         return sequence.length();
-    }
-
-    public boolean sameLengthAs(StressSequence other) {
-        return length() == other.length();
     }
 
     private int getStressValueAtIndex(int i) {
@@ -72,6 +82,12 @@ public class StressSequence {
 
         return value;
     }
+
+    public int getSyllables() {
+        return sequence.length();
+    }
+    
+    // MUTATORS
 
     public void append(StressSequence other) {
         sequence = sequence.concat(other.sequence);
@@ -95,7 +111,4 @@ public class StressSequence {
         return result;
     }
 
-    public int getSyllables() {
-        return sequence.length();
-    }
 }

@@ -17,7 +17,7 @@ public class CmuDatabaseTest {
 
     @Before
     public void setUp() {
-        database = CmuReader.loadDictionary(testDictionaryFilePath);
+        database = CmuReader.loadDictionaryFromFile(testDictionaryFilePath);
     }
 
     @Test
