@@ -11,6 +11,8 @@ public class Phrase {
 
     private Collection<String> content;
 
+    // CONSTRUCTORS
+
     public Phrase() {
         this.content = new LinkedList<>();
     }
@@ -23,14 +25,19 @@ public class Phrase {
         this.content = phrase.content;
     }
 
-    // TODO: Remove this once calculator is decoupled
+    // ACCESSORS
+
     public Collection<String> getContent() {
         return content;
     }
 
+    // MUTATORS
+
     public void append(String word) {
         content.add(word);
     }
+
+    // FORMATTERS
 
     public String toString() {
         StringBuilder result = new StringBuilder();
@@ -50,6 +57,8 @@ public class Phrase {
 
         return result.toString();
     }
+
+    // COMPARATORS
 
     public boolean equals(Phrase other) {
         return content.equals(other.content);
