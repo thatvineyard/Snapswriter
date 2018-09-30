@@ -71,22 +71,6 @@ public class Formatter {
         return result.toString();
     }
 
-    public String analyzedPassageToString(PassageInterface<AnalyzedPhrase> passage) {
-        Collection<AnalyzedPhrase> phrases = passage.getPhrases();
-
-        StringBuilder result = new StringBuilder();
-        boolean firstPhrase = true;
-        for (Phrase phrase : phrases) {
-            if (!firstPhrase) {
-                result.append(passageInfix);
-            }
-            result.append(phraseToString(phrase));
-            firstPhrase = false;
-        }
-
-        return result.toString();
-    }
-
     // PHRASE
 
     public String phraseToString(Phrase phrase) {
