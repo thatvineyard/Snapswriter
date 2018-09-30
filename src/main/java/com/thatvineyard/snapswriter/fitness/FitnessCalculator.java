@@ -44,8 +44,6 @@ public class FitnessCalculator {
             syllableCount += parentCandidate.getSyllables();
         }
 
-        System.out.println("Getting phrase at syllable count " + syllableCount + ", at depth " + depth + ".");
-
         AnalyzedPhrase songPhrase = song.getPhraseAfterSyllable(syllableCount);
 
         Collection<Candidate> candidates = generateListOfCandidates(songPhrase, text);
@@ -54,19 +52,14 @@ public class FitnessCalculator {
         // TODO: Handle cases where no candidates was found. Possibly increase/decrease
         // the syllable count?
         if (filteredCandidates.size() == 0) {
-            System.out.println("0 candidates");
             return new Candidate();
         }
 
         if (filteredCandidates.size() == 1) {
-            System.out.println("1 candidate");
-
             return filteredCandidates.iterator().next();
         }
 
         if (depth < SEARCH_DEPTH && syllableCount + songPhrase.getSyllables() < song.getSyllables()) {
-            System.out.println(filteredCandidates.size() + " candidates. Recursing");
-            // TODO: If depth is not reached, recurse, then merge
             Candidate newCandidate;
             Candidate recurseResult;
             Candidate bestResult = null;
@@ -78,14 +71,10 @@ public class FitnessCalculator {
                 recurseResult = getBestCandidateForNextSongPhrase(text, song, newCandidate, depth + 1);
                 candidate.append(recurseResult);
 
-                System.out.println("Score: " + candidate.getScore() + ".");
-
                 if (candidate.isBetterThan(bestResult)) {
-                    System.out.println("New best score");
                     bestResult = candidate;
                 }
             }
-            System.out.println("Best result was score " + bestResult.getScore() + ".");
             return bestResult;
         }
 
