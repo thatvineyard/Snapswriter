@@ -28,7 +28,9 @@ public class ClientSessionBean {
     }
 
     private MetreCalculator createCalculator() {
-        return new MetreCalculator(testDictionaryFilePath);
+        MetreCalculator calculator = new MetreCalculator(testDictionaryFilePath);
+        calculator.useTextgain(false);
+        return calculator;
     }
 
     @Path("/")

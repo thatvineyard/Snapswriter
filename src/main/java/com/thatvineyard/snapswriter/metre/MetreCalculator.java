@@ -10,6 +10,9 @@ public class MetreCalculator {
 
     CmuDatabase database;
 
+    private boolean useCmuDatabase = true;
+    private boolean useTextgain = true;
+
     public MetreCalculator() {
         loadDatabase();
     }
@@ -17,6 +20,18 @@ public class MetreCalculator {
     public MetreCalculator(String dictionaryFilePath) {
         loadDatabase(dictionaryFilePath);
     }
+
+    // SETTINGS
+
+    public void useCmuDatabase(boolean value) {
+        useCmuDatabase = value;
+    }
+
+    public void useTextgain(boolean value) {
+        useTextgain = value;
+    }
+
+    // MUTATORS
 
     public void loadDatabase() {
         database = CmuReader.loadDictionary();
@@ -26,15 +41,26 @@ public class MetreCalculator {
         database = CmuReader.loadDictionaryFromFile(dictionaryFilePath);
     }
 
+    // ACCESSOR
+
     public Metre calculateMetreFromWord(String word) {
-        CmuEntry cmuEntry = database.search(word);
-        // TODO: Fail-safe in case word doesn't exist in dictionary. Use Textgain with no
-        // stresses.
-        Metre metre;
-        if (cmuEntry != null) {
-            metre = new Metre(cmuEntry);
-        } else {
-            metre = new Metre("");
+        Metre metre = null;
+
+        if (useCmuDatabase) {
+            CmuEntry cmuEntry = database.search(word);
+            if (cmuEntry != null) {
+                metre = new Metre(cmuEntry);
+            }
+        }
+
+        if (useTextgain) {
+           if(metre == null) {
+               metre = new Metre(TextgainReader.numberOfSyllablesInString(word));
+            }
+        }
+
+        if (metre == null) {
+            metre = new Metre();
         }
 
         return metre;

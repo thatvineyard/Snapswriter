@@ -17,6 +17,20 @@ public class StressSequence {
         this.sequence = sequence;
     }
 
+    public StressSequence(int syllables) {
+        this.sequence = syllablesToSequence(syllables);
+    }
+
+    // FACTORIES
+
+    public String syllablesToSequence(int syllables) {
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < syllables; i++) {
+            builder.append(0);
+        }
+        return builder.toString();
+    }
+
     // FORMATTERS
 
     public String toString() {
@@ -86,7 +100,7 @@ public class StressSequence {
     public int getSyllables() {
         return sequence.length();
     }
-    
+
     // MUTATORS
 
     public void append(StressSequence other) {

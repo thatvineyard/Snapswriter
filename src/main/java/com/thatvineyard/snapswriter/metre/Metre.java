@@ -25,6 +25,11 @@ public class Metre {
         syllables = this.stressSequence.getSyllables();
     }
 
+    public Metre(int syllables) {
+        this.stressSequence = new StressSequence(syllables);
+        this.syllables = syllables;
+    }
+
     // MUTATORS
 
     public void append(Metre other) {

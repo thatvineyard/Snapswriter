@@ -19,6 +19,7 @@ public class AnalyzedPhraseTest {
     @Before
     public void createMetreCalculator() {
         calculator = new MetreCalculator(testDictionaryFilePath);
+        calculator.useTextgain(false);
     }
 
     @Test

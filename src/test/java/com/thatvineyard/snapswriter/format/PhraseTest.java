@@ -16,7 +16,7 @@ public class PhraseTest {
     public Collection<String> createWordList() {
         Collection<String> result = new LinkedList<>();
         result.add("Hello");
-        result.add("word");
+        result.add("world");
 
         return result;
     }
