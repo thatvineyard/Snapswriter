@@ -21,12 +21,18 @@ public class Candidate {
     }
 
     public void append(Candidate other) {
-        passage.append(other.passage);
-        score += other.score;
+        if(other != null) {
+            passage.append(other.passage);
+            score += other.score;
+        }
     }
 
     public boolean isBetterThan(Candidate other) {
-        return score < other.score;
+        if (other != null) {
+            return score < other.score;
+        } else {
+            return true;
+        }
     }
 
     public boolean containsSamePhrases(Candidate other) {

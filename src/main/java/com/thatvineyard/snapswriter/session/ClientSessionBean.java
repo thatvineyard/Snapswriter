@@ -1,6 +1,7 @@
 package com.thatvineyard.snapswriter.session;
 
 import com.thatvineyard.snapswriter.files.FileImporter;
+import com.thatvineyard.snapswriter.files.FileMapper;
 import com.thatvineyard.snapswriter.fitness.AnalyzedPassage;
 import com.thatvineyard.snapswriter.fitness.FitnessCalculator;
 import com.thatvineyard.snapswriter.format.Formatter;
@@ -14,34 +15,35 @@ import javax.ejb.Stateless;
 /**
  * ClientSessionBean
  */
-@Path("/bean")
+@Path("/")
 @Stateless
 public class ClientSessionBean {
 
-    private static final String resourceDir = "";
-    private static final String testDictionaryFilePath = resourceDir + "cmudict-0.7b.txt";
-    private static final String allStarPath = resourceDir + "all-star.txt";
-    private static final String communismPath = resourceDir + "communism-wiki.txt";
+
+    private FileMapper createFilemapper() {
+        return new FileMapper();
+    }
 
     private Formatter createFormatter() {
         return new Formatter();
     }
 
     private MetreCalculator createCalculator() {
-        MetreCalculator calculator = new MetreCalculator(testDictionaryFilePath);
+        MetreCalculator calculator = new MetreCalculator();
         calculator.useTextgain(false);
         return calculator;
     }
 
-    @Path("/")
+    @Path("/example")
     @GET
     public String simpleRestFunction() {
+        FileMapper fileMapper = createFilemapper();
         Formatter formatter = createFormatter();
         MetreCalculator metreCalculator = createCalculator();
         FitnessCalculator fitnessCalculator = new FitnessCalculator();
 
-        String song = FileImporter.getFileText(allStarPath);
-        String text = FileImporter.getFileText(communismPath);
+        String song = FileImporter.getFileText(fileMapper.getFilepath("all-star"));
+        String text = FileImporter.getFileText(fileMapper.getFilepath("communism"));
 
         Passage songPassage = formatter.stringToPassage(song);
         Passage textPassage = formatter.stringToPassage(text);
@@ -54,6 +56,9 @@ public class ClientSessionBean {
         String result = fitnessCalculator.getScore() + "";
         result +="\n";
         result += formatter.passageToString(newSongTextPassage);
+
+        result += "\n";
+        result += formatter.passageToString(analyzedSongPassage);
 
         return result;
     }

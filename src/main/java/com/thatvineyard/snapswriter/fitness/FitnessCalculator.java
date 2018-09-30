@@ -1,5 +1,8 @@
 package com.thatvineyard.snapswriter.fitness;
 
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
+import com.thatvineyard.snapswriter.format.Phrase;
+
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.function.Predicate;
@@ -11,7 +14,7 @@ public class FitnessCalculator {
 
     private Candidate masterCandidate;
 
-    private static final int SEARCH_DEPTH = 2;
+    private static final int SEARCH_DEPTH = 1;
 
     public FitnessCalculator() {
         this.masterCandidate = new Candidate();
@@ -34,26 +37,56 @@ public class FitnessCalculator {
 
     // TODO: Rename this once it's clearer what it does
     private Candidate getBestCandidateForNextSongPhrase(AnalyzedPassage text, AnalyzedPassage song, Candidate parentCandidate,
-            int depth) {
+                                                        int depth) {
+
         int syllableCount = masterCandidate.getSyllables();
         if (parentCandidate != null) {
             syllableCount += parentCandidate.getSyllables();
         }
 
-       AnalyzedPhrase songPhrase = song.getPhraseAfterSyllable(syllableCount);
+        System.out.println("Getting phrase at syllable count " + syllableCount + ", at depth " + depth + ".");
+
+        AnalyzedPhrase songPhrase = song.getPhraseAfterSyllable(syllableCount);
 
         Collection<Candidate> candidates = generateListOfCandidates(songPhrase, text);
         Collection<Candidate> filteredCandidates = filterUnfittingCandidatesUnlessAllAreUnfitting(candidates);
 
         // TODO: Handle cases where no candidates was found. Possibly increase/decrease
         // the syllable count?
+        if (filteredCandidates.size() == 0) {
+            System.out.println("0 candidates");
+            return new Candidate();
+        }
 
         if (filteredCandidates.size() == 1) {
+            System.out.println("1 candidate");
+
             return filteredCandidates.iterator().next();
         }
 
-        if (depth < SEARCH_DEPTH) {
+        if (depth < SEARCH_DEPTH && syllableCount + songPhrase.getSyllables() < song.getSyllables()) {
+            System.out.println(filteredCandidates.size() + " candidates. Recursing");
             // TODO: If depth is not reached, recurse, then merge
+            Candidate newCandidate;
+            Candidate recurseResult;
+            Candidate bestResult = null;
+            for (Candidate candidate : filteredCandidates) {
+                newCandidate = new Candidate();
+                newCandidate.append(parentCandidate);
+                newCandidate.append(candidate);
+
+                recurseResult = getBestCandidateForNextSongPhrase(text, song, newCandidate, depth + 1);
+                candidate.append(recurseResult);
+
+                System.out.println("Score: " + candidate.getScore() + ".");
+
+                if (candidate.isBetterThan(bestResult)) {
+                    System.out.println("New best score");
+                    bestResult = candidate;
+                }
+            }
+            System.out.println("Best result was score " + bestResult.getScore() + ".");
+            return bestResult;
         }
 
         return pickBestCandidateFromCollection(filteredCandidates);
