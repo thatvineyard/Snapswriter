@@ -16,8 +16,21 @@ public class AnalyzedPhrase extends Phrase {
         this.metre = Metre.join(calculator.calculateMetresFromWords(getContent()));
     }
 
-    public static AnalyzedPhrase analyze(Phrase phrase, MetreCalculator calculator) {
-        return new AnalyzedPhrase(phrase, calculator);
+    // TODO: Code smell. Get rid of this
+    private AnalyzedPhrase(Phrase phrase, Metre metre) {
+        super(phrase);
+        this.metre = metre;
+        this.calculator = null;
+    }
+
+    // TODO: Code smell. Get rid of this
+    public static AnalyzedPhrase getPlaceholderAnalyzedPhrase(int syllables) {
+        Phrase phrase = new Phrase();
+        phrase.append("X");
+
+        Metre metre = new Metre(syllables);
+
+        return new AnalyzedPhrase(phrase, metre);
     }
 
     @Override

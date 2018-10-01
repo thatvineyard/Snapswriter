@@ -15,6 +15,12 @@ public class Candidate {
         score = 0;
     }
 
+    public static Candidate getPlaceholderCandidate(int syllables) {
+        Candidate placeholderCandidate = new Candidate();
+        placeholderCandidate.addPhrase(AnalyzedPhrase.getPlaceholderAnalyzedPhrase(syllables), 0);
+        return placeholderCandidate;
+    }
+
     public void addPhrase(AnalyzedPhrase phrase, int metreDifference) {
         passage.add(phrase);
         score += metreDifference;
