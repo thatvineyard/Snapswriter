@@ -21,7 +21,10 @@ public class AnalyzedPassage implements PassageInterface<AnalyzedPhrase> {
     public AnalyzedPassage(Passage passage, MetreCalculator calculator) {
         phrases = new LinkedList<>();
         for (Phrase phrase : passage.getPhrases()) {
-            phrases.add(new AnalyzedPhrase(phrase, calculator));
+            AnalyzedPhrase analyzedPhrase = new AnalyzedPhrase(phrase, calculator);
+            if(analyzedPhrase.getSyllables() != 0) {
+                phrases.add(analyzedPhrase);
+            }
         }
     }
 
