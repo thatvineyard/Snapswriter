@@ -46,7 +46,7 @@ public class FitnessCalculator {
 
         AnalyzedPhrase songPhrase = song.getPhraseAfterSyllable(syllableCount);
 
-        System.out.println("Syllable: " + syllableCount + ". Depth: " + depth + ". Looking for amount of syllables: " + songPhrase.getSyllables() + ".");
+//        System.out.println("Syllable: " + syllableCount + ". Depth: " + depth + ". Looking for amount of syllables: " + songPhrase.getSyllables() + ".");
 
         Collection<Candidate> candidates = generateListOfCandidates(songPhrase, text);
         Collection<Candidate> filteredCandidates = filterUnfittingCandidatesUnlessAllAreUnfitting(candidates);

@@ -42,7 +42,7 @@ public class ClientSessionBean {
         return calculator;
     }
 
-    @Path("")
+    @Path("write-song")
     @GET
     public String writeSnapsSongWithSongIdAndTextId(@QueryParam("song-id") String songId, @QueryParam("text-id") String textId) {
         setUp();
@@ -52,7 +52,7 @@ public class ClientSessionBean {
         return formatter.passageToString(songPassage);
     }
 
-    @Path("")
+    @Path("get-text")
     @GET
     public String getText(@QueryParam("text-id") String textId) {
         setUp();
