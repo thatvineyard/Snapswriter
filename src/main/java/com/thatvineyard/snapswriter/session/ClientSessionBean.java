@@ -1,5 +1,6 @@
 package com.thatvineyard.snapswriter.session;
 
+import com.sun.istack.NotNull;
 import com.thatvineyard.snapswriter.files.FileImporter;
 import com.thatvineyard.snapswriter.files.FileMapper;
 import com.thatvineyard.snapswriter.fitness.AnalyzedPassage;
@@ -11,6 +12,8 @@ import com.thatvineyard.snapswriter.metre.MetreCalculator;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ejb.Stateless;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.QueryParam;
 
 /**
  * ClientSessionBean
@@ -18,6 +21,11 @@ import javax.ejb.Stateless;
 @Path("/")
 @Stateless
 public class ClientSessionBean {
+
+    FileMapper fileMapper;
+    Formatter formatter;
+    MetreCalculator metreCalculator;
+    FitnessCalculator fitnessCalculator;
 
 
     private FileMapper createFilemapper() {
@@ -34,16 +42,29 @@ public class ClientSessionBean {
         return calculator;
     }
 
+    @Path("")
+    @GET
+    public String writeSnapsSongWithSongIdAndTextId(@QueryParam("song-id") String songId, @QueryParam("text-id") String textId) {
+        setUp();
+
+        AnalyzedPassage songPassage = matchSongIdWithTextId(songId, textId);
+
+        return formatter.passageToString(songPassage);
+    }
+
     @Path("/example")
     @GET
-    public String simpleRestFunction() {
-        FileMapper fileMapper = createFilemapper();
-        Formatter formatter = createFormatter();
-        MetreCalculator metreCalculator = createCalculator();
-        FitnessCalculator fitnessCalculator = new FitnessCalculator();
+    public String writeExampleSnapsSong() {
+        setUp();
 
-        String song = FileImporter.getFileText(fileMapper.getFilepath("all-star"));
-        String text = FileImporter.getFileText(fileMapper.getFilepath("communism"));
+        AnalyzedPassage songPassage = matchSongIdWithTextId("all-star", "communism");
+
+        return formatter.passageToString(songPassage);
+    }
+
+    public AnalyzedPassage matchSongIdWithTextId(String songId, String textId) {
+        String song = FileImporter.getFileText(fileMapper.getFilepath(songId));
+        String text = FileImporter.getFileText(fileMapper.getFilepath(textId));
 
         Passage songPassage = formatter.stringToPassage(song);
         Passage textPassage = formatter.stringToPassage(text);
@@ -53,14 +74,13 @@ public class ClientSessionBean {
 
         AnalyzedPassage newSongTextPassage = fitnessCalculator.matchTextWithSong(analyzedTextPassage, analyzedSongPassage);
 
-        String result = fitnessCalculator.getScore() + "";
-        result +="\n";
-        result += formatter.passageToString(newSongTextPassage);
-
-        result += "\n";
-        result += formatter.passageToString(analyzedSongPassage);
-
-        return result;
+        return newSongTextPassage;
     }
 
+    public void setUp() {
+        fileMapper = createFilemapper();
+        formatter = createFormatter();
+        metreCalculator = createCalculator();
+        fitnessCalculator = new FitnessCalculator();
+    }
 }
