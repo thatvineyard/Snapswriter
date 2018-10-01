@@ -1,11 +1,11 @@
 package com.thatvineyard.snapswriter.fitness;
 
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
-import com.thatvineyard.snapswriter.format.Phrase;
-
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.function.Predicate;
+
+import static com.thatvineyard.snapswriter.fitness.Candidate.getPlaceholderCandidate;
+import static java.lang.Math.max;
 
 /**
  * FitnessCalculator
@@ -46,18 +46,22 @@ public class FitnessCalculator {
 
         AnalyzedPhrase songPhrase = song.getPhraseAfterSyllable(syllableCount);
 
+        System.out.println("Syllable: " + syllableCount + ". Depth: " + depth + ". Looking for amount of syllables: " + songPhrase.getSyllables() + ".");
+
         Collection<Candidate> candidates = generateListOfCandidates(songPhrase, text);
         Collection<Candidate> filteredCandidates = filterUnfittingCandidatesUnlessAllAreUnfitting(candidates);
 
         // TODO: Handle cases where no candidates was found. Possibly increase/decrease
         // the syllable count?
         if (filteredCandidates.size() == 0) {
-            return new Candidate();
+            return getPlaceholderCandidate(songPhrase.getSyllables());
         }
 
         if (filteredCandidates.size() == 1) {
             return filteredCandidates.iterator().next();
         }
+
+        Collection<Candidate> bestCandidates = filterBestCandidates(filteredCandidates, 5);
 
         if (depth < SEARCH_DEPTH && syllableCount + songPhrase.getSyllables() < song.getSyllables()) {
             Candidate newCandidate;
@@ -117,6 +121,27 @@ public class FitnessCalculator {
 
         if (filteredCandidates.size() == 0) {
             return candidates;
+        }
+
+        return filteredCandidates;
+    }
+
+
+    private Collection<Candidate> filterBestCandidates(Collection<Candidate> candidates, int numberOfCandidates) {
+        if(candidates.size() <= numberOfCandidates) {
+            return candidates;
+        }
+        Collection<Candidate> filteredCandidates = new LinkedList<>(candidates);
+
+        Candidate worstCandidate;
+        while(filteredCandidates.size() > numberOfCandidates) {
+            worstCandidate = null;
+            for (Candidate candidate : filteredCandidates) {
+                if(!candidate.isBetterThan(worstCandidate) || worstCandidate == null) {
+                    worstCandidate = candidate;
+                }
+            }
+            filteredCandidates.remove(worstCandidate);
         }
 
         return filteredCandidates;
