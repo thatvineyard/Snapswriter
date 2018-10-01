@@ -52,6 +52,16 @@ public class ClientSessionBean {
         return formatter.passageToString(songPassage);
     }
 
+    @Path("")
+    @GET
+    public String getText(@QueryParam("text-id") String textId) {
+        setUp();
+
+        AnalyzedPassage analyzedSongPassage = getAnalyzedPassage(textId);
+
+        return formatter.passageToString(analyzedSongPassage);
+    }
+
     @Path("/example")
     @GET
     public String writeExampleSnapsSong() {
@@ -62,19 +72,21 @@ public class ClientSessionBean {
         return formatter.passageToString(songPassage);
     }
 
-    public AnalyzedPassage matchSongIdWithTextId(String songId, String textId) {
-        String song = FileImporter.getFileText(fileMapper.getFilepath(songId));
-        String text = FileImporter.getFileText(fileMapper.getFilepath(textId));
-
-        Passage songPassage = formatter.stringToPassage(song);
-        Passage textPassage = formatter.stringToPassage(text);
-
-        AnalyzedPassage analyzedSongPassage = new AnalyzedPassage(songPassage, metreCalculator);
-        AnalyzedPassage analyzedTextPassage = new AnalyzedPassage(textPassage, metreCalculator);
+    private AnalyzedPassage matchSongIdWithTextId(String songId, String textId) {
+        AnalyzedPassage analyzedSongPassage = getAnalyzedPassage(songId);
+        AnalyzedPassage analyzedTextPassage = getAnalyzedPassage(textId);
 
         AnalyzedPassage newSongTextPassage = fitnessCalculator.matchTextWithSong(analyzedTextPassage, analyzedSongPassage);
 
         return newSongTextPassage;
+    }
+
+    private AnalyzedPassage getAnalyzedPassage(String fileId) {
+        String song = FileImporter.getFileText(fileMapper.getFilepath(fileId));
+
+        Passage songPassage = formatter.stringToPassage(song);
+
+        return new AnalyzedPassage(songPassage, metreCalculator);
     }
 
     public void setUp() {
