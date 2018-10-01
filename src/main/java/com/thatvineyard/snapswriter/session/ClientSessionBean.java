@@ -1,19 +1,19 @@
 package com.thatvineyard.snapswriter.session;
 
-import com.sun.istack.NotNull;
-import com.thatvineyard.snapswriter.files.FileImporter;
 import com.thatvineyard.snapswriter.files.FileMapper;
 import com.thatvineyard.snapswriter.fitness.AnalyzedPassage;
 import com.thatvineyard.snapswriter.fitness.FitnessCalculator;
 import com.thatvineyard.snapswriter.format.Formatter;
-import com.thatvineyard.snapswriter.format.Passage;
 import com.thatvineyard.snapswriter.metre.MetreCalculator;
+import org.apache.log4j.Logger;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ejb.Stateless;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
+
+import static com.thatvineyard.snapswriter.writer.LyricFetcher.getAnalyzedPassage;
+import static com.thatvineyard.snapswriter.writer.SongMatcher.matchSongAndTextPassage;
 
 /**
  * ClientSessionBean
@@ -22,32 +22,17 @@ import javax.ws.rs.QueryParam;
 @Stateless
 public class ClientSessionBean {
 
-    FileMapper fileMapper;
+    private Logger LOG = Logger.getLogger(this.getClass());
+
     Formatter formatter;
-    MetreCalculator metreCalculator;
-    FitnessCalculator fitnessCalculator;
-
-
-    private FileMapper createFilemapper() {
-        return new FileMapper();
-    }
-
-    private Formatter createFormatter() {
-        return new Formatter();
-    }
-
-    private MetreCalculator createCalculator() {
-        MetreCalculator calculator = new MetreCalculator();
-        calculator.useTextgain(false);
-        return calculator;
-    }
 
     @Path("write-song")
     @GET
     public String writeSnapsSongWithSongIdAndTextId(@QueryParam("song-id") String songId, @QueryParam("text-id") String textId) {
+        LOG.info("Writing snapssong with songId: " + songId + " and textID: " + textId + ".");
         setUp();
 
-        AnalyzedPassage songPassage = matchSongIdWithTextId(songId, textId);
+        AnalyzedPassage songPassage = writeSong(songId, textId);
 
         return formatter.passageToString(songPassage);
     }
@@ -55,6 +40,7 @@ public class ClientSessionBean {
     @Path("get-text")
     @GET
     public String getText(@QueryParam("text-id") String textId) {
+        LOG.info("Getting text from textID: " + textId + ".");
         setUp();
 
         AnalyzedPassage analyzedSongPassage = getAnalyzedPassage(textId);
@@ -65,34 +51,22 @@ public class ClientSessionBean {
     @Path("/example")
     @GET
     public String writeExampleSnapsSong() {
+        LOG.info("Writing example snapssong.");
         setUp();
 
-        AnalyzedPassage songPassage = matchSongIdWithTextId("all-star", "communism");
+        AnalyzedPassage songPassage = writeSong("all-star", "communism");
 
         return formatter.passageToString(songPassage);
     }
 
-    private AnalyzedPassage matchSongIdWithTextId(String songId, String textId) {
+    private AnalyzedPassage writeSong(String songId, String textId) {
         AnalyzedPassage analyzedSongPassage = getAnalyzedPassage(songId);
         AnalyzedPassage analyzedTextPassage = getAnalyzedPassage(textId);
 
-        AnalyzedPassage newSongTextPassage = fitnessCalculator.matchTextWithSong(analyzedTextPassage, analyzedSongPassage);
-
-        return newSongTextPassage;
-    }
-
-    private AnalyzedPassage getAnalyzedPassage(String fileId) {
-        String song = FileImporter.getFileText(fileMapper.getFilepath(fileId));
-
-        Passage songPassage = formatter.stringToPassage(song);
-
-        return new AnalyzedPassage(songPassage, metreCalculator);
+        return matchSongAndTextPassage(analyzedSongPassage, analyzedTextPassage);
     }
 
     public void setUp() {
-        fileMapper = createFilemapper();
-        formatter = createFormatter();
-        metreCalculator = createCalculator();
-        fitnessCalculator = new FitnessCalculator();
+        formatter = new Formatter();
     }
 }

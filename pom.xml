@@ -104,6 +104,11 @@
             <artifactId>resteasy-jaxb-provider</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>apache-log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.15</version>
+        </dependency>
 
     </dependencies>
 
