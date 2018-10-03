@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.function.Predicate;
 
 import com.thatvineyard.snapswriter.fitness.AnalyzedPhrase;
+import com.thatvineyard.snapswriter.writer.Song;
 
 /**
  * Formatter
@@ -85,6 +86,19 @@ public class Formatter {
         words = removeEmptyStrings(words);
 
         return new Phrase(Arrays.asList(words));
+    }
+
+    // SONG
+
+    public String songToString(Song song) {
+        String result = "Score: " + song.getScore() + "\n";
+        result += "SongId: " + song.getSongId() + "\n";
+        result += "TextId: " + song.getTextId() + "\n";
+        result += "Lyrics: " + "\n";
+        result += "=============" + "\n";
+        result += passageToString(song.getLyrics()) + "\n";
+        result += "=============";
+        return result;
     }
 
     // FORMATTING

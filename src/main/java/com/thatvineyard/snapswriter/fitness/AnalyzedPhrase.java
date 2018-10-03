@@ -55,6 +55,9 @@ public class AnalyzedPhrase extends Phrase {
         return super.toString() + " [" + metre.toString() + "]";
     }
 
+    public Metre getMetre() {
+        return metre;
+    }
 
     public boolean equals(AnalyzedPhrase other) {
         return super.equals(other) && metre.equals(other.metre);

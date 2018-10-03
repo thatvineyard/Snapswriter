@@ -1,5 +1,6 @@
 package com.thatvineyard.snapswriter.fitness;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.thatvineyard.snapswriter.format.Passage;
 import com.thatvineyard.snapswriter.format.PassageInterface;
 import com.thatvineyard.snapswriter.format.Phrase;
@@ -36,6 +37,7 @@ public class AnalyzedPassage implements PassageInterface<AnalyzedPhrase> {
         phrases.addAll(other.getPhrases());
     }
 
+    @JsonIgnore
     public Iterator<AnalyzedPhrase> getPhrasesIterator() {
         return phrases.iterator();
     }
