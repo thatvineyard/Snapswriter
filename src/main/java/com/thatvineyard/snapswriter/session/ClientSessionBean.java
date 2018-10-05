@@ -90,16 +90,16 @@ public class ClientSessionBean {
         return formatter.passageToString(analyzedPassage);
     }
 
-
     @Path("/example")
     @GET
-    public String writeExampleSnapsSong() {
+    @Produces("application/json")
+    public Snapssong writeExampleSnapsSong() {
         log.info("Writing example snapssong.");
         setUp();
 
         Snapssong snapssong = writeSong("all-star", "communism");
 
-        return formatter.songToString(snapssong);
+        return snapssong;
     }
 
     private Snapssong writeSong(String songId, String textId) {

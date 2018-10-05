@@ -1,5 +1,9 @@
 package com.thatvineyard.snapswriter.format;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonValue;
+
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -9,44 +13,52 @@ import java.util.LinkedList;
  */
 public class Line implements LineInterface<Word> {
 
-    private Collection<Word> content;
+    private Collection<Word> words;
 
     // CONSTRUCTORS
 
     public Line() {
-        this.content = new LinkedList<>();
+        this.words = new LinkedList<>();
     }
 
-    public Line(Collection<Word> content) {
-        this.content = content;
+    public Line(Collection<Word> words) {
+        this.words = words;
     }
 
     public Line(Line line) {
-        this.content = line.content;
+        this.words = line.words;
+    }
+
+    public Line(LineInterface<WordInterface> other) {
+        this();
+        for (WordInterface word : other.getWords()) {
+            words.add(new Word(word));
+        }
     }
 
     // ACCESSORS
 
     public Collection<Word> getWords() {
-        return content;
+        return words;
     }
 
+    @JsonIgnore
     public Iterator<Word> getWordIterator() {
-        return content.iterator();
+        return words.iterator();
     }
 
     // MUTATORS
 
     public void add(Word word) {
-        content.add(word);
+        words.add(word);
     }
 
     public void add(String word) {
-        content.add(new Word(word));
+        words.add(new Word(word));
     }
 
     public void append(LineInterface<Word> other) {
-        content.addAll(other.getWords());
+        words.addAll(other.getWords());
     }
 
     // FORMATTERS
@@ -54,15 +66,15 @@ public class Line implements LineInterface<Word> {
     public String toString() {
         StringBuilder result = new StringBuilder();
 
-        if (content == null) {
+        if (words == null) {
             return result.toString();
         }
 
-        Iterator<Word> contentIterator = content.iterator();
+        Iterator<Word> contentIterator = words.iterator();
 
-        for (int i = 0; i < content.size(); i++) {
+        for (int i = 0; i < words.size(); i++) {
             result.append(contentIterator.next().toString());
-            if (i != content.size() - 1) {
+            if (i != words.size() - 1) {
                 result.append(" ");
             }
         }
@@ -73,6 +85,19 @@ public class Line implements LineInterface<Word> {
     // COMPARATORS
 
     public boolean equals(Line other) {
-        return content.equals(other.content);
+        return words.equals(other.words);
+    }
+
+
+    // SERIALIZER
+
+    @JsonValue
+    public String serializer() {
+        return toString();
+    }
+
+    @JsonCreator
+    public Line deserializer(String words) {
+        return Formatter.stringToLine(words);
     }
 }

@@ -49,7 +49,7 @@ public class Formatter {
 
         String[] phraseStrings = splitStringAndRemoveEmpty(text, PHRASE_DELIMITER_REGEX);
         for (String phraseString : phraseStrings) {
-            result.add(stringToPhrase(phraseString));
+            result.add(stringToLine(phraseString));
         }
 
         return result;
@@ -80,7 +80,7 @@ public class Formatter {
         return result;
     }
 
-    private static Line stringToPhrase(String text) {
+    public static Line stringToLine(String text) {
         String[] words = text.split(WORD_DELIMITER_REGEX);
         words = removeEmptyStrings(words);
 
@@ -99,7 +99,7 @@ public class Formatter {
         result += "TextId: " + snapssong.getTopicSongId() + "\n";
         result += "Lyrics: " + "\n";
         result += "=============" + "\n";
-        result += passageToString(snapssong.getLyrics()) + "\n";
+        result += passageToString(snapssong.getLyrics().getPassage()) + "\n";
         result += "=============";
         return result;
     }
@@ -125,7 +125,7 @@ public class Formatter {
         return firstChar + text.substring(1);
     }
 
-    // TODO: DRY (stringToPhrase)
+    // TODO: DRY (stringToLine)
     private static String[] splitStringAndRemoveEmpty(String text, String delimiter) {
         String[] strings = text.split(delimiter);
         strings = removeEmptyStrings(strings);

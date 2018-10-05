@@ -1,5 +1,7 @@
 package com.thatvineyard.snapswriter.format;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -16,8 +18,11 @@ public class Passage implements PassageInterface<Line> {
         lines = new LinkedList<>();
     }
 
-    public Passage(Passage other) {
-        lines = new LinkedList<>(other.getLines());
+    public Passage(PassageInterface<? extends LineInterface> other) {
+        this();
+        for (LineInterface line : other.getLines()) {
+            lines.add(new Line(line));
+        }
     }
 
     public void add(Line line) {
@@ -28,6 +33,7 @@ public class Passage implements PassageInterface<Line> {
         lines.addAll(other.getLines());
     }
 
+    @JsonIgnore
     public Iterator<Line> getLineIterator() {
         return lines.iterator();
     }

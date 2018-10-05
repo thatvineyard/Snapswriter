@@ -1,5 +1,8 @@
 package com.thatvineyard.snapswriter.fitness;
 
+import com.thatvineyard.snapswriter.format.Passage;
+import com.thatvineyard.snapswriter.format.Song;
+
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.function.Predicate;
@@ -20,7 +23,7 @@ public class FitnessCalculator {
         this.masterCandidate = new Candidate();
     }
 
-    public AnalyzedPassage matchTopicWithMelody(AnalyzedPassage text, AnalyzedPassage song) {
+    public Song matchTopicWithMelody(AnalyzedPassage text, AnalyzedPassage song) {
         Candidate bestCandidate;
 
         while (masterCandidate.getSyllables() < song.getSyllables()) {
@@ -28,7 +31,7 @@ public class FitnessCalculator {
             masterCandidate.append(bestCandidate);
         }
 
-        return masterCandidate.getPassage();
+        return new Song("No-Title", new Passage(masterCandidate.getPassage()));
     }
 
     public int getScore() {

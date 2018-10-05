@@ -1,7 +1,9 @@
 package com.thatvineyard.snapswriter.writer;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.thatvineyard.snapswriter.fitness.AnalyzedPassage;
 import com.thatvineyard.snapswriter.fitness.FitnessCalculator;
+import com.thatvineyard.snapswriter.format.Song;
 
 import javax.ejb.EJB;
 import javax.inject.Inject;
@@ -15,7 +17,7 @@ public class Snapssong {
 
     private int score;
 
-    private AnalyzedPassage lyrics;
+    private Song lyrics;
 
     public Snapssong(LyricFetcher lyricFetcher, String melodySongId, String topicSongId) {
         this.lyricFetcher = lyricFetcher;
@@ -29,10 +31,12 @@ public class Snapssong {
         return snapssong;
     }
 
+    @JsonIgnore
     public AnalyzedPassage getMelody() {
         return lyricFetcher.getAnalyzedPassage(melodySongId);
     }
 
+    @JsonIgnore
     public AnalyzedPassage getTopic() {
         return lyricFetcher.getAnalyzedPassage(topicSongId);
     }
@@ -43,7 +47,7 @@ public class Snapssong {
         this.score = fitnessCalculator.getScore();
     }
 
-    public AnalyzedPassage getLyrics() {
+    public Song getLyrics() {
         return lyrics;
     }
 
@@ -59,7 +63,7 @@ public class Snapssong {
         return topicSongId;
     }
 
-    public void setLyrics(AnalyzedPassage lyrics) {
+    public void setLyrics(Song lyrics) {
         this.lyrics = lyrics;
     }
 
