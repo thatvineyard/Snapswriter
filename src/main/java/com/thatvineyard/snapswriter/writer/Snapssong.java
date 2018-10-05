@@ -2,30 +2,48 @@ package com.thatvineyard.snapswriter.writer;
 
 import com.thatvineyard.snapswriter.fitness.AnalyzedPassage;
 import com.thatvineyard.snapswriter.fitness.FitnessCalculator;
-import com.thatvineyard.snapswriter.metre.MetreCalculator;
 
-import java.util.Collection;
+import javax.ejb.EJB;
+import javax.inject.Inject;
 
 public class Snapssong {
 
-    private String songId;
-    private String textId;
+    LyricFetcher lyricFetcher;
+
+    private String melodySongId;
+    private String topicSongId;
 
     private int score;
 
     private AnalyzedPassage lyrics;
 
-    public Snapssong(String songId, String textId) {
+    public Snapssong(LyricFetcher lyricFetcher, String melodySongId, String topicSongId) {
+        this.lyricFetcher = lyricFetcher;
+        this.melodySongId = melodySongId;
+        this.topicSongId = topicSongId;
+        System.out.println(lyricFetcher);
+    }
+
+    public static Snapssong writeSnapssong(LyricFetcher lyricFetcher, String melodySongId, String topicSongId) {
+        Snapssong snapssong = new Snapssong(lyricFetcher, melodySongId, topicSongId);
+        System.out.println("----" + snapssong.lyricFetcher);
+        snapssong.writeSong();
+        return snapssong;
+    }
+
+    public AnalyzedPassage getMelody() {
+        System.out.println(lyricFetcher);
+        return lyricFetcher.getAnalyzedPassage(melodySongId);
+    }
+
+    public AnalyzedPassage getTopic() {
+        System.out.println(lyricFetcher);
+        return lyricFetcher.getAnalyzedPassage(topicSongId);
+    }
+
+    public void writeSong() {
         FitnessCalculator fitnessCalculator = new FitnessCalculator();
-
-        this.songId = songId;
-        this.textId = textId;
-
-        AnalyzedPassage songPassage = LyricFetcher.getAnalyzedPassage(songId);
-        AnalyzedPassage textPassage = LyricFetcher.getAnalyzedPassage(textId);
-
-        this.lyrics = fitnessCalculator.matchTextWithSong(textPassage, songPassage);
-
+        this.lyrics = fitnessCalculator.matchTopicWithMelody(getTopic(), getMelody());
         this.score = fitnessCalculator.getScore();
     }
 
@@ -37,12 +55,12 @@ public class Snapssong {
         return score;
     }
 
-    public String getSongId() {
-        return songId;
+    public String getMelodySongId() {
+        return melodySongId;
     }
 
-    public String getTextId() {
-        return textId;
+    public String getTopicSongId() {
+        return topicSongId;
     }
 
     public void setLyrics(AnalyzedPassage lyrics) {
@@ -53,11 +71,11 @@ public class Snapssong {
         this.score = score;
     }
 
-    public void setSongId(String songId) {
-        this.songId = songId;
+    public void setMelodySongId(String melodySongId) {
+        this.melodySongId = melodySongId;
     }
 
-    public void setTextId(String textId) {
-        this.textId = textId;
+    public void setTopicSongId(String topicSongId) {
+        this.topicSongId = topicSongId;
     }
 }

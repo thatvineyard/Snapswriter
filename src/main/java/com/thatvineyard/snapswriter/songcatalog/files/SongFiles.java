@@ -13,13 +13,13 @@ public class SongFiles {
         songFileMapper = new FileMapper();
     }
 
-    public static Song getSongFromFileWithSongId(String songId) {
-        String songString = getStringFromFileWithSongId(songId);
+    public static Song getSongById(String songId) {
+        String songString = getFileContentsById(songId);
 
         return Formatter.stringToPassage(songString);
     }
 
-    public static String getStringFromFileWithSongId(String songId) {
+    public static String getFileContentsById(String songId) {
         String filepath = songFileMapper.getFilepath(songId);
 
         return FileImporter.getFileText(filepath);

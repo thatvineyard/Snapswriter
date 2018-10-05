@@ -91,8 +91,8 @@ public class Formatter {
 
     public String songToString(Snapssong snapssong) {
         String result = "Score: " + snapssong.getScore() + "\n";
-        result += "SongId: " + snapssong.getSongId() + "\n";
-        result += "TextId: " + snapssong.getTextId() + "\n";
+        result += "SongId: " + snapssong.getMelodySongId() + "\n";
+        result += "TextId: " + snapssong.getTopicSongId() + "\n";
         result += "Lyrics: " + "\n";
         result += "=============" + "\n";
         result += passageToString(snapssong.getLyrics()) + "\n";

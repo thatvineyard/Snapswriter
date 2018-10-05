@@ -23,7 +23,7 @@ public class App {
 //        Song songPassage = formatter.stringToPassage(song);
 //        Song textPassage = formatter.stringToPassage(text);
 //
-//        Song newSongTextPassage = calculator.matchTextWithSong(textPassage, songPassage);
+//        Song newSongTextPassage = calculator.matchTopicWithMelody(textPassage, songPassage);
 //
 //        System.out.println(calculator.getScore());
 //        System.out.println(newSongTextPassage.toStringWithMetre());

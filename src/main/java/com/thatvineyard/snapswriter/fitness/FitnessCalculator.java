@@ -20,7 +20,7 @@ public class FitnessCalculator {
         this.masterCandidate = new Candidate();
     }
 
-    public AnalyzedPassage matchTextWithSong(AnalyzedPassage text, AnalyzedPassage song) {
+    public AnalyzedPassage matchTopicWithMelody(AnalyzedPassage text, AnalyzedPassage song) {
         Candidate bestCandidate;
 
         while (masterCandidate.getSyllables() < song.getSyllables()) {

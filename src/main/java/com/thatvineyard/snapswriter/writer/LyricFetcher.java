@@ -5,9 +5,21 @@ import com.thatvineyard.snapswriter.format.Song;
 import com.thatvineyard.snapswriter.metre.MetreCalculator;
 import com.thatvineyard.snapswriter.songcatalog.files.SongCatalog;
 
+import javax.annotation.PostConstruct;
+import javax.ejb.Local;
+import javax.ejb.Stateless;
+import javax.inject.Inject;
+
+@Stateless
 public class LyricFetcher {
 
-    public static AnalyzedPassage getAnalyzedPassage(String songId) {
+    @Inject
+    SongCatalog songCatalog;
+
+    public LyricFetcher() {
+    }
+
+    public AnalyzedPassage getAnalyzedPassage(String songId) {
         MetreCalculator metreCalculator = createCalculator();
 
         Song song = getSong(songId);
@@ -15,8 +27,8 @@ public class LyricFetcher {
         return new AnalyzedPassage(song, metreCalculator);
     }
 
-    public static Song getSong(String songId) {
-        return SongCatalog.getSong(songId);
+    public Song getSong(String songId) {
+        return songCatalog.getSong(songId);
     }
 
     private static MetreCalculator createCalculator() {
