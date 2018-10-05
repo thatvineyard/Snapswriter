@@ -7,6 +7,7 @@ import com.thatvineyard.snapswriter.format.*;
 import com.thatvineyard.snapswriter.metre.LineMetre;
 import com.thatvineyard.snapswriter.metre.StressSequence;
 import com.thatvineyard.snapswriter.metre.WordMetre;
+import org.apache.log4j.Logger;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -15,6 +16,8 @@ import java.util.LinkedList;
  * MetreCalculator
  */
 public class MetreCalculator {
+
+    private Logger log = Logger.getLogger(this.getClass());
 
     CmuDatabase database;
 
@@ -52,6 +55,7 @@ public class MetreCalculator {
     // ANALYZER
 
     public AnalyzedWord analyzeWord(WordInterface word) {
+
         return new AnalyzedWord(word, calculateMetreFromWord(word));
     }
 
@@ -66,6 +70,8 @@ public class MetreCalculator {
     }
 
     public AnalyzedPassage analyzePassage(PassageInterface<? extends LineInterface> passage) {
+        log.info("Analyzing passage: " + passage.toString().substring(0, 10) + "...");
+
         Collection<? extends LineInterface> lines = passage.getLines();
         Collection<AnalyzedLine> analyzedLines = new LinkedList<>();
         for (LineInterface line :

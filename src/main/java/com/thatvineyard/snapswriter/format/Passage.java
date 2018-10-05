@@ -71,5 +71,12 @@ public class Passage implements PassageInterface<Line> {
         return lines;
     }
 
-
+    public String toString() {
+        String result = "";
+        for (Line line :
+                lines) {
+            result += line.toString() + "\n";
+        }
+        return result;
+    }
 }

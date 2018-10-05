@@ -1,5 +1,9 @@
 package com.thatvineyard.snapswriter.fitness;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.thatvineyard.snapswriter.format.Formatter;
 import com.thatvineyard.snapswriter.format.Line;
 import com.thatvineyard.snapswriter.format.LineInterface;
 import com.thatvineyard.snapswriter.format.WordInterface;
@@ -58,5 +62,22 @@ public class AnalyzedLine implements LineInterface<AnalyzedWord> {
 
     public boolean equals(AnalyzedLine other) {
         return super.equals(other) && metre.equals(other.metre);
+    }
+
+    // SERIALIZER
+
+    @JsonProperty("content")
+    public String wordSerializer() {
+        return toString();
+    }
+
+    @JsonProperty("metre")
+    public String metreSereializer() {
+        return metre.toString();
+    }
+
+    @JsonCreator
+    public Line deserializer(String words) {
+        return Formatter.stringToLine(words);
     }
 }

@@ -2,6 +2,7 @@ package com.thatvineyard.snapswriter.fitness;
 
 import com.thatvineyard.snapswriter.format.Passage;
 import com.thatvineyard.snapswriter.format.Song;
+import org.apache.log4j.Logger;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -15,6 +16,8 @@ import static java.lang.Math.max;
  */
 public class FitnessCalculator {
 
+    private Logger log = Logger.getLogger(this.getClass());
+
     private Candidate masterCandidate;
 
     private static final int SEARCH_DEPTH = 1;
@@ -26,10 +29,12 @@ public class FitnessCalculator {
     public Song matchTopicWithMelody(AnalyzedPassage text, AnalyzedPassage song) {
         Candidate bestCandidate;
 
+        log.info("Matching topic with melody... (" + song.getSyllables() + " syllables)");
         while (masterCandidate.getSyllables() < song.getSyllables()) {
             bestCandidate = getBestCandidateForNextSongPhrase(text, song, null, 0);
             masterCandidate.append(bestCandidate);
         }
+        log.info("Done! (" + song.getSyllables() + " syllables)");
 
         return new Song("No-Title", new Passage(masterCandidate.getPassage()));
     }
@@ -131,16 +136,16 @@ public class FitnessCalculator {
 
 
     private Collection<Candidate> filterBestCandidates(Collection<Candidate> candidates, int numberOfCandidates) {
-        if(candidates.size() <= numberOfCandidates) {
+        if (candidates.size() <= numberOfCandidates) {
             return candidates;
         }
         Collection<Candidate> filteredCandidates = new LinkedList<>(candidates);
 
         Candidate worstCandidate;
-        while(filteredCandidates.size() > numberOfCandidates) {
+        while (filteredCandidates.size() > numberOfCandidates) {
             worstCandidate = null;
             for (Candidate candidate : filteredCandidates) {
-                if(!candidate.isBetterThan(worstCandidate) || worstCandidate == null) {
+                if (!candidate.isBetterThan(worstCandidate) || worstCandidate == null) {
                     worstCandidate = candidate;
                 }
             }

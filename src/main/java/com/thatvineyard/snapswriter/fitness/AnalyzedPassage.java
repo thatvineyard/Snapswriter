@@ -30,6 +30,7 @@ public class AnalyzedPassage implements PassageInterface<AnalyzedLine> {
     lines.addAll(other.getLines());
     }
 
+    @JsonIgnore
     public Iterator<AnalyzedLine> getLineIterator() {
         return lines.iterator();
     }
