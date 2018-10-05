@@ -1,8 +1,11 @@
 package com.thatvineyard.snapswriter.metre;
 
+import com.thatvineyard.snapswriter.utils.filehandler.FileImporter;
+import org.apache.log4j.Logger;
+import org.omg.SendingContext.RunTime;
+
 import java.io.*;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import static com.thatvineyard.snapswriter.utils.filehandler.FileImporter.getResourceAsBufferedReader;
 
@@ -11,7 +14,7 @@ import static com.thatvineyard.snapswriter.utils.filehandler.FileImporter.getRes
  */
 public class CmuReader {
 
-    private final static Logger LOGGER = Logger.getLogger(CmuReader.class.getName());
+    private static org.apache.log4j.Logger log = Logger.getLogger(CmuReader.class);
 
     private static File dictionaryFile;
 
@@ -27,33 +30,26 @@ public class CmuReader {
 
     // TODO: Refactor this into a general solution
     public static CmuDatabase loadDictionaryFromFile(String filepath) {
-        BufferedReader bufferedReader = getResourceAsBufferedReader(filepath);
-        if(bufferedReader == null) {
-            LOGGER.log(Level.SEVERE, "Dictionary file (" + filepath + ") not found.");
+        try {
+            BufferedReader bufferedReader = getResourceAsBufferedReader(filepath);
+            CmuDatabase database = readLinesIntoDatabase(bufferedReader, new CmuDatabase());
+            return database;
+        } catch (IOException e) {
+            log.fatal(e.getMessage());
+            throw new RuntimeException(e.getMessage());
         }
-
-        CmuDatabase database = readLinesIntoDatabase(bufferedReader, new CmuDatabase());
-
-        return database;
     }
 
     // UTILITIES
 
-    private static CmuDatabase readLinesIntoDatabase(BufferedReader bufferedReader, CmuDatabase database) {
+    private static CmuDatabase readLinesIntoDatabase(BufferedReader bufferedReader, CmuDatabase database) throws IOException {
         String line;
 
-        try {
-            if (bufferedReader != null) {
-                while ((line = bufferedReader.readLine()) != null) {
-                    if (isValidEntry(line)) {
-                        CmuEntry entry = toCmuEntry(line);
-
-                        database.insertEntry(entry);
-                    }
-                }
+        while ((line = bufferedReader.readLine()) != null) {
+            if (isValidEntry(line)) {
+                CmuEntry entry = toCmuEntry(line);
+                database.insertEntry(entry);
             }
-        } catch (IOException e) {
-            throw new RuntimeException(e.getMessage());
         }
         return database;
     }
