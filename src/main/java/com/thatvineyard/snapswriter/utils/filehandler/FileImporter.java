@@ -8,7 +8,7 @@ import java.util.logging.Logger;
  */
 public class FileImporter {
 
-    private final static Logger LOGGER = Logger.getLogger(FileImporter.class.getName());
+    private final static Logger log = Logger.getLogger(FileImporter.class.getName());
 
     public static BufferedReader getResourceAsBufferedReader(String filepath) {
         InputStream inputStream = FileImporter.class.getClassLoader().getResourceAsStream(filepath);
@@ -20,7 +20,7 @@ public class FileImporter {
         return new BufferedReader(new InputStreamReader(inputStream));
     }
 
-    public static String getFileText(String filepath) {
+    public static String readFile(String filepath) {
         try {
             BufferedReader bufferedReader = getResourceAsBufferedReader(filepath);
             String line;

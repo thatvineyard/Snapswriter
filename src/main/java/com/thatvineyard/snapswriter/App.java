@@ -17,8 +17,8 @@ public class App {
 //        Formatter formatter = createFormatter();
 //        FitnessCalculator calculator = new FitnessCalculator();
 //
-//        String song = FileImporter.getFileText(allStarPath);
-//        String text = FileImporter.getFileText(communismPath);
+//        String song = FileImporter.readFile(allStarPath);
+//        String text = FileImporter.readFile(communismPath);
 //
 //        Song songPassage = formatter.stringToPassage(song);
 //        Song textPassage = formatter.stringToPassage(text);

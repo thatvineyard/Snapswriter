@@ -27,14 +27,14 @@ public class ClientSessionBean {
     @Inject
     LyricFetcher lyricFetcher;
 
-    private Logger LOG = Logger.getLogger(this.getClass());
+    private Logger log = Logger.getLogger(this.getClass());
 
     Formatter formatter;
 
     @Path("write-song")
     @GET
     public String writeSnapsSongWithSongIdAndTextId(@QueryParam("song-id") String songId, @QueryParam("text-id") String textId) {
-        LOG.info("Writing snapssong with songId: " + songId + " and textID: " + textId + ".");
+        log.info("Writing snapssong with songId: " + songId + " and textID: " + textId + ".");
         setUp();
 
         Snapssong snapssong = writeSong(songId, textId);
@@ -46,7 +46,7 @@ public class ClientSessionBean {
     @GET
     @Produces("application/json")
     public Song getText(@QueryParam("text-id") String textId) {
-        LOG.info("Getting text from textID: " + textId + ".");
+        log.info("Getting text from textID: " + textId + ".");
         setUp();
 
         Song song = songCatalog.getSong(textId);
@@ -57,7 +57,7 @@ public class ClientSessionBean {
     @Path("get-text/as-string")
     @GET
     public String getTextAsString(@QueryParam("text-id") String textId) {
-        LOG.info("Getting text from textID: " + textId + ".");
+        log.info("Getting text from textID: " + textId + ".");
         setUp();
 
         Song song = songCatalog.getSong(textId);
@@ -70,7 +70,7 @@ public class ClientSessionBean {
     @GET
     @Produces("application/json")
     public AnalyzedPassage getAnalyzedText(@QueryParam("text-id") String textId) {
-        LOG.info("Getting text from textID: " + textId + ".");
+        log.info("Getting text from textID: " + textId + ".");
         setUp();
 
         AnalyzedPassage analyzedPassage = lyricFetcher.getAnalyzedPassage(textId);
@@ -81,7 +81,7 @@ public class ClientSessionBean {
     @Path("get-analyzed-text/as-string")
     @GET
     public String getAnalyzedTextAsString(@QueryParam("text-id") String textId) {
-        LOG.info("Getting text from textID: " + textId + ".");
+        log.info("Getting text from textID: " + textId + ".");
         setUp();
 
         AnalyzedPassage analyzedPassage = lyricFetcher.getAnalyzedPassage(textId);
@@ -93,7 +93,7 @@ public class ClientSessionBean {
     @Path("/example")
     @GET
     public String writeExampleSnapsSong() {
-        LOG.info("Writing example snapssong.");
+        log.info("Writing example snapssong.");
         setUp();
 
         Snapssong snapssong = writeSong("all-star", "communism");

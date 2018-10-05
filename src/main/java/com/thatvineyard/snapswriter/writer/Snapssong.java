@@ -21,23 +21,19 @@ public class Snapssong {
         this.lyricFetcher = lyricFetcher;
         this.melodySongId = melodySongId;
         this.topicSongId = topicSongId;
-        System.out.println(lyricFetcher);
     }
 
     public static Snapssong writeSnapssong(LyricFetcher lyricFetcher, String melodySongId, String topicSongId) {
         Snapssong snapssong = new Snapssong(lyricFetcher, melodySongId, topicSongId);
-        System.out.println("----" + snapssong.lyricFetcher);
         snapssong.writeSong();
         return snapssong;
     }
 
     public AnalyzedPassage getMelody() {
-        System.out.println(lyricFetcher);
         return lyricFetcher.getAnalyzedPassage(melodySongId);
     }
 
     public AnalyzedPassage getTopic() {
-        System.out.println(lyricFetcher);
         return lyricFetcher.getAnalyzedPassage(topicSongId);
     }
 

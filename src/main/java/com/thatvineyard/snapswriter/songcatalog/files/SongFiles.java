@@ -22,10 +22,10 @@ public class SongFiles {
     public static String getFileContentsById(String songId) {
         String filepath = songFileMapper.getFilepath(songId);
 
-        return FileImporter.getFileText(filepath);
+        return FileImporter.readFile(filepath);
     }
 
     public static String getStringFromFileWithFilePath(String filepath) {
-        return FileImporter.getFileText(filepath);
+        return FileImporter.readFile(filepath);
     }
 }

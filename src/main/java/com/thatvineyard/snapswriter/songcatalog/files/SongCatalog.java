@@ -1,12 +1,15 @@
 package com.thatvineyard.snapswriter.songcatalog.files;
 
 import com.thatvineyard.snapswriter.format.Song;
+import org.apache.log4j.Logger;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 @Stateless
 public class SongCatalog {
+
+    private Logger log = Logger.getLogger(this.getClass());
 
     @Inject
     SongCache songCache;
@@ -16,21 +19,27 @@ public class SongCatalog {
 
         result = getSongFromCache(songId);
 
-        if(result == null) {
+        if (result == null) {
             result = getSongFromDatabase(songId);
 
-            if(result == null) {
+            if (result == null) {
                 result = getSongFromFileSystem(songId);
 
                 if (result == null) {
+                    log.info(songId + " not found");
 
                     return null;
+                } else {
+                    log.info(songId + " found in file system");
                 }
-
-                putSongInDatabase(result);
+                putSongInDatabase(songId, result);
+            } else {
+                log.info(songId + " found in database");
             }
 
-            putSongInCache(result);
+            putSongInCache(songId, result);
+        } else {
+            log.info(songId + " found in cache");
         }
 
         return result;
@@ -40,16 +49,16 @@ public class SongCatalog {
         return songCache.getSongById(songId);
     }
 
-    private static void putSongInCache(Song song) {
-        // LOGIC
+    private void putSongInCache(String songId, Song song) {
+        songCache.putSongInCache(songId, song);
     }
 
     private static Song getSongFromDatabase(String songId) {
         return SongDatabase.getSongById(songId);
     }
 
-    private static void putSongInDatabase(Song song) {
-        // LOGIC
+    private static void putSongInDatabase(String songId, Song song) {
+        SongDatabase.putSong(songId, song);
     }
 
     private static Song getSongFromFileSystem(String songId) {
