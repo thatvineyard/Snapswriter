@@ -5,36 +5,48 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 /**
- * Phrase
+ * Line
  */
-public class Phrase {
+public class Line implements LineInterface<Word> {
 
-    private Collection<String> content;
+    private Collection<Word> content;
 
     // CONSTRUCTORS
 
-    public Phrase() {
+    public Line() {
         this.content = new LinkedList<>();
     }
 
-    public Phrase(Collection<String> content) {
+    public Line(Collection<Word> content) {
         this.content = content;
     }
 
-    public Phrase(Phrase phrase) {
-        this.content = phrase.content;
+    public Line(Line line) {
+        this.content = line.content;
     }
 
     // ACCESSORS
 
-    public Collection<String> getContent() {
+    public Collection<Word> getWords() {
         return content;
+    }
+
+    public Iterator<Word> getWordIterator() {
+        return content.iterator();
     }
 
     // MUTATORS
 
-    public void append(String word) {
+    public void add(Word word) {
         content.add(word);
+    }
+
+    public void add(String word) {
+        content.add(new Word(word));
+    }
+
+    public void append(LineInterface<Word> other) {
+        content.addAll(other.getWords());
     }
 
     // FORMATTERS
@@ -46,10 +58,10 @@ public class Phrase {
             return result.toString();
         }
 
-        Iterator<String> contentIterator = content.iterator();
+        Iterator<Word> contentIterator = content.iterator();
 
         for (int i = 0; i < content.size(); i++) {
-            result.append(contentIterator.next());
+            result.append(contentIterator.next().toString());
             if (i != content.size() - 1) {
                 result.append(" ");
             }
@@ -60,7 +72,7 @@ public class Phrase {
 
     // COMPARATORS
 
-    public boolean equals(Phrase other) {
+    public boolean equals(Line other) {
         return content.equals(other.content);
     }
 }

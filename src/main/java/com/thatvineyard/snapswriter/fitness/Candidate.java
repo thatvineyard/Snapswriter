@@ -1,5 +1,7 @@
 package com.thatvineyard.snapswriter.fitness;
 
+import com.thatvineyard.snapswriter.metre.analysis.MetreCalculator;
+
 import java.util.Collection;
 
 /**
@@ -17,11 +19,11 @@ public class Candidate {
 
     public static Candidate getPlaceholderCandidate(int syllables) {
         Candidate placeholderCandidate = new Candidate();
-        placeholderCandidate.addPhrase(AnalyzedPhrase.getPlaceholderAnalyzedPhrase(syllables), 0);
+        placeholderCandidate.addPhrase(MetreCalculator.getPlaceholderAnalyzedLine(syllables), 0);
         return placeholderCandidate;
     }
 
-    public void addPhrase(AnalyzedPhrase phrase, int metreDifference) {
+    public void addPhrase(AnalyzedLine phrase, int metreDifference) {
         passage.add(phrase);
         score += metreDifference;
     }

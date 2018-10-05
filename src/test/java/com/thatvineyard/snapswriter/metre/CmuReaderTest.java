@@ -3,6 +3,8 @@ package com.thatvineyard.snapswriter.metre;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import com.thatvineyard.snapswriter.metre.analysis.CmuDatabase;
+import com.thatvineyard.snapswriter.metre.analysis.CmuReader;
 import org.junit.Test;
 
 /**

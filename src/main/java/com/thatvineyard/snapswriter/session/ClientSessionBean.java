@@ -2,6 +2,7 @@ package com.thatvineyard.snapswriter.session;
 
 import com.thatvineyard.snapswriter.fitness.AnalyzedPassage;
 import com.thatvineyard.snapswriter.format.Formatter;
+import com.thatvineyard.snapswriter.format.Passage;
 import com.thatvineyard.snapswriter.format.Song;
 import com.thatvineyard.snapswriter.songcatalog.files.SongCatalog;
 import com.thatvineyard.snapswriter.writer.LyricFetcher;
@@ -62,7 +63,7 @@ public class ClientSessionBean {
 
         Song song = songCatalog.getSong(textId);
 
-        return formatter.passageToString(song);
+        return formatter.passageToString(song.getPassage());
     }
 
 

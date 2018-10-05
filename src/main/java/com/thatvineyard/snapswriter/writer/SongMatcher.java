@@ -5,10 +5,11 @@ import com.thatvineyard.snapswriter.fitness.FitnessCalculator;
 
 public class SongMatcher {
 
-    public static AnalyzedPassage matchSongAndTextPassage(AnalyzedPassage song, AnalyzedPassage text) {
+    public static AnalyzedPassage matchMelodyAndTopic(AnalyzedPassage melody,
+                                                      AnalyzedPassage topic) {
         FitnessCalculator fitnessCalculator = new FitnessCalculator();
 
-        return fitnessCalculator.matchTopicWithMelody(text, song);
+        return fitnessCalculator.matchTopicWithMelody(topic, melody);
     }
 
 }

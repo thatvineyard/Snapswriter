@@ -1,13 +1,12 @@
 package com.thatvineyard.snapswriter.writer;
 
 import com.thatvineyard.snapswriter.fitness.AnalyzedPassage;
+import com.thatvineyard.snapswriter.format.Passage;
 import com.thatvineyard.snapswriter.format.Song;
-import com.thatvineyard.snapswriter.metre.MetreCalculator;
+import com.thatvineyard.snapswriter.metre.analysis.MetreCalculator;
 import com.thatvineyard.snapswriter.songcatalog.files.SongCatalog;
 import org.apache.log4j.Logger;
 
-import javax.annotation.PostConstruct;
-import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -26,8 +25,9 @@ public class LyricFetcher {
         MetreCalculator metreCalculator = createCalculator();
 
         Song song = getSong(songId);
+        Passage songText = song.getPassage();
 
-        return new AnalyzedPassage(song, metreCalculator);
+        return metreCalculator.analyzePassage(songText);
     }
 
     public Song getSong(String songId) {

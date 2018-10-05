@@ -1,54 +1,50 @@
 package com.thatvineyard.snapswriter.fitness;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.thatvineyard.snapswriter.format.Song;
-import com.thatvineyard.snapswriter.format.PassageInterface;
-import com.thatvineyard.snapswriter.format.Phrase;
-import com.thatvineyard.snapswriter.metre.MetreCalculator;
+import com.thatvineyard.snapswriter.format.*;
+import com.thatvineyard.snapswriter.metre.LineMetre;
+import com.thatvineyard.snapswriter.metre.analysis.MetreCalculator;
 
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.function.Predicate;
 
-public class AnalyzedPassage implements PassageInterface<AnalyzedPhrase> {
+public class AnalyzedPassage implements PassageInterface<AnalyzedLine> {
 
-    private Collection<AnalyzedPhrase> phrases;
+    Collection<AnalyzedLine> lines;
 
     public AnalyzedPassage() {
-        phrases = new LinkedList<>();
+        lines = new LinkedList<>();
     }
 
-    public AnalyzedPassage(Song song, MetreCalculator calculator) {
-        phrases = new LinkedList<>();
-        for (Phrase phrase : song.getPhrases()) {
-            AnalyzedPhrase analyzedPhrase = new AnalyzedPhrase(phrase, calculator);
-            if(analyzedPhrase.getSyllables() != 0) {
-                phrases.add(analyzedPhrase);
-            }
-        }
+    public AnalyzedPassage(Collection<AnalyzedLine> lines) {
+        this.lines = lines;
     }
 
-    public void add(AnalyzedPhrase phrase) {
-        phrases.add(phrase);
+    public void add(AnalyzedLine line) {
+        lines.add(line);
     }
 
-    public void append(PassageInterface<AnalyzedPhrase> other) {
-        phrases.addAll(other.getPhrases());
+    public void append(PassageInterface<AnalyzedLine> other) {
+    lines.addAll(other.getLines());
     }
 
-    @JsonIgnore
-    public Iterator<AnalyzedPhrase> getPhrasesIterator() {
-        return phrases.iterator();
+    public Iterator<AnalyzedLine> getLineIterator() {
+        return lines.iterator();
+    }
+
+    public int getNumberOfLines() {
+        return lines.size();
     }
 
     private String formatAsLinesWithMetre() {
         StringBuilder result = new StringBuilder();
 
-        Iterator<AnalyzedPhrase> phraseIterator = getPhrasesIterator();
+        Iterator<AnalyzedLine> lineIterator = getLineIterator();
 
-        while (phraseIterator.hasNext()) {
-            result.append(phraseIterator.next().toStringWithMetre()).append("\n");
+        while (lineIterator.hasNext()) {
+            result.append(lineIterator.next().toStringWithMetre()).append("\n");
         }
 
         return result.toString();
@@ -61,38 +57,38 @@ public class AnalyzedPassage implements PassageInterface<AnalyzedPhrase> {
     public int getSyllables() {
         int syllables = 0;
 
-        for (AnalyzedPhrase phrase : phrases) {
-            syllables += phrase.getSyllables();
+        for (AnalyzedLine line : lines) {
+            syllables += line.getSyllables();
         }
 
         return syllables;
     }
 
 
-    public AnalyzedPhrase getPhraseAfterSyllable(int syllables) {
+    public AnalyzedLine getLineAfterSyllable(int syllables) {
         int syllableCount = 0;
 
-        for (AnalyzedPhrase phrase : phrases) {
+        for (AnalyzedLine line : lines) {
 
             if (syllableCount >= syllables) {
-                return phrase;
+                return line;
             }
 
-            syllableCount += phrase.getSyllables();
+            syllableCount += line.getSyllables();
         }
 
         return null;
 
     }
 
-    public AnalyzedPhrase getPhraseContainingSyllable(int syllables) {
+    public AnalyzedLine getPhraseContainingSyllable(int syllables) {
         int syllableCount = 0;
 
         if (syllables == 0) {
             return null;
         }
 
-        for (AnalyzedPhrase phrase : phrases) {
+        for (AnalyzedLine phrase : lines) {
 
             syllableCount += phrase.getSyllables();
 
@@ -106,10 +102,10 @@ public class AnalyzedPassage implements PassageInterface<AnalyzedPhrase> {
     }
 
 
-    public Collection<AnalyzedPhrase> getPhrasesWhere(Predicate<AnalyzedPhrase> phrasePredicate) {
-        Collection<AnalyzedPhrase> result = new LinkedList<>();
+    public Collection<AnalyzedLine> getPhrasesWhere(Predicate<AnalyzedLine> phrasePredicate) {
+        Collection<AnalyzedLine> result = new LinkedList<>();
 
-        for (AnalyzedPhrase phrase : phrases) {
+        for (AnalyzedLine phrase : lines) {
             if (phrasePredicate.test(phrase)) {
                 result.add(phrase);
             }
@@ -118,21 +114,17 @@ public class AnalyzedPassage implements PassageInterface<AnalyzedPhrase> {
         return result;
     }
 
-    public int getNumberOfPhrases() {
-        return phrases.size();
-    }
-
-    public boolean containsSamePhraseAs(PassageInterface<AnalyzedPhrase> other) {
-        for (AnalyzedPhrase phrase : phrases) {
-            if (other.getPhrases().contains(phrase)) {
+    public boolean containsSamePhraseAs(PassageInterface<AnalyzedLine> other) {
+        for (AnalyzedLine phrase : lines) {
+            if (other.getLines().contains(phrase)) {
                 return true;
             }
         }
         return false;
     }
 
-    public Collection<AnalyzedPhrase> getPhrases() {
-        return phrases;
+    public Collection<AnalyzedLine> getLines() {
+        return lines;
     }
 }
 

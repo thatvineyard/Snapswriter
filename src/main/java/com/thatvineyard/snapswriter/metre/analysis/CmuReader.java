@@ -1,11 +1,10 @@
-package com.thatvineyard.snapswriter.metre;
+package com.thatvineyard.snapswriter.metre.analysis;
 
-import com.thatvineyard.snapswriter.utils.filehandler.FileImporter;
 import org.apache.log4j.Logger;
-import org.omg.SendingContext.RunTime;
 
-import java.io.*;
-import java.util.logging.Level;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
 
 import static com.thatvineyard.snapswriter.utils.filehandler.FileImporter.getResourceAsBufferedReader;
 

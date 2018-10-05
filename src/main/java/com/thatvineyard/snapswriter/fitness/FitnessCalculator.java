@@ -44,7 +44,7 @@ public class FitnessCalculator {
             syllableCount += parentCandidate.getSyllables();
         }
 
-        AnalyzedPhrase songPhrase = song.getPhraseAfterSyllable(syllableCount);
+        AnalyzedLine songPhrase = song.getLineAfterSyllable(syllableCount);
 
 //        System.out.println("Syllable: " + syllableCount + ". Depth: " + depth + ". Looking for amount of syllables: " + songPhrase.getSyllables() + ".");
 
@@ -85,16 +85,16 @@ public class FitnessCalculator {
         return pickBestCandidateFromCollection(filteredCandidates);
     }
 
-    private Collection<Candidate> generateListOfCandidates(AnalyzedPhrase songPhrase, AnalyzedPassage textPassage) {
+    private Collection<Candidate> generateListOfCandidates(AnalyzedLine songPhrase, AnalyzedPassage textPassage) {
         int requiredSyllables = songPhrase.getSyllables();
-        Predicate<AnalyzedPhrase> numberOfSyllablesEqualsRequiredSyllables = p -> p.getSyllables() == requiredSyllables;
+        Predicate<AnalyzedLine> numberOfSyllablesEqualsRequiredSyllables = p -> p.getSyllables() == requiredSyllables;
 
-        Collection<AnalyzedPhrase> candidatePhrases = textPassage.getPhrasesWhere(numberOfSyllablesEqualsRequiredSyllables);
+        Collection<AnalyzedLine> candidatePhrases = textPassage.getPhrasesWhere(numberOfSyllablesEqualsRequiredSyllables);
 
         Collection<Candidate> candidates = new LinkedList<>();
 
         Candidate newCandidate;
-        for (AnalyzedPhrase candidatePhrase : candidatePhrases) {
+        for (AnalyzedLine candidatePhrase : candidatePhrases) {
             int metreDifference = songPhrase.metreDifference(candidatePhrase);
 
             newCandidate = new Candidate();

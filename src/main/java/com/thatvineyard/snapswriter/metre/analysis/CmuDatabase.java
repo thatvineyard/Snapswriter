@@ -1,4 +1,4 @@
-package com.thatvineyard.snapswriter.metre;
+package com.thatvineyard.snapswriter.metre.analysis;
 
 import java.util.TreeSet;
 

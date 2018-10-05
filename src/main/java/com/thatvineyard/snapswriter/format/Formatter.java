@@ -44,8 +44,8 @@ public class Formatter {
 
     // PASSAGE
 
-    public static Song stringToPassage(String text) {
-        Song result = new Song();
+    public static Passage stringToPassage(String text) {
+        Passage result = new Passage();
 
         String[] phraseStrings = splitStringAndRemoveEmpty(text, PHRASE_DELIMITER_REGEX);
         for (String phraseString : phraseStrings) {
@@ -55,16 +55,16 @@ public class Formatter {
         return result;
     }
 
-    public String passageToString(PassageInterface<? extends Phrase> passage) {
-        Collection<? extends Phrase> phrases = passage.getPhrases();
+    public String passageToString(PassageInterface<? extends LineInterface> passage) {
+        Collection<? extends LineInterface> phrases = passage.getLines();
 
         StringBuilder result = new StringBuilder();
         boolean firstPhrase = true;
-        for (Phrase phrase : phrases) {
+        for (LineInterface line : phrases) {
             if (!firstPhrase) {
                 result.append(passageInfix);
             }
-            result.append(phraseToString(phrase));
+            result.append(phraseToString(line));
             firstPhrase = false;
         }
 
@@ -73,18 +73,22 @@ public class Formatter {
 
     // PHRASE
 
-    public String phraseToString(Phrase phrase) {
-        String result = phrase.toString();
+    public String phraseToString(LineInterface line) {
+        String result = line.toString();
         result = capitalizeFirstLetterIfSettingIsTrue(result);
         result = addPrefixAndSuffix(result);
         return result;
     }
 
-    private static Phrase stringToPhrase(String text) {
+    private static Line stringToPhrase(String text) {
         String[] words = text.split(WORD_DELIMITER_REGEX);
         words = removeEmptyStrings(words);
 
-        return new Phrase(Arrays.asList(words));
+        Line line = new Line();
+        for (String word : words) {
+            line.add(word);
+        }
+        return line;
     }
 
     // SONG

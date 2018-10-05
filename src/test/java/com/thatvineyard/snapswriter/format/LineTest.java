@@ -8,9 +8,9 @@ import java.util.LinkedList;
 import static junit.framework.TestCase.assertEquals;
 
 /**
- * PhraseTest
+ * LineTest
  */
-public class PhraseTest {
+public class LineTest {
 
 
     public Collection<String> createWordList() {
@@ -21,16 +21,16 @@ public class PhraseTest {
         return result;
     }
 
-    @Test
-    public void append_emptyList() {
-        Phrase phrase = new Phrase(new LinkedList<>());
-
-        phrase.append("Hello");
-        phrase.append("world");
-
-        Collection<String> expected = createWordList();
-        Collection<String> actual = phrase.getContent();
-
-        assertEquals(expected, actual);
-    }
+//    @Test
+//    public void append_emptyList() {
+//        Line line = new Line(new LinkedList<>());
+//
+//        line.append("Hello");
+//        line.append("world");
+//
+//        Collection<String> expected = createWordList();
+//        Collection<String> actual = line.getWords();
+//
+//        assertEquals(expected, actual);
+//    }
 }

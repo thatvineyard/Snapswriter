@@ -1,4 +1,6 @@
-package com.thatvineyard.snapswriter.metre;
+package com.thatvineyard.snapswriter.metre.analysis;
+
+import com.thatvineyard.snapswriter.metre.StressSequence;
 
 /**
  * CmuEntry
