@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static com.thatvineyard.snapswriter.files.FileImporter.getResourceAsBufferedReader;
+import static com.thatvineyard.snapswriter.utils.filehandler.FileImporter.getResourceAsBufferedReader;
 
 /**
  * CmuReader

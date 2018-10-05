@@ -1,4 +1,4 @@
-package com.thatvineyard.snapswriter.files;
+package com.thatvineyard.snapswriter.utils.filehandler;
 
 import java.util.HashMap;
 import java.util.Map;

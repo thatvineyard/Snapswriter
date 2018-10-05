@@ -14,9 +14,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * PassageTest
+ * SongTest
  */
-public class PassageTest {
+public class SongTest {
 
     private static final String testDictionaryFilePath = "testdict.txt";
     private Formatter formatter;
@@ -42,8 +42,8 @@ public class PassageTest {
     @Test
     public void getPhrasesWhereSyllablesEqual() {
 
-        Passage passage = formatter.stringToPassage("Friedmann Libor. Insurrection craighead bedside enforceability.");
-        AnalyzedPassage analyzedPassage = new AnalyzedPassage(passage, calculator);
+        Song song = formatter.stringToPassage("Friedmann Libor. Insurrection craighead bedside enforceability.");
+        AnalyzedPassage analyzedPassage = new AnalyzedPassage(song, calculator);
 
         Predicate<AnalyzedPhrase> phrasePredicate = p -> p.getSyllables() == 4;
 
@@ -57,8 +57,8 @@ public class PassageTest {
 
     @Test
     public void getPhrasesWhereTrue() {
-        Passage passage = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability.");
-        AnalyzedPassage analyzedPassage = new AnalyzedPassage(passage, calculator);
+        Song song = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability.");
+        AnalyzedPassage analyzedPassage = new AnalyzedPassage(song, calculator);
 
         Predicate<AnalyzedPhrase> phrasePredicate = p -> true;
 
@@ -72,8 +72,8 @@ public class PassageTest {
 
     @Test
     public void getPhraseWithinSyllable() {
-        Passage passage = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability.");
-        AnalyzedPassage analyzedPassage = new AnalyzedPassage(passage, calculator);
+        Song song = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability.");
+        AnalyzedPassage analyzedPassage = new AnalyzedPassage(song, calculator);
 
         AnalyzedPhrase phrase = analyzedPassage.getPhraseContainingSyllable(2);
 
@@ -85,8 +85,8 @@ public class PassageTest {
 
     @Test
     public void getPhraseWithinFirstSyllable() {
-        Passage passage = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability.");
-        AnalyzedPassage analyzedPassage = new AnalyzedPassage(passage, calculator);
+        Song song = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability.");
+        AnalyzedPassage analyzedPassage = new AnalyzedPassage(song, calculator);
 
         AnalyzedPhrase phrase = analyzedPassage.getPhraseContainingSyllable(0);
 
@@ -95,8 +95,8 @@ public class PassageTest {
 
     @Test
     public void getPhraseContainingLastSyllable() {
-        Passage passage = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability.");
-        AnalyzedPassage analyzedPassage = new AnalyzedPassage(passage, calculator);
+        Song song = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability.");
+        AnalyzedPassage analyzedPassage = new AnalyzedPassage(song, calculator);
 
         AnalyzedPhrase phrase = analyzedPassage.getPhraseContainingSyllable(18);
 
@@ -108,8 +108,8 @@ public class PassageTest {
 
     @Test
     public void getPhraseWithinOutOfBoundsSyllable() {
-        Passage passage = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability.");
-        AnalyzedPassage analyzedPassage = new AnalyzedPassage(passage, calculator);
+        Song song = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability.");
+        AnalyzedPassage analyzedPassage = new AnalyzedPassage(song, calculator);
 
         AnalyzedPhrase phrase = analyzedPassage.getPhraseContainingSyllable(19);
 
@@ -118,8 +118,8 @@ public class PassageTest {
 
     @Test
     public void getPhraseAfterSyllable() {
-        Passage passage = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability.");
-        AnalyzedPassage analyzedPassage = new AnalyzedPassage(passage, calculator);
+        Song song = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability.");
+        AnalyzedPassage analyzedPassage = new AnalyzedPassage(song, calculator);
 
         AnalyzedPhrase phrase = analyzedPassage.getPhraseAfterSyllable(2);
 
@@ -131,8 +131,8 @@ public class PassageTest {
 
     @Test
     public void getPhraseAfterFirstSyllable() {
-        Passage passage = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability.");
-        AnalyzedPassage analyzedPassage = new AnalyzedPassage(passage, calculator);
+        Song song = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability.");
+        AnalyzedPassage analyzedPassage = new AnalyzedPassage(song, calculator);
 
         AnalyzedPhrase phrase = analyzedPassage.getPhraseAfterSyllable(0);
 
@@ -144,8 +144,8 @@ public class PassageTest {
 
     @Test
     public void getPhraseAfterLastSyllable() {
-        Passage passage = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability.");
-        AnalyzedPassage analyzedPassage = new AnalyzedPassage(passage, calculator);
+        Song song = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability.");
+        AnalyzedPassage analyzedPassage = new AnalyzedPassage(song, calculator);
 
         AnalyzedPhrase phrase = analyzedPassage.getPhraseAfterSyllable(18);
 
@@ -154,8 +154,8 @@ public class PassageTest {
 
     @Test
     public void getPhraseAfterOutOfBoundsSyllable() {
-        Passage passage = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability.");
-        AnalyzedPassage analyzedPassage = new AnalyzedPassage(passage, calculator);
+        Song song = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability.");
+        AnalyzedPassage analyzedPassage = new AnalyzedPassage(song, calculator);
 
         AnalyzedPhrase phrase = analyzedPassage.getPhraseAfterSyllable(19);
 

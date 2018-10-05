@@ -1,37 +1,22 @@
 package com.thatvineyard.snapswriter.writer;
 
-import com.thatvineyard.snapswriter.files.FileImporter;
-import com.thatvineyard.snapswriter.files.FileMapper;
 import com.thatvineyard.snapswriter.fitness.AnalyzedPassage;
-import com.thatvineyard.snapswriter.format.Formatter;
-import com.thatvineyard.snapswriter.format.Passage;
+import com.thatvineyard.snapswriter.format.Song;
 import com.thatvineyard.snapswriter.metre.MetreCalculator;
+import com.thatvineyard.snapswriter.songcatalog.files.SongCatalog;
 
 public class LyricFetcher {
 
-    public static Passage getPassage(String fileId) {
-        Formatter formatter = createFormatter();
-        FileMapper fileMapper = createFileMapper();
-
-        String song = FileImporter.getFileText(fileMapper.getFilepath(fileId));
-
-        return formatter.stringToPassage(song);
-    }
-
-    public static AnalyzedPassage getAnalyzedPassage(String fileId) {
+    public static AnalyzedPassage getAnalyzedPassage(String songId) {
         MetreCalculator metreCalculator = createCalculator();
 
-        Passage songPassage = getPassage(fileId);
+        Song song = getSong(songId);
 
-        return new AnalyzedPassage(songPassage, metreCalculator);
+        return new AnalyzedPassage(song, metreCalculator);
     }
 
-    private static FileMapper createFileMapper() {
-        return new FileMapper();
-    }
-
-    private static Formatter createFormatter() {
-        return new Formatter();
+    public static Song getSong(String songId) {
+        return SongCatalog.getSong(songId);
     }
 
     private static MetreCalculator createCalculator() {

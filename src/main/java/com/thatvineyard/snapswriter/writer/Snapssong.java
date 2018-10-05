@@ -6,7 +6,7 @@ import com.thatvineyard.snapswriter.metre.MetreCalculator;
 
 import java.util.Collection;
 
-public class Song {
+public class Snapssong {
 
     private String songId;
     private String textId;
@@ -15,7 +15,7 @@ public class Song {
 
     private AnalyzedPassage lyrics;
 
-    public Song(String songId, String textId) {
+    public Snapssong(String songId, String textId) {
         FitnessCalculator fitnessCalculator = new FitnessCalculator();
 
         this.songId = songId;

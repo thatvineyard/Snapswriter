@@ -10,7 +10,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import com.thatvineyard.snapswriter.format.Formatter;
-import com.thatvineyard.snapswriter.format.Passage;
+import com.thatvineyard.snapswriter.format.Song;
 
 import com.thatvineyard.snapswriter.metre.MetreCalculator;
 import org.junit.Before;
@@ -52,8 +52,8 @@ public class CandidateTest {
     @Test
     public void containsSamePhrases_SamePhrase_true() {
 
-        Passage passage = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability.");
-        AnalyzedPassage analyzedPassage = new AnalyzedPassage(passage, calculator);
+        Song song = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability.");
+        AnalyzedPassage analyzedPassage = new AnalyzedPassage(song, calculator);
 
         Candidate candidateA = new Candidate();
         Candidate candidateB = new Candidate();
@@ -71,8 +71,8 @@ public class CandidateTest {
     @Test
     public void containsSamePhrases_DifferentPhrase_false() {
 
-        Passage passage = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability.");
-        AnalyzedPassage analyzedPassage = new AnalyzedPassage(passage, calculator);
+        Song song = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability.");
+        AnalyzedPassage analyzedPassage = new AnalyzedPassage(song, calculator);
 
         Candidate candidateA = new Candidate();
         Candidate candidateB = new Candidate();
@@ -93,8 +93,8 @@ public class CandidateTest {
     @Test
     public void containsSamePhrase_SamePhraseButDifferentNumberOfPhrases_true() {
 
-        Passage passage = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability");
-        AnalyzedPassage analyzedPassage = new AnalyzedPassage(passage, calculator);
+        Song song = formatter.stringToPassage("Friedmann Libor. Insurrection craighead, bedside enforceability");
+        AnalyzedPassage analyzedPassage = new AnalyzedPassage(song, calculator);
 
         Candidate candidateA = new Candidate();
         Candidate candidateB = new Candidate();

@@ -24,10 +24,10 @@ public class FormatterTest {
 
         String text = "Hello my friend. It is nice to see you";
 
-        Passage passage = formatter.stringToPassage(text);
+        Song song = formatter.stringToPassage(text);
 
         int expected = 2;
-        int actual = passage.getNumberOfPhrases();
+        int actual = song.getNumberOfPhrases();
 
         assertEquals(expected, actual);
 
@@ -38,10 +38,10 @@ public class FormatterTest {
 
         String text = "Hello my friend. It is nice to see you.";
 
-        Passage passage = formatter.stringToPassage(text);
+        Song song = formatter.stringToPassage(text);
 
         String expected = "Hello my friend. It is nice to see you.";
-        String actual = formatter.passageToString(passage);
+        String actual = formatter.passageToString(song);
 
         assertEquals(expected, actual);
 
@@ -52,10 +52,10 @@ public class FormatterTest {
 
         String text = "Hello my friend; It is nice to see you.";
 
-        Passage passage = formatter.stringToPassage(text);
+        Song song = formatter.stringToPassage(text);
 
         String expected = "Hello my friend. It is nice to see you.";
-        String actual = formatter.passageToString(passage);
+        String actual = formatter.passageToString(song);
 
         assertEquals(expected, actual);
 
@@ -66,10 +66,10 @@ public class FormatterTest {
 
         String text = "Hello my friend; It's nice to see you.";
 
-        Passage passage = formatter.stringToPassage(text);
+        Song song = formatter.stringToPassage(text);
 
         String expected = "Hello my friend. It's nice to see you.";
-        String actual = formatter.passageToString(passage);
+        String actual = formatter.passageToString(song);
 
         assertEquals(expected, actual);
 
@@ -80,10 +80,10 @@ public class FormatterTest {
 
         String text = "Hello my friend, It's nice to see you.";
 
-        Passage passage = formatter.stringToPassage(text);
+        Song song = formatter.stringToPassage(text);
 
         String expected = "Hello my friend. It's nice to see you.";
-        String actual = formatter.passageToString(passage);
+        String actual = formatter.passageToString(song);
 
         assertEquals(expected, actual);
 
@@ -94,10 +94,10 @@ public class FormatterTest {
 
         String text = "Hello my/ friend; It#s nice]] to see you.";
 
-        Passage passage = formatter.stringToPassage(text);
+        Song song = formatter.stringToPassage(text);
 
         String expected = "Hello my friend. It s nice to see you.";
-        String actual = formatter.passageToString(passage);
+        String actual = formatter.passageToString(song);
 
         assertEquals(expected, actual);
 
@@ -108,10 +108,10 @@ public class FormatterTest {
 
         String text = "Hello my friend;. It is nice to see you.";
 
-        Passage passage = formatter.stringToPassage(text);
+        Song song = formatter.stringToPassage(text);
 
         String expected = "Hello my friend. It is nice to see you.";
-        String actual = formatter.passageToString(passage);
+        String actual = formatter.passageToString(song);
 
         assertEquals(expected, actual);
     }
@@ -121,11 +121,11 @@ public class FormatterTest {
 
         String text = "Hello my friend. It is nice to see you.";
 
-        Passage passage = formatter.stringToPassage(text);
+        Song song = formatter.stringToPassage(text);
         formatter.setPhrasePrefix("!");
 
         String expected = "!Hello my friend. !It is nice to see you.";
-        String actual = formatter.passageToString(passage);
+        String actual = formatter.passageToString(song);
 
         assertEquals(expected, actual);
     }
@@ -135,11 +135,11 @@ public class FormatterTest {
 
         String text = "Hello my friend. It is nice to see you.";
 
-        Passage passage = formatter.stringToPassage(text);
+        Song song = formatter.stringToPassage(text);
         formatter.setPhraseSuffix("!");
 
         String expected = "Hello my friend! It is nice to see you!";
-        String actual = formatter.passageToString(passage);
+        String actual = formatter.passageToString(song);
 
         assertEquals(expected, actual);
     }
@@ -149,11 +149,11 @@ public class FormatterTest {
 
         String text = "Hello my friend. It is nice to see you.";
 
-        Passage passage = formatter.stringToPassage(text);
+        Song song = formatter.stringToPassage(text);
         formatter.setPassageInfix("!");
 
         String expected = "Hello my friend.!It is nice to see you.";
-        String actual = formatter.passageToString(passage);
+        String actual = formatter.passageToString(song);
 
         assertEquals(expected, actual);
     }

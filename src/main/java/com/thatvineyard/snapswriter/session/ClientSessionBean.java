@@ -1,12 +1,9 @@
 package com.thatvineyard.snapswriter.session;
 
-import com.thatvineyard.snapswriter.files.FileMapper;
 import com.thatvineyard.snapswriter.fitness.AnalyzedPassage;
-import com.thatvineyard.snapswriter.fitness.FitnessCalculator;
 import com.thatvineyard.snapswriter.format.Formatter;
-import com.thatvineyard.snapswriter.format.Passage;
-import com.thatvineyard.snapswriter.metre.MetreCalculator;
-import com.thatvineyard.snapswriter.writer.Song;
+import com.thatvineyard.snapswriter.format.Song;
+import com.thatvineyard.snapswriter.writer.Snapssong;
 import org.apache.log4j.Logger;
 
 import javax.ws.rs.GET;
@@ -16,8 +13,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 
 import static com.thatvineyard.snapswriter.writer.LyricFetcher.getAnalyzedPassage;
-import static com.thatvineyard.snapswriter.writer.LyricFetcher.getPassage;
-import static com.thatvineyard.snapswriter.writer.SongMatcher.matchSongAndTextPassage;
+import static com.thatvineyard.snapswriter.writer.LyricFetcher.getSong;
 
 /**
  * ClientSessionBean
@@ -36,21 +32,21 @@ public class ClientSessionBean {
         LOG.info("Writing snapssong with songId: " + songId + " and textID: " + textId + ".");
         setUp();
 
-        Song song = writeSong(songId, textId);
+        Snapssong snapssong = writeSong(songId, textId);
 
-        return formatter.songToString(song);
+        return formatter.songToString(snapssong);
     }
 
     @Path("get-text")
     @GET
     @Produces("application/json")
-    public Passage getText(@QueryParam("text-id") String textId) {
+    public Song getText(@QueryParam("text-id") String textId) {
         LOG.info("Getting text from textID: " + textId + ".");
         setUp();
 
-        Passage passage = getPassage(textId);
+        Song song = getSong(textId);
 
-        return passage;
+        return song;
     }
 
     @Path("get-text/as-string")
@@ -59,9 +55,9 @@ public class ClientSessionBean {
         LOG.info("Getting text from textID: " + textId + ".");
         setUp();
 
-        Passage passage = getPassage(textId);
+        Song song = getSong(textId);
 
-        return formatter.passageToString(passage);
+        return formatter.passageToString(song);
     }
 
 
@@ -95,13 +91,13 @@ public class ClientSessionBean {
         LOG.info("Writing example snapssong.");
         setUp();
 
-        Song song = writeSong("all-star", "communism");
+        Snapssong snapssong = writeSong("all-star", "communism");
 
-        return formatter.songToString(song);
+        return formatter.songToString(snapssong);
     }
 
-    private Song writeSong(String songId, String textId) {
-        return new Song(songId, textId);
+    private Snapssong writeSong(String songId, String textId) {
+        return new Snapssong(songId, textId);
     }
 
     public void setUp() {

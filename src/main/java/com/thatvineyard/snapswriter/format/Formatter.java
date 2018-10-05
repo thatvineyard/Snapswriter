@@ -5,8 +5,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.function.Predicate;
 
-import com.thatvineyard.snapswriter.fitness.AnalyzedPhrase;
-import com.thatvineyard.snapswriter.writer.Song;
+import com.thatvineyard.snapswriter.writer.Snapssong;
 
 /**
  * Formatter
@@ -45,8 +44,8 @@ public class Formatter {
 
     // PASSAGE
 
-    public Passage stringToPassage(String text) {
-        Passage result = new Passage();
+    public static Song stringToPassage(String text) {
+        Song result = new Song();
 
         String[] phraseStrings = splitStringAndRemoveEmpty(text, PHRASE_DELIMITER_REGEX);
         for (String phraseString : phraseStrings) {
@@ -81,7 +80,7 @@ public class Formatter {
         return result;
     }
 
-    private Phrase stringToPhrase(String text) {
+    private static Phrase stringToPhrase(String text) {
         String[] words = text.split(WORD_DELIMITER_REGEX);
         words = removeEmptyStrings(words);
 
@@ -90,13 +89,13 @@ public class Formatter {
 
     // SONG
 
-    public String songToString(Song song) {
-        String result = "Score: " + song.getScore() + "\n";
-        result += "SongId: " + song.getSongId() + "\n";
-        result += "TextId: " + song.getTextId() + "\n";
+    public String songToString(Snapssong snapssong) {
+        String result = "Score: " + snapssong.getScore() + "\n";
+        result += "SongId: " + snapssong.getSongId() + "\n";
+        result += "TextId: " + snapssong.getTextId() + "\n";
         result += "Lyrics: " + "\n";
         result += "=============" + "\n";
-        result += passageToString(song.getLyrics()) + "\n";
+        result += passageToString(snapssong.getLyrics()) + "\n";
         result += "=============";
         return result;
     }
@@ -123,14 +122,14 @@ public class Formatter {
     }
 
     // TODO: DRY (stringToPhrase)
-    private String[] splitStringAndRemoveEmpty(String text, String delimiter) {
+    private static String[] splitStringAndRemoveEmpty(String text, String delimiter) {
         String[] strings = text.split(delimiter);
         strings = removeEmptyStrings(strings);
 
         return strings;
     }
 
-    private String[] removeEmptyStrings(String[] strings) {
+    private static String[] removeEmptyStrings(String[] strings) {
         LinkedList<String> stringList = new LinkedList<>(Arrays.asList(strings));
 
         Predicate<String> emptyStringPredicate = s -> s.equals("");

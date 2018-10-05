@@ -20,10 +20,10 @@ public class App {
 //        String song = FileImporter.getFileText(allStarPath);
 //        String text = FileImporter.getFileText(communismPath);
 //
-//        Passage songPassage = formatter.stringToPassage(song);
-//        Passage textPassage = formatter.stringToPassage(text);
+//        Song songPassage = formatter.stringToPassage(song);
+//        Song textPassage = formatter.stringToPassage(text);
 //
-//        Passage newSongTextPassage = calculator.matchTextWithSong(textPassage, songPassage);
+//        Song newSongTextPassage = calculator.matchTextWithSong(textPassage, songPassage);
 //
 //        System.out.println(calculator.getScore());
 //        System.out.println(newSongTextPassage.toStringWithMetre());

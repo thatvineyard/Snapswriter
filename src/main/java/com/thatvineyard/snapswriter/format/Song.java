@@ -6,13 +6,13 @@ import java.util.LinkedList;
 import java.util.function.Predicate;
 
 /**
- * Passage
+ * Song
  */
-public class Passage implements PassageInterface<Phrase> {
+public class Song implements PassageInterface<Phrase> {
 
     private Collection<Phrase> phrases;
 
-    public Passage() {
+    public Song() {
         phrases = new LinkedList<>();
     }
 
@@ -41,7 +41,7 @@ public class Passage implements PassageInterface<Phrase> {
         return false;
     }
 
-    public boolean equals(Passage other) {
+    public boolean equals(Song other) {
         return phrases.equals(other.phrases);
     }
 

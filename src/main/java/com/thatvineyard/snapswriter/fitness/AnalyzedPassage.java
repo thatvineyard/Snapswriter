@@ -1,7 +1,7 @@
 package com.thatvineyard.snapswriter.fitness;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.thatvineyard.snapswriter.format.Passage;
+import com.thatvineyard.snapswriter.format.Song;
 import com.thatvineyard.snapswriter.format.PassageInterface;
 import com.thatvineyard.snapswriter.format.Phrase;
 import com.thatvineyard.snapswriter.metre.MetreCalculator;
@@ -19,9 +19,9 @@ public class AnalyzedPassage implements PassageInterface<AnalyzedPhrase> {
         phrases = new LinkedList<>();
     }
 
-    public AnalyzedPassage(Passage passage, MetreCalculator calculator) {
+    public AnalyzedPassage(Song song, MetreCalculator calculator) {
         phrases = new LinkedList<>();
-        for (Phrase phrase : passage.getPhrases()) {
+        for (Phrase phrase : song.getPhrases()) {
             AnalyzedPhrase analyzedPhrase = new AnalyzedPhrase(phrase, calculator);
             if(analyzedPhrase.getSyllables() != 0) {
                 phrases.add(analyzedPhrase);
