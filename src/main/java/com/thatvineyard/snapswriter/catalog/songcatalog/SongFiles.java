@@ -1,4 +1,4 @@
-package com.thatvineyard.snapswriter.songcatalog.files;
+package com.thatvineyard.snapswriter.catalog.songcatalog;
 
 import com.thatvineyard.snapswriter.format.Formatter;
 import com.thatvineyard.snapswriter.format.Song;

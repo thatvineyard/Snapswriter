@@ -3,7 +3,7 @@ package com.thatvineyard.snapswriter.rest;
 import com.thatvineyard.snapswriter.analysis.AnalyzedPassage;
 import com.thatvineyard.snapswriter.format.Formatter;
 import com.thatvineyard.snapswriter.format.Song;
-import com.thatvineyard.snapswriter.songcatalog.files.SongCatalog;
+import com.thatvineyard.snapswriter.catalog.songcatalog.SongCatalog;
 import com.thatvineyard.snapswriter.writer.LyricFetcher;
 import org.apache.log4j.Logger;
 
