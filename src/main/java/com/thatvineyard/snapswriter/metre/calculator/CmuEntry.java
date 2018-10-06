@@ -1,4 +1,4 @@
-package com.thatvineyard.snapswriter.metre.analysis;
+package com.thatvineyard.snapswriter.metre.calculator;
 
 import com.thatvineyard.snapswriter.metre.StressSequence;
 

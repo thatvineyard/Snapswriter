@@ -1,16 +1,15 @@
-package com.thatvineyard.snapswriter.fitness;
+package com.thatvineyard.snapswriter.analysis;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.thatvineyard.snapswriter.format.*;
-import com.thatvineyard.snapswriter.metre.LineMetre;
-import com.thatvineyard.snapswriter.metre.analysis.MetreCalculator;
+import com.thatvineyard.snapswriter.metre.*;
 
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.function.Predicate;
 
-public class AnalyzedPassage implements PassageInterface<AnalyzedLine> {
+public class AnalyzedPassage implements PassageInterface<AnalyzedLine>, PassageMetreInterface {
 
     Collection<AnalyzedLine> lines;
 
@@ -18,16 +17,30 @@ public class AnalyzedPassage implements PassageInterface<AnalyzedLine> {
         lines = new LinkedList<>();
     }
 
+    public AnalyzedPassage(Passage passage, PassageMetre metre) {
+        lines = new LinkedList<>();
+
+        Iterator<Line> lineIterator = passage.getLineIterator();
+        Iterator<LineMetre> lineMetreIterator = metre.getMetreIterator();
+        while (lineIterator.hasNext() && lineMetreIterator.hasNext()) {
+            lines.add(new AnalyzedLine(lineIterator.next(), lineMetreIterator.next()));
+        }
+    }
+
     public AnalyzedPassage(Collection<AnalyzedLine> lines) {
         this.lines = lines;
     }
+
+//    public AnalyzedPassage(Collection<AnalyzedLine> lines) {
+//        this.lines = lines;
+//    }
 
     public void add(AnalyzedLine line) {
         lines.add(line);
     }
 
     public void append(PassageInterface<AnalyzedLine> other) {
-    lines.addAll(other.getLines());
+        lines.addAll(other.getLines());
     }
 
     @JsonIgnore
@@ -35,26 +48,16 @@ public class AnalyzedPassage implements PassageInterface<AnalyzedLine> {
         return lines.iterator();
     }
 
+    @JsonIgnore
+    public Collection<? extends LineMetreInterface> getMetreList() {
+        return lines;
+    }
+
     public int getNumberOfLines() {
         return lines.size();
     }
 
-    private String formatAsLinesWithMetre() {
-        StringBuilder result = new StringBuilder();
-
-        Iterator<AnalyzedLine> lineIterator = getLineIterator();
-
-        while (lineIterator.hasNext()) {
-            result.append(lineIterator.next().toStringWithMetre()).append("\n");
-        }
-
-        return result.toString();
-    }
-
-    public String toStringWithMetre() {
-        return formatAsLinesWithMetre();
-    }
-
+    @JsonIgnore
     public int getSyllables() {
         int syllables = 0;
 
@@ -65,6 +68,25 @@ public class AnalyzedPassage implements PassageInterface<AnalyzedLine> {
         return syllables;
     }
 
+    @JsonIgnore
+    public StressSequence getStressSequence(){
+        StressSequence result = new StressSequence();
+
+        for (AnalyzedLine line : lines) {
+            result.append(line.getStressSequence());
+        }
+
+        return result;
+    }
+
+    @Override
+    public int metreDifference(MetreInterface other) {
+        return getMetre().metreDifference(other);
+    }
+
+    public PassageMetre getMetre() {
+        return new PassageMetre(lines);
+    }
 
     public AnalyzedLine getLineAfterSyllable(int syllables) {
         int syllableCount = 0;

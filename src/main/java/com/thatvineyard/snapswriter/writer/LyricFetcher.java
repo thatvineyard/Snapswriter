@@ -1,9 +1,9 @@
 package com.thatvineyard.snapswriter.writer;
 
-import com.thatvineyard.snapswriter.fitness.AnalyzedPassage;
+import com.thatvineyard.snapswriter.analysis.AnalyzedPassage;
 import com.thatvineyard.snapswriter.format.Passage;
 import com.thatvineyard.snapswriter.format.Song;
-import com.thatvineyard.snapswriter.metre.analysis.MetreCalculator;
+import com.thatvineyard.snapswriter.metre.calculator.MetreCalculator;
 import com.thatvineyard.snapswriter.songcatalog.files.SongCatalog;
 import org.apache.log4j.Logger;
 

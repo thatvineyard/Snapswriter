@@ -1,12 +1,7 @@
-package com.thatvineyard.snapswriter.fitness;
+package com.thatvineyard.snapswriter.analysis;
 
-import com.thatvineyard.snapswriter.format.Line;
-import com.thatvineyard.snapswriter.metre.analysis.MetreCalculator;
+import com.thatvineyard.snapswriter.metre.calculator.MetreCalculator;
 import org.junit.Before;
-import org.junit.Test;
-
-import java.util.Collection;
-import java.util.LinkedList;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

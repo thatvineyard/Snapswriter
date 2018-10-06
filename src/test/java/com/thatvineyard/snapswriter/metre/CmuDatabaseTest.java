@@ -3,9 +3,9 @@ package com.thatvineyard.snapswriter.metre;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-import com.thatvineyard.snapswriter.metre.analysis.CmuDatabase;
-import com.thatvineyard.snapswriter.metre.analysis.CmuEntry;
-import com.thatvineyard.snapswriter.metre.analysis.CmuReader;
+import com.thatvineyard.snapswriter.metre.calculator.CmuDatabase;
+import com.thatvineyard.snapswriter.metre.calculator.CmuEntry;
+import com.thatvineyard.snapswriter.metre.calculator.CmuReader;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -22,7 +22,12 @@ public class Line implements LineInterface<Word> {
     }
 
     public Line(Collection<Word> words) {
-        this.words = words;
+        this();
+        for (Word word :
+                words) {
+            add(word);
+        }
+
     }
 
     public Line(Line line) {
@@ -53,12 +58,15 @@ public class Line implements LineInterface<Word> {
         words.add(word);
     }
 
-    public void add(String word) {
-        words.add(new Word(word));
-    }
+//
+//    public void add(String word) {
+//        words.add(new Word(word));
+//    }
 
     public void append(LineInterface<Word> other) {
-        words.addAll(other.getWords());
+        for (Word word : other.getWords()) {
+            add(word);
+        }
     }
 
     // FORMATTERS

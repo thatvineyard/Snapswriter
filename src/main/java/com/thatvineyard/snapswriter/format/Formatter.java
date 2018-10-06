@@ -86,7 +86,7 @@ public class Formatter {
 
         Line line = new Line();
         for (String word : words) {
-            line.add(word);
+            line.add(new Word(word));
         }
         return line;
     }

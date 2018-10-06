@@ -1,6 +1,6 @@
-package com.thatvineyard.snapswriter.fitness;
+package com.thatvineyard.snapswriter.analysis;
 
-import com.thatvineyard.snapswriter.metre.analysis.MetreCalculator;
+import com.thatvineyard.snapswriter.metre.calculator.MetreCalculator;
 
 import java.util.Collection;
 

@@ -1,4 +1,4 @@
-package com.thatvineyard.snapswriter.fitness;
+package com.thatvineyard.snapswriter.analysis;
 
 import com.thatvineyard.snapswriter.format.Passage;
 import com.thatvineyard.snapswriter.format.Song;
@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.function.Predicate;
 
-import static com.thatvineyard.snapswriter.fitness.Candidate.getPlaceholderCandidate;
+import static com.thatvineyard.snapswriter.analysis.Candidate.getPlaceholderCandidate;
 import static java.lang.Math.max;
 
 /**

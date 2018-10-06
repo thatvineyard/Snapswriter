@@ -2,7 +2,7 @@ package com.thatvineyard.snapswriter.metre;
 
 import static org.junit.Assert.assertEquals;
 
-import com.thatvineyard.snapswriter.metre.analysis.CmuEntry;
+import com.thatvineyard.snapswriter.metre.calculator.CmuEntry;
 import org.junit.Test;
 
 /**

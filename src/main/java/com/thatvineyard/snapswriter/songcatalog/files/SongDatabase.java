@@ -13,6 +13,6 @@ public class SongDatabase {
     }
 
     public static void putSong(String songId, Song song) {
-        log.info("Adding " + songId + " to cache." + " (not implemented yet)");
+        log.info("Adding " + songId + " to database." + " (not implemented yet)");
     }
 }

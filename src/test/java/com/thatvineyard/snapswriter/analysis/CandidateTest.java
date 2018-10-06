@@ -1,4 +1,4 @@
-package com.thatvineyard.snapswriter.fitness;
+package com.thatvineyard.snapswriter.analysis;
 
 import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertEquals;
@@ -6,13 +6,11 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.LinkedList;
 
 import com.thatvineyard.snapswriter.format.Formatter;
-import com.thatvineyard.snapswriter.format.Passage;
 
-import com.thatvineyard.snapswriter.metre.analysis.MetreCalculator;
+import com.thatvineyard.snapswriter.metre.calculator.MetreCalculator;
 import org.junit.Before;
 import org.junit.Test;
 

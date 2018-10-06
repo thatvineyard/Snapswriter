@@ -1,7 +1,7 @@
 package com.thatvineyard.snapswriter.writer;
 
-import com.thatvineyard.snapswriter.fitness.AnalyzedPassage;
-import com.thatvineyard.snapswriter.fitness.FitnessCalculator;
+import com.thatvineyard.snapswriter.analysis.AnalyzedPassage;
+import com.thatvineyard.snapswriter.analysis.FitnessCalculator;
 import com.thatvineyard.snapswriter.format.Song;
 
 public class SongMatcher {

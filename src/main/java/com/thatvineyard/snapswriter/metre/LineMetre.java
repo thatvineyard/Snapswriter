@@ -1,12 +1,17 @@
 package com.thatvineyard.snapswriter.metre;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.thatvineyard.snapswriter.format.Word;
+
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 /**
  * LineMetre
  */
-public class LineMetre {
+public class LineMetre implements LineMetreInterface {
 
     private Collection<WordMetre> words;
 
@@ -16,14 +21,25 @@ public class LineMetre {
         words = new LinkedList<>();
     }
 
-    public LineMetre(Collection<WordMetre> words) {
-        this.words = words;
+    public LineMetre(Collection<? extends WordMetreInterface> words) {
+        this();
+        for (WordMetreInterface word : words) {
+            add(new WordMetre(word));
+        }
+    }
+
+    public LineMetre(LineMetreInterface other) {
+        this(other.getMetreList());
     }
 
     // MUTATORS
 
-    public void add(WordMetre wordMetre) {
-        words.add(wordMetre);
+    public void add(WordMetreInterface word) {
+        if (word instanceof WordMetre) {
+            words.add((WordMetre) word);
+        } else {
+            words.add(new WordMetre(word));
+        }
     }
 
     public void append(LineMetre other) {
@@ -46,24 +62,35 @@ public class LineMetre {
         int syllables = 0;
         for (WordMetre wordMetre : words) {
             // TODO: this is just hiding another bug
-            if(wordMetre != null) {
+            if (wordMetre != null) {
                 syllables += wordMetre.getSyllables();
             }
         }
         return syllables;
     }
 
-    public int metreDifference(LineMetre other) {
-        return getFlattenedStressSequence().stressDifference(other.getFlattenedStressSequence());
+    @JsonIgnore
+    public Collection<? extends WordMetreInterface> getMetreList() {
+        return words;
     }
 
-    private StressSequence getFlattenedStressSequence() {
+    public int metreDifference(MetreInterface other) {
+        return getStressSequence().stressDifference(other.getStressSequence());
+    }
+
+    @JsonIgnore
+    public StressSequence getStressSequence() {
         StressSequence result = new StressSequence();
         for (WordMetre wordMetre :
                 words) {
             result.append(wordMetre.getStressSequence());
         }
         return result;
+    }
+
+    @JsonIgnore
+    public Iterator<WordMetre> getMetreIterator() {
+        return words.iterator();
     }
 
     // COMPARATORS
@@ -78,6 +105,7 @@ public class LineMetre {
 
     // FORMATTERS
 
+    @JsonProperty("stress-sequence")
     public String toString() {
         String result = "";
         for (WordMetre wordMetre : words) {

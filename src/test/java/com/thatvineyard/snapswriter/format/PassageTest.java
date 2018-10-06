@@ -4,14 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-import java.util.Collection;
-import java.util.function.Predicate;
-
-import com.thatvineyard.snapswriter.fitness.AnalyzedLine;
-import com.thatvineyard.snapswriter.fitness.AnalyzedPassage;
-import com.thatvineyard.snapswriter.metre.analysis.MetreCalculator;
+import com.thatvineyard.snapswriter.metre.calculator.MetreCalculator;
 import org.junit.Before;
-import org.junit.Test;
 
 /**
  * PassageTest

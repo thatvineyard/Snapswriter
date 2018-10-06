@@ -1,6 +1,9 @@
 package com.thatvineyard.snapswriter.metre;
 
-public class WordMetre {
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public class WordMetre implements WordMetreInterface {
 
     private StressSequence stressSequence;
     private int syllables;
@@ -8,6 +11,11 @@ public class WordMetre {
     public WordMetre() {
         this.stressSequence = new StressSequence();
         syllables = stressSequence.getSyllables();
+    }
+
+    public WordMetre(WordMetreInterface other) {
+        this.stressSequence = other.getStressSequence();
+        this.syllables = other.getSyllables();
     }
 
     public WordMetre(String stressSequence) {
@@ -24,14 +32,16 @@ public class WordMetre {
         return syllables;
     }
 
+    @JsonIgnore
     public StressSequence getStressSequence() {
         return stressSequence;
     }
 
-    public int metreDifference(WordMetre other) {
-        return stressSequence.stressDifference(other.stressSequence);
+    public int metreDifference(MetreInterface other) {
+        return stressSequence.stressDifference(other.getStressSequence());
     }
 
+    @JsonProperty("stress-sequence")
     public String toString() {
         return stressSequence.toString();
     }

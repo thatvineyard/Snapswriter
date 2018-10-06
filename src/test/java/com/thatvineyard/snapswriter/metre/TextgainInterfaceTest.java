@@ -2,7 +2,7 @@
 
 // import static org.junit.Assert.assertEquals;
 
-// import com.thatvineyard.snapswriter.metre.analysis.TextgainReader;
+// import com.thatvineyard.snapswriter.metre.calculator.TextgainReader;
 
 // import org.junit.Test;
 

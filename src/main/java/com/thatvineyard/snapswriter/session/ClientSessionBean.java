@@ -1,8 +1,7 @@
 package com.thatvineyard.snapswriter.session;
 
-import com.thatvineyard.snapswriter.fitness.AnalyzedPassage;
+import com.thatvineyard.snapswriter.analysis.AnalyzedPassage;
 import com.thatvineyard.snapswriter.format.Formatter;
-import com.thatvineyard.snapswriter.format.Passage;
 import com.thatvineyard.snapswriter.format.Song;
 import com.thatvineyard.snapswriter.songcatalog.files.SongCatalog;
 import com.thatvineyard.snapswriter.writer.LyricFetcher;
@@ -34,13 +33,14 @@ public class ClientSessionBean {
 
     @Path("write-song")
     @GET
-    public String writeSnapsSongWithSongIdAndTextId(@QueryParam("song-id") String songId, @QueryParam("text-id") String textId) {
+    @Produces("application/json")
+    public Snapssong writeSnapsSongWithSongIdAndTextId(@QueryParam("song-id") String songId, @QueryParam("text-id") String textId) {
         log.info("Writing snapssong with songId: " + songId + " and textID: " + textId + ".");
         setUp();
 
         Snapssong snapssong = writeSong(songId, textId);
 
-        return formatter.songToString(snapssong);
+        return snapssong;
     }
 
     @Path("get-text")

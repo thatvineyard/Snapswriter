@@ -1,10 +1,11 @@
-package com.thatvineyard.snapswriter.metre.analysis;
+package com.thatvineyard.snapswriter.metre.calculator;
 
-import com.thatvineyard.snapswriter.fitness.AnalyzedLine;
-import com.thatvineyard.snapswriter.fitness.AnalyzedPassage;
-import com.thatvineyard.snapswriter.fitness.AnalyzedWord;
+import com.thatvineyard.snapswriter.analysis.AnalyzedLine;
+import com.thatvineyard.snapswriter.analysis.AnalyzedPassage;
+import com.thatvineyard.snapswriter.analysis.AnalyzedWord;
 import com.thatvineyard.snapswriter.format.*;
 import com.thatvineyard.snapswriter.metre.LineMetre;
+import com.thatvineyard.snapswriter.metre.PassageMetre;
 import com.thatvineyard.snapswriter.metre.StressSequence;
 import com.thatvineyard.snapswriter.metre.WordMetre;
 import org.apache.log4j.Logger;
@@ -54,43 +55,29 @@ public class MetreCalculator {
 
     // ANALYZER
 
-    public AnalyzedWord analyzeWord(WordInterface word) {
-
+    public AnalyzedWord analyzeWord(Word word) {
         return new AnalyzedWord(word, calculateMetreFromWord(word));
     }
 
-    public AnalyzedLine analyzeLine(LineInterface<WordInterface> line) {
-        Collection<WordInterface> words = line.getWords();
-        Collection<AnalyzedWord> analyzedWords = new LinkedList<>();
-        for (WordInterface word :
-                words) {
-            analyzedWords.add(analyzeWord(word));
-        }
-        return new AnalyzedLine(analyzedWords, unzipLineMetre(analyzedWords));
+    public AnalyzedLine analyzeLine(Line line) {
+        return new AnalyzedLine(line, calculateMetreFromLine(line));
     }
 
-    public AnalyzedPassage analyzePassage(PassageInterface<? extends LineInterface> passage) {
+    public AnalyzedPassage analyzePassage(Passage passage) {
         log.info("Analyzing passage: " + passage.toString().substring(0, 10) + "...");
-
-        Collection<? extends LineInterface> lines = passage.getLines();
-        Collection<AnalyzedLine> analyzedLines = new LinkedList<>();
-        for (LineInterface line :
-                lines) {
-            analyzedLines.add(analyzeLine(line));
-        }
-        return new AnalyzedPassage(analyzedLines);
+        return new AnalyzedPassage(passage, calculateMetreFromPassage(passage));
     }
 
     // PLACEHOLDERS
 
     public static AnalyzedWord getPlaceholderAnalyzedWord(int syllables) {
-                return new AnalyzedWord("<placeholder word>", new WordMetre(new StressSequence(syllables)));
+        return new AnalyzedWord(new Word("<placeholder word>"), new WordMetre(new StressSequence(syllables)));
     }
 
     public static AnalyzedLine getPlaceholderAnalyzedLine(int syllables) {
         Collection<AnalyzedWord> words = new LinkedList<>();
         words.add(getPlaceholderAnalyzedWord(syllables));
-        return new AnalyzedLine(words, unzipLineMetre(words));
+        return new AnalyzedLine(words);
     }
 
     public static AnalyzedPassage getPlaceholderAnalyzedPassage(int syllables) {
