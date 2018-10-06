@@ -11,6 +11,7 @@ public class FileMapper {
     private static final String allStarPath = resourceDir + "all-star.txt";
     private static final String communismPath = resourceDir + "communism-wiki.txt";
     private static final String navyPath = resourceDir + "navy.txt";
+    private static final String communistNavyPath = resourceDir + "communistnavy.txt";
 
     private Map<String, String> fileMap;
 
@@ -24,6 +25,7 @@ public class FileMapper {
         addFile("all-star", allStarPath);
         addFile("communism", communismPath);
         addFile("navy", navyPath);
+        addFile("communistnavy", communistNavyPath);
     }
 
     public void addFile(String filename, String filepath) {
