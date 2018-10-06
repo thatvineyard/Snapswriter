@@ -2,6 +2,7 @@ package com.thatvineyard.snapswriter.format;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import java.util.Collection;
@@ -39,6 +40,11 @@ public class Line implements LineInterface<Word> {
         for (WordInterface word : other.getWords()) {
             words.add(new Word(word));
         }
+    }
+
+    @JsonCreator
+    private Line(String line) {
+        this(Formatter.stringToLine(line));
     }
 
     // ACCESSORS

@@ -50,7 +50,7 @@ public class SongCatalog {
         return songCache.getSongById(songId);
     }
 
-    private void putSongInCache(String songId, Song song) {
+    public void putSongInCache(String songId, Song song) {
         songCache.putSongInCache(songId, song);
     }
 

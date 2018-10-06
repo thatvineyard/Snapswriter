@@ -6,14 +6,15 @@ import java.util.Map;
 public class FileMapper {
 
 
-    private static final String resourceDir = "";
+    private static final String resourceDir            = "";
     private static final String testDictionaryFilePath = resourceDir + "cmudict-0.7b.txt";
-    private static final String allStarPath = resourceDir + "all-star.txt";
-    private static final String communismPath = resourceDir + "communism-wiki.txt";
-    private static final String navyPath = resourceDir + "navy.txt";
-    private static final String communistNavyPath = resourceDir + "communistnavy.txt";
+    private static final String allStarRawPath         = resourceDir + "all-star.txt";
+    private static final String allStarJsonPath        = resourceDir + "all-star.json";
+    private static final String communismPath          = resourceDir + "communism-wiki.txt";
+    private static final String navyPath               = resourceDir + "navy.txt";
+    private static final String communistNavyPath      = resourceDir + "communistnavy.txt";
 
-    private Map<String, String> fileMap;
+    private Map<String, File> fileMap;
 
     public FileMapper() {
         fileMap = new HashMap<>();
@@ -21,18 +22,19 @@ public class FileMapper {
     }
 
     private void addDefaultFiles() {
-        addFile("dictionary", testDictionaryFilePath);
-        addFile("all-star", allStarPath);
-        addFile("communism", communismPath);
-        addFile("navy", navyPath);
-        addFile("communistnavy", communistNavyPath);
+        addFile("dictionary", File.FileType.RAW, testDictionaryFilePath);
+        addFile("all-star", File.FileType.RAW, allStarRawPath);
+        addFile("all-star-json", File.FileType.JSON, allStarJsonPath);
+        addFile("communism", File.FileType.RAW, communismPath);
+        addFile("navy", File.FileType.RAW, navyPath);
+        addFile("communistnavy", File.FileType.RAW, communistNavyPath);
     }
 
-    public void addFile(String filename, String filepath) {
-        fileMap.put(filename, filepath);
+    public void addFile(String fileId, File.FileType fileType, String filepath) {
+        fileMap.put(fileId, new File(fileId, fileType, filepath));
     }
 
-    public String getFilepath(String filename) {
+    public File getFile(String filename) {
         return fileMap.get(filename);
     }
 }

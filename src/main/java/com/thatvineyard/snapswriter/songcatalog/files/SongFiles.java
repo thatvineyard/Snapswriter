@@ -1,8 +1,8 @@
 package com.thatvineyard.snapswriter.songcatalog.files;
 
 import com.thatvineyard.snapswriter.format.Formatter;
-import com.thatvineyard.snapswriter.format.Passage;
 import com.thatvineyard.snapswriter.format.Song;
+import com.thatvineyard.snapswriter.utils.filehandler.File;
 import com.thatvineyard.snapswriter.utils.filehandler.FileImporter;
 import com.thatvineyard.snapswriter.utils.filehandler.FileMapper;
 
@@ -15,14 +15,23 @@ public class SongFiles {
     }
 
     public static Song getSongById(String songId) {
-        String songString = getFileContentsById(songId);
-        Passage songText = Formatter.stringToPassage(songString);
-        return new Song("", songText);
+        File file = songFileMapper.getFile(songId);
+        return readFileIntoSong(file);
     }
 
-    public static String getFileContentsById(String songId) {
-        String filepath = songFileMapper.getFilepath(songId);
+    public static Song readFileIntoSong(File file) {
+        String songString = getFileContents(file.getFilepath());
+        switch (file.getFileType()) {
+            case RAW:
+                return Formatter.stringToSong(songString);
+            case JSON:
+                return Formatter.jsonToSong(songString);
+            default:
+                return Formatter.stringToSong(songString);
+        }
+    }
 
+    public static String getFileContents(String filepath) {
         return FileImporter.readFile(filepath);
     }
 

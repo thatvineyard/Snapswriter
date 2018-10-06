@@ -1,10 +1,12 @@
 package com.thatvineyard.snapswriter.format;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.function.Predicate;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thatvineyard.snapswriter.writer.Snapssong;
 
 /**
@@ -40,6 +42,21 @@ public class Formatter {
 
     public void setCapitalizeFirstLetter(boolean value) {
         capitalizeFirstLetter = value;
+    }
+
+    // SONG
+
+    public static Song stringToSong(String text) {
+        return new Song("", stringToPassage(text));
+    }
+
+    public static Song jsonToSong(String json) {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            return mapper.readValue(json, Song.class);
+        } catch (IOException e) {
+            throw new RuntimeException(e.getMessage());
+        }
     }
 
     // PASSAGE

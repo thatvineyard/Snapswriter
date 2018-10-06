@@ -1,6 +1,9 @@
 package com.thatvineyard.snapswriter.format;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -25,6 +28,11 @@ public class Passage implements PassageInterface<Line> {
         }
     }
 
+    @JsonCreator
+    public Passage(@JsonProperty("lines") Collection<Line> lines) {
+        this.lines = lines;
+    }
+
     public void add(Line line) {
         lines.add(line);
     }
@@ -38,6 +46,7 @@ public class Passage implements PassageInterface<Line> {
         return lines.iterator();
     }
 
+    @JsonIgnore
     public int getNumberOfLines() {
         return lines.size();
     }

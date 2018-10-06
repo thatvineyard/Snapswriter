@@ -1,4 +1,4 @@
-package com.thatvineyard.snapswriter.session;
+package com.thatvineyard.snapswriter.rest;
 
 import com.thatvineyard.snapswriter.analysis.AnalyzedPassage;
 import com.thatvineyard.snapswriter.format.Formatter;
@@ -16,14 +16,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 
 /**
- * ClientSessionBean
+ * SnapssongWriterHandler
  */
-@Path("/")
+@Path("songwriter")
 @Stateless
-public class ClientSessionBean {
+public class SnapssongWriterHandler {
 
-    @Inject
-    SongCatalog songCatalog;
     @Inject
     LyricFetcher lyricFetcher;
 
@@ -43,54 +41,7 @@ public class ClientSessionBean {
         return snapssong;
     }
 
-    @Path("get-text")
-    @GET
-    @Produces("application/json")
-    public Song getText(@QueryParam("text-id") String textId) {
-        log.info("Getting text from textID: " + textId + ".");
-        setUp();
-
-        Song song = songCatalog.getSong(textId);
-
-        return song;
-    }
-
-    @Path("get-text/as-string")
-    @GET
-    public String getTextAsString(@QueryParam("text-id") String textId) {
-        log.info("Getting text from textID: " + textId + ".");
-        setUp();
-
-        Song song = songCatalog.getSong(textId);
-
-        return formatter.passageToString(song.getPassage());
-    }
-
-
-    @Path("get-analyzed-text")
-    @GET
-    @Produces("application/json")
-    public AnalyzedPassage getAnalyzedText(@QueryParam("text-id") String textId) {
-        log.info("Getting text from textID: " + textId + ".");
-        setUp();
-
-        AnalyzedPassage analyzedPassage = lyricFetcher.getAnalyzedPassage(textId);
-
-        return analyzedPassage;
-    }
-
-    @Path("get-analyzed-text/as-string")
-    @GET
-    public String getAnalyzedTextAsString(@QueryParam("text-id") String textId) {
-        log.info("Getting text from textID: " + textId + ".");
-        setUp();
-
-        AnalyzedPassage analyzedPassage = lyricFetcher.getAnalyzedPassage(textId);
-
-        return formatter.passageToString(analyzedPassage);
-    }
-
-    @Path("/example")
+    @Path("example")
     @GET
     @Produces("application/json")
     public Snapssong writeExampleSnapsSong() {

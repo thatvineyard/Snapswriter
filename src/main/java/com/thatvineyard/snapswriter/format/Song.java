@@ -1,12 +1,16 @@
 package com.thatvineyard.snapswriter.format;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Song {
 
     private String title;
     private Passage passage;
 
     // TODO: Temporary, the passage concept should not be visible upwards
-    public Song(String title, Passage passage) {
+    @JsonCreator
+    public Song(@JsonProperty("title") String title, @JsonProperty("passage") Passage passage) {
         this.title = title;
         this.passage = passage;
     }
