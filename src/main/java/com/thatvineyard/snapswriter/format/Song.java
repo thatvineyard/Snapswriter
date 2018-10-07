@@ -1,18 +1,26 @@
 package com.thatvineyard.snapswriter.format;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.Collection;
 
 public class Song {
 
-    private String title;
+    private String  title;
     private Passage passage;
 
     // TODO: Temporary, the passage concept should not be visible upwards
-    @JsonCreator
-    public Song(@JsonProperty("title") String title, @JsonProperty("passage") Passage passage) {
+    public Song(String title, Passage passage) {
         this.title = title;
         this.passage = passage;
+    }
+
+    @JsonCreator
+    public Song(@JsonProperty("title") String title, @JsonProperty("lyrics") Collection<Line> lines) {
+        this.title = title;
+        this.passage = new Passage(lines);
     }
 
     public Song(String title) {
@@ -26,6 +34,12 @@ public class Song {
         return title;
     }
 
+        @JsonProperty("lyrics")
+    public Collection<Line> getLyrics() {
+        return passage.getLines();
+    }
+
+    @JsonIgnore
     public Passage getPassage() {
         return passage;
     }

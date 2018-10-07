@@ -1,4 +1,4 @@
-package com.thatvineyard.snapswriter.rest;
+package com.thatvineyard.snapswriter.rest.catalog;
 
 import com.thatvineyard.snapswriter.analysis.AnalyzedPassage;
 import com.thatvineyard.snapswriter.format.Formatter;
