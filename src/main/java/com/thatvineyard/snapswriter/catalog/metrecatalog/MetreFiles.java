@@ -29,7 +29,7 @@ public class MetreFiles {
             default:
 //                return Formatter.stringToPassageMetre(PassageMetreString);
         }
-        return new PassageMetre();
+        return null;
     }
 
     public static String getFileContents(String filepath) {

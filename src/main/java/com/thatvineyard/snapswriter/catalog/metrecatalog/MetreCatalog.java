@@ -47,15 +47,15 @@ public class MetreCatalog {
     }
 
     private PassageMetre getPassageMetreFromCache(String PassageMetreId) {
-        return metreCache.getPassageMetreById(PassageMetreId);
+        return metreCache.getContentByKey(PassageMetreId);
     }
 
     public void putPassageMetreInCache(String PassageMetreId, PassageMetre PassageMetre) {
-        metreCache.putPassageMetreInCache(PassageMetreId, PassageMetre);
+        metreCache.putContentInCache(PassageMetreId, PassageMetre);
     }
 
     private static PassageMetre getPassageMetreFromDatabase(String PassageMetreId) {
-        //return SongDatabase.getPassageMetreById(PassageMetreId);
+        //return SongDatabase.getContentByKey(PassageMetreId);
         return null;
     }
 
