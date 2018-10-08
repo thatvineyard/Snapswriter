@@ -64,7 +64,6 @@ public class MetreCalculator {
     }
 
     public AnalyzedPassage analyzePassage(Passage passage) {
-        log.info("Analyzing passage: " + passage.toString().substring(0, 10) + "...");
         return new AnalyzedPassage(passage, calculateMetreFromPassage(passage));
     }
 
@@ -136,6 +135,7 @@ public class MetreCalculator {
     }
 
     public PassageMetre calculateMetreFromPassage(PassageInterface<? extends LineInterface> passage) {
+        log.info("Analyzing passage: " + passage.toString().substring(0, 10) + "...");
         Collection<? extends LineInterface> lines = passage.getLines();
         return new PassageMetre(calculateMetresFromLines(lines));
     }
