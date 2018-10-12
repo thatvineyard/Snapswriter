@@ -1,10 +1,6 @@
 package com.thatvineyard.snapswriter.rest;
 
 import com.thatvineyard.snapswriter.analysis.AnalyzedPassage;
-import com.thatvineyard.snapswriter.catalog.songcatalog.SongCatalog;
-import com.thatvineyard.snapswriter.format.Formatter;
-import com.thatvineyard.snapswriter.format.Song;
-import com.thatvineyard.snapswriter.metre.calculator.MetreCalculator;
 import com.thatvineyard.snapswriter.writer.LyricFetcher;
 import org.apache.log4j.Logger;
 
@@ -22,13 +18,11 @@ public class AnalyzerHandler {
     @Inject
     LyricFetcher lyricFetcher;
 
-    Formatter formatter;
-    MetreCalculator metreCalculator;
 
     @Path("analyze-passage")
     @GET
     @Produces("application/json")
-    public AnalyzedPassage getSong(@QueryParam("passage-id") String passageId) {
+    public AnalyzedPassage analyzePassage(@QueryParam("passage-id") String passageId) {
         log.info("Analyzing passage with passageId: " + passageId + ".");
         setUp();
 
@@ -36,8 +30,6 @@ public class AnalyzerHandler {
     }
 
     public void setUp() {
-        formatter = new Formatter();
-        metreCalculator = new MetreCalculator();
     }
 
 }

@@ -9,7 +9,10 @@ import org.apache.log4j.Logger;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
+import java.net.URLEncoder;
+import java.nio.charset.Charset;
 
 @Path("passage-catalog")
 @Stateless
@@ -17,8 +20,6 @@ public class PassageCatalogHandler {
 
     private Logger log = Logger.getLogger(this.getClass());
 
-    @Inject
-    PassageCatalog passageCatalog;
     @Inject
     LyricFetcher   lyricFetcher;
 
@@ -29,11 +30,8 @@ public class PassageCatalogHandler {
     @Produces("application/json")
     public Passage getPassage(@QueryParam("passage-id") String passageId) {
         log.info("Getting passage from passageId: " + passageId + ".");
-        setUp();
 
-        Passage passage = passageCatalog.getPassage(passageId);
-
-        return passage;
+        return lyricFetcher.getPassage(passageId);
     }
 
     @Path("put-passage")
@@ -42,7 +40,7 @@ public class PassageCatalogHandler {
     public void putPassage(@QueryParam("passage-id") String passageId, Passage passage) {
         log.info("Putting passage into passage catalog under id " + passageId + ".");
 
-        passageCatalog.putPassageInCache(passageId, passage);
+        lyricFetcher.putPassage(passageId, passage);
     }
 
     @Path("get-passage/as-string")
@@ -51,7 +49,7 @@ public class PassageCatalogHandler {
         log.info("Getting text from textID: " + passageId + ".");
         setUp();
 
-        Passage passage = passageCatalog.getPassage(passageId);
+        Passage passage = lyricFetcher.getPassage(passageId);
 
         return formatter.passageToString(passage);
     }
