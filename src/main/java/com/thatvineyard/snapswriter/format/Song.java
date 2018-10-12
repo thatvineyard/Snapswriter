@@ -8,7 +8,7 @@ import java.util.Collection;
 
 public class Song {
 
-    private String  title;
+    private String title;
     private Passage passage;
 
     // TODO: Temporary, the passage concept should not be visible upwards
@@ -34,7 +34,7 @@ public class Song {
         return title;
     }
 
-        @JsonProperty("lyrics")
+    @JsonProperty("lyrics")
     public Collection<Line> getLyrics() {
         return passage.getLines();
     }

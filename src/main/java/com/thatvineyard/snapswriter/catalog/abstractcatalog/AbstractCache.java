@@ -7,7 +7,6 @@ import org.apache.log4j.Logger;
 import javax.ejb.Singleton;
 import java.util.HashMap;
 
-@Singleton
 public abstract class AbstractCache<T> {
 
     private Logger log = Logger.getLogger(this.getClass());

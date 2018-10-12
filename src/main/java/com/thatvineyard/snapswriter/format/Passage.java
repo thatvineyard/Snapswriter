@@ -76,6 +76,7 @@ public class Passage implements PassageInterface<Line> {
         return result;
     }
 
+    @JsonProperty("lines")
     public Collection<Line> getLines() {
         return lines;
     }
