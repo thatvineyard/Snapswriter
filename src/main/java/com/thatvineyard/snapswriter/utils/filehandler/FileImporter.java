@@ -1,15 +1,18 @@
 package com.thatvineyard.snapswriter.utils.filehandler;
 
+import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.Logger;
+import org.apache.log4j.SimpleLayout;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 /**
  * FileReader
  */
 public class FileImporter {
 
-    private static Logger log = Logger.getLogger(FileImporter.class);
+    private static final Logger log = Logger.getLogger(FileImporter.class);
 
     public static String readFile(String filepath) {
         try {
@@ -20,8 +23,9 @@ public class FileImporter {
                 while ((line = bufferedReader.readLine()) != null) {
                     result.append(line).append("\n");
                 }
-            bufferedReader.close();
+                bufferedReader.close();
             }
+            log.debug(result);
             return result.toString();
 
         } catch (IOException e) {
@@ -33,10 +37,11 @@ public class FileImporter {
     public static BufferedReader getResourceAsBufferedReader(String filepath) throws IOException {
         InputStream inputStream = FileImporter.class.getClassLoader().getResourceAsStream(filepath);
 
-        if(inputStream == null) {
+        if (inputStream == null) {
             throw new IOException("Could not get inputstream from filepath");
         }
 
-        return new BufferedReader(new InputStreamReader(inputStream));
+        InputStreamReader reader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
+        return new BufferedReader(reader);
     }
 }
