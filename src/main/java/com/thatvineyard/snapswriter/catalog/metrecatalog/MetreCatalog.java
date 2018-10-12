@@ -27,20 +27,20 @@ public class MetreCatalog {
                 result = getPassageMetreFromFileSystem(PassageMetreId);
 
                 if (result == null) {
-                    log.info(PassageMetreId + " not found");
+                    log.info(PassageMetreId + " metre not found");
 
                     return null;
                 } else {
-                    log.info(PassageMetreId + " found in file system");
+                    log.info(PassageMetreId + " metre found in file system");
                 }
                 putPassageMetreInDatabase(PassageMetreId, result);
             } else {
-                log.info(PassageMetreId + " found in database");
+                log.info(PassageMetreId + " metre found in database");
             }
 
             putPassageMetreInCache(PassageMetreId, result);
         } else {
-            log.info(PassageMetreId + " found in cache");
+            log.info(PassageMetreId + " metre found in cache");
         }
 
         return result;

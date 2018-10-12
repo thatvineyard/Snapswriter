@@ -149,7 +149,7 @@ public class MetreCalculator {
     }
 
     public PassageMetre calculateMetreFromPassage(PassageInterface<? extends LineInterface> passage) {
-        log.info("Analyzing passage: " + passage.toString().substring(0, 10) + "...");
+        log.info("Analyzing passage: " + passage.toString().substring(0, 10).replace("\n", "") + "...");
         Collection<? extends LineInterface> lines = passage.getLines();
         return new PassageMetre(calculateMetresFromLines(lines));
     }

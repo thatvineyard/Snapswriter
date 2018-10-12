@@ -26,11 +26,6 @@ public class SongWriter {
     public SongWriter() {
     }
 
-    @PostConstruct
-    public void init() {
-        fitnessCalculator = new FitnessCalculator();
-    }
-
     public Song matchMelodyAndTopic(AnalyzedPassage melody, AnalyzedPassage topic) {
         FitnessCalculator fitnessCalculator = new FitnessCalculator();
 
@@ -38,6 +33,8 @@ public class SongWriter {
     }
 
     public Snapssong writeSnapssong(String melodySongId, String topicSongId) {
+        fitnessCalculator = new FitnessCalculator();
+
         AnalyzedPassage melody = lyricFetcher.getAnalyzedPassage(melodySongId);
         AnalyzedPassage topic = lyricFetcher.getAnalyzedPassage(topicSongId);
 
@@ -48,6 +45,8 @@ public class SongWriter {
     }
 
     public Snapssong writeSnapssong(String melodySongId, Passage topic) {
+        fitnessCalculator = new FitnessCalculator();
+
         AnalyzedPassage melody = lyricFetcher.getAnalyzedPassage(melodySongId);
         AnalyzedPassage analyzedTopic = metreCalculator.analyzePassage(topic);
 

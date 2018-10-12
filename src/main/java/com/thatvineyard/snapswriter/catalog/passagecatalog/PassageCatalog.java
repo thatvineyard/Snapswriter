@@ -26,20 +26,20 @@ public class PassageCatalog {
                 result = getPassageFromFileSystem(passageId);
 
                 if (result == null) {
-                    log.info(passageId + " not found");
+                    log.info(passageId + " passage not found");
 
                     return null;
                 } else {
-                    log.info(passageId + " found in file system");
+                    log.info(passageId + " passage found in file system");
                 }
                 putPassageInDatabase(passageId, result);
             } else {
-                log.info(passageId + " found in database");
+                log.info(passageId + " passage found in database");
             }
 
             putPassageInCache(passageId, result);
         } else {
-            log.info(passageId + " found in cache");
+            log.info(passageId + " passage found in cache");
         }
 
         return result;
