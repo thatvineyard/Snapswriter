@@ -15,7 +15,7 @@ import com.thatvineyard.snapswriter.writer.Snapssong;
 public class Formatter {
 
     private static final String PHRASE_DELIMITER_REGEX = "[.;\n?!,,]";
-    private static final String WORD_DELIMITER_REGEX = "[^a-zA-Z']";
+    private static final String WORD_DELIMITER_REGEX = "[^\\p{L}']";
 
     private String phrasePrefix = "";
     private String phraseSuffix = ".";
@@ -116,7 +116,7 @@ public class Formatter {
         result += "TextId: " + snapssong.getTopicSongId() + "\n";
         result += "Lyrics: " + "\n";
         result += "=============" + "\n";
-        result += passageToString(snapssong.getLyrics().getPassage()) + "\n";
+        result += passageToString(snapssong.getSong().getPassage()) + "\n";
         result += "=============";
         return result;
     }

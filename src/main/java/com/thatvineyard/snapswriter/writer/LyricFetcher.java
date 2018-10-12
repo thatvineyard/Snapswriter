@@ -12,12 +12,13 @@ import org.apache.log4j.Logger;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.ws.rs.QueryParam;
 import java.util.logging.FileHandler;
 
 @Stateless
 public class LyricFetcher {
 
-    private Logger log = Logger.getLogger(this.getClass());
+    private static final Logger log = Logger.getLogger(LyricFetcher.class);
 
     @Inject
     PassageCatalog passageCatalog;
@@ -25,39 +26,49 @@ public class LyricFetcher {
     MetreCatalog metreCatalog;
     @Inject
     SongCatalog songCatalog;
+    @Inject
+    MetreCalculator metreCalculator;
 
     public LyricFetcher() {
     }
 
     public AnalyzedPassage getAnalyzedPassage(String passageId) {
-        MetreCalculator metreCalculator = createCalculator();
-
         Passage passage = passageCatalog.getPassage(passageId);
         PassageMetre passageMetre = metreCatalog.getPassageMetre(passageId);
 
-        if(passageMetre == null) {
+        if (passageMetre == null) {
             passageMetre = metreCalculator.calculateMetreFromPassage(passage);
             metreCatalog.putPassageMetreInCache(passageId, passageMetre);
         }
 
-        return new AnalyzedPassage(passage, passageMetre);
+        AnalyzedPassage result = new AnalyzedPassage(passage, passageMetre);
+
+        log.debug(result);
+
+        return result;
     }
 
     public Song getSong(String songId) {
-       Song song = songCatalog.getSong(songId);
-       if (song == null) {
-           Passage passage = passageCatalog.getPassage(songId);
-           song = new Song(songId, passage);
-       }
+        Song song = songCatalog.getSong(songId);
+        if (song == null) {
+            Passage passage = passageCatalog.getPassage(songId);
+            song = new Song(songId, passage);
+        }
 
-       return song;
+        log.debug(song);
+
+        return song;
     }
 
-    private static MetreCalculator createCalculator() {
-        MetreCalculator calculator = new MetreCalculator();
-//        MetreCalculator calculator = new MetreCalculator("cmudict-svenska-0.1.txt");
-        calculator.useTextgain(false);
-        return calculator;
+    public Passage getPassage(String passageId) {
+        Passage passage = passageCatalog.getPassage(passageId);
+
+        log.debug(passage);
+
+        return passage;
     }
 
+    public void putPassage(String passageId, Passage passage) {
+        passageCatalog.putPassageInCache(passageId, passage);
+    }
 }

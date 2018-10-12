@@ -10,15 +10,23 @@ import com.thatvineyard.snapswriter.metre.StressSequence;
 import com.thatvineyard.snapswriter.metre.WordMetre;
 import org.apache.log4j.Logger;
 
+import javax.annotation.PostConstruct;
+import javax.ejb.Singleton;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
 
 /**
  * MetreCalculator
  */
+@Singleton
 public class MetreCalculator {
 
     private Logger log = Logger.getLogger(this.getClass());
+
+    public static final String cmuDictEnglish = "cmudict-0.7b.txt";
+    public static final String cmuDictSwedish = "cmudict-svenska-0.1.txt";
 
     CmuDatabase database;
 
@@ -26,11 +34,17 @@ public class MetreCalculator {
     private boolean useTextgain = true;
 
     public MetreCalculator() {
-        loadDatabase();
     }
 
     public MetreCalculator(String dictionaryFilePath) {
         loadDatabase(dictionaryFilePath);
+    }
+
+    //
+    @PostConstruct
+    public void init() {
+        useTextgain(false);
+        loadDatabase();
     }
 
     // SETTINGS
@@ -46,7 +60,7 @@ public class MetreCalculator {
     // MUTATORS
 
     public void loadDatabase() {
-        database = CmuReader.loadDictionary();
+        database = CmuReader.loadDictionariesFromFile(new LinkedList<>(Arrays.asList(cmuDictEnglish, cmuDictSwedish)));
     }
 
     public void loadDatabase(String dictionaryFilePath) {

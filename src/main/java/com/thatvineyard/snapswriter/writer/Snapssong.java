@@ -7,45 +7,22 @@ import com.thatvineyard.snapswriter.format.Song;
 
 public class Snapssong {
 
-    LyricFetcher lyricFetcher;
-
     private String melodySongId;
     private String topicSongId;
 
     private int score;
 
-    private Song lyrics;
+    private Song song;
 
-    public Snapssong(LyricFetcher lyricFetcher, String melodySongId, String topicSongId) {
-        this.lyricFetcher = lyricFetcher;
+    public Snapssong(String melodySongId, String topicSongId, int score, Song song) {
         this.melodySongId = melodySongId;
         this.topicSongId = topicSongId;
+        this.score = score;
+        this.song = song;
     }
 
-    public static Snapssong writeSnapssong(LyricFetcher lyricFetcher, String melodySongId, String topicSongId) {
-        Snapssong snapssong = new Snapssong(lyricFetcher, melodySongId, topicSongId);
-        snapssong.writeSong();
-        return snapssong;
-    }
-
-    @JsonIgnore
-    public AnalyzedPassage getMelody() {
-        return lyricFetcher.getAnalyzedPassage(melodySongId);
-    }
-
-    @JsonIgnore
-    public AnalyzedPassage getTopic() {
-        return lyricFetcher.getAnalyzedPassage(topicSongId);
-    }
-
-    public void writeSong() {
-        FitnessCalculator fitnessCalculator = new FitnessCalculator();
-        this.lyrics = fitnessCalculator.matchTopicWithMelody(getTopic(), getMelody());
-        this.score = fitnessCalculator.getScore();
-    }
-
-    public Song getLyrics() {
-        return lyrics;
+    public Song getSong() {
+        return song;
     }
 
     public int getScore() {
@@ -60,8 +37,8 @@ public class Snapssong {
         return topicSongId;
     }
 
-    public void setLyrics(Song lyrics) {
-        this.lyrics = lyrics;
+    public void setSong(Song song) {
+        this.song = song;
     }
 
     public void setScore(int score) {
