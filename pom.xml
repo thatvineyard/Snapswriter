@@ -9,6 +9,7 @@
     <url>http://maven.apache.org</url>
 
     <properties>
+        <packageName>${project.artifactId}</packageName>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -112,7 +113,7 @@
 
     <build>
 
-        <finalName>${project.artifactId}</finalName>
+        <finalName>${packageName}</finalName>
 
         <testResources>
             <testResource>
