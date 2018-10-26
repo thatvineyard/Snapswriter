@@ -1,6 +1,6 @@
 package com.thatvineyard.snapswriter;
 
-import com.thatvineyard.snapswriter.format.Formatter;
+import com.thatvineyard.snapswriter.model.format.Formatter;
 
 public class App {
     private static final String resourceDir = "src/main/resources/";

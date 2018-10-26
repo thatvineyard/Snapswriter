@@ -1,19 +1,17 @@
 package com.thatvineyard.snapswriter.writer;
 
-import com.thatvineyard.snapswriter.analysis.AnalyzedPassage;
-import com.thatvineyard.snapswriter.catalog.metrecatalog.MetreCatalog;
-import com.thatvineyard.snapswriter.catalog.passagecatalog.PassageCatalog;
-import com.thatvineyard.snapswriter.catalog.songcatalog.SongCatalog;
-import com.thatvineyard.snapswriter.format.Passage;
-import com.thatvineyard.snapswriter.format.Song;
-import com.thatvineyard.snapswriter.metre.PassageMetre;
-import com.thatvineyard.snapswriter.metre.calculator.MetreCalculator;
+import com.thatvineyard.snapswriter.model.analysis.AnalyzedPassage;
+import com.thatvineyard.snapswriter.persistence.catalog.metrecatalog.MetreCatalog;
+import com.thatvineyard.snapswriter.persistence.catalog.passagecatalog.PassageCatalog;
+import com.thatvineyard.snapswriter.persistence.catalog.songcatalog.SongCatalog;
+import com.thatvineyard.snapswriter.model.format.Passage;
+import com.thatvineyard.snapswriter.model.format.Song;
+import com.thatvineyard.snapswriter.model.metre.PassageMetre;
+import com.thatvineyard.snapswriter.model.metre.calculator.MetreCalculator;
 import org.apache.log4j.Logger;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.ws.rs.QueryParam;
-import java.util.logging.FileHandler;
 
 @Stateless
 public class LyricFetcher {

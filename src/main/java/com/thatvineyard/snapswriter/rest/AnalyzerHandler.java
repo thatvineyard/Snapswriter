@@ -1,6 +1,6 @@
 package com.thatvineyard.snapswriter.rest;
 
-import com.thatvineyard.snapswriter.analysis.AnalyzedPassage;
+import com.thatvineyard.snapswriter.model.analysis.AnalyzedPassage;
 import com.thatvineyard.snapswriter.writer.LyricFetcher;
 import org.apache.log4j.Logger;
 

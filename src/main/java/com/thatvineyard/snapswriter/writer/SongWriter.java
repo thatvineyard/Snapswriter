@@ -1,10 +1,11 @@
 package com.thatvineyard.snapswriter.writer;
 
-import com.thatvineyard.snapswriter.analysis.AnalyzedPassage;
-import com.thatvineyard.snapswriter.analysis.FitnessCalculator;
-import com.thatvineyard.snapswriter.format.Passage;
-import com.thatvineyard.snapswriter.format.Song;
-import com.thatvineyard.snapswriter.metre.calculator.MetreCalculator;
+import com.thatvineyard.snapswriter.model.Snapssong;
+import com.thatvineyard.snapswriter.model.analysis.AnalyzedPassage;
+import com.thatvineyard.snapswriter.model.analysis.FitnessCalculator;
+import com.thatvineyard.snapswriter.model.format.Passage;
+import com.thatvineyard.snapswriter.model.format.Song;
+import com.thatvineyard.snapswriter.model.metre.calculator.MetreCalculator;
 import org.apache.log4j.Logger;
 
 import javax.annotation.PostConstruct;

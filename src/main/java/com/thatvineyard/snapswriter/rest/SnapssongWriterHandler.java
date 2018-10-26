@@ -1,9 +1,8 @@
 package com.thatvineyard.snapswriter.rest;
 
-import com.thatvineyard.snapswriter.format.Formatter;
-import com.thatvineyard.snapswriter.format.Passage;
-import com.thatvineyard.snapswriter.writer.LyricFetcher;
-import com.thatvineyard.snapswriter.writer.Snapssong;
+import com.thatvineyard.snapswriter.model.format.Formatter;
+import com.thatvineyard.snapswriter.model.format.Passage;
+import com.thatvineyard.snapswriter.model.Snapssong;
 import com.thatvineyard.snapswriter.writer.SongWriter;
 import org.apache.log4j.Logger;
 

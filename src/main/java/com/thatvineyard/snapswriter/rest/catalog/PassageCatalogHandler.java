@@ -1,18 +1,13 @@
 package com.thatvineyard.snapswriter.rest.catalog;
 
-import com.thatvineyard.snapswriter.analysis.AnalyzedPassage;
-import com.thatvineyard.snapswriter.catalog.passagecatalog.PassageCatalog;
-import com.thatvineyard.snapswriter.format.Formatter;
-import com.thatvineyard.snapswriter.format.Passage;
+import com.thatvineyard.snapswriter.model.format.Formatter;
+import com.thatvineyard.snapswriter.model.format.Passage;
 import com.thatvineyard.snapswriter.writer.LyricFetcher;
 import org.apache.log4j.Logger;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
-import java.net.URLEncoder;
-import java.nio.charset.Charset;
 
 @Path("passage-catalog")
 @Stateless
